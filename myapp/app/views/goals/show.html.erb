@@ -1,0 +1,18 @@
+<p>
+  <b>Name:</b>
+  <%=h @goal.name %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @goal.status %>
+</p>
+
+<p>
+  <b>Admin:</b>
+  <%=h @goal.admin %>
+</p>
+
+
+<%= link_to 'Edit', edit_goal_path(@goal) %> |
+<%= link_to 'Back', goals_path %>
