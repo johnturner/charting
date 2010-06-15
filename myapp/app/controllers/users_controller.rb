@@ -2,10 +2,13 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = User.all
-
+   if @current_goal
+      @users = @current_goal.users
+    else
+      @users = User.all
+    end
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # by default index.html.erb
       format.xml  { render :xml => @users }
     end
   end
@@ -14,7 +17,7 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
-
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }

@@ -52,3 +52,11 @@ a:hover { color: #fff; background-color:#000; }
   list-style: square;
 }
 
+#goalmenu {
+	float:left;
+	height: 500px;
+	margin-right: 5px;
+	padding-right: 5px;
+	border-right: 1px solid black;
+}
+

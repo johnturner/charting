@@ -1,11 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :sources
-
+  map.resources :goals do |goals|
+    goals.resources :notes
+    goals.resources :users
+    goals.resources :sources
+  end
+  
   map.resources :notes
-
-  map.resources :goals
-
   map.resources :users
+  map.resources :sources
 
   # The priority is based upon order of creation: first created -> highest priority.
 

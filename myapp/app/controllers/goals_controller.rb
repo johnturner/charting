@@ -44,7 +44,7 @@ class GoalsController < ApplicationController
 
     respond_to do |format|
       if @goal.save
-        format.html { redirect_to(@goal, :notice => 'Goal was successfully created.') }
+        format.html { redirect_to(goal_notes_path(@goal), :notice => 'Goal was successfully created.') }
         format.xml  { render :xml => @goal, :status => :created, :location => @goal }
       else
         format.html { render :action => "new" }
