@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://charting/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://charting/locale/overlay.dtd">
+<overlay id="charting-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="overlay.js"/>
+  <script src="ff-overlay.js"/>
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="charting-strings" src="chrome://charting/locale/overlay.properties"/>
+  </stringbundleset>
+
+  <popup id="contentAreaContextMenu">
+
+    <!--<menuitem id="context-charting" label="&chartingContext.label;"
+              accesskey="&chartingContext.accesskey;"
+              insertafter="context-stop"
+              oncommand="charting.onMenuItemCommand(event)"/> -->
+    <menuseparator id="charting-end" insertafter="context-stop" />
+    <menuseparator id="charting-start" insertafter="context-stop" />
+  </popup>
+
+  <toolbarpalette id="BrowserToolbarPalette">
+  <toolbarbutton id="charting-toolbar-button" class="toolbarbutton-1 chromeclass-toolbar-additional"
+    label="&chartingToolbarButton.label;" tooltiptext="&chartingToolbarButton.tooltip;"
+    oncommand="charting.onToolbarButtonCommand()"/>
+  </toolbarpalette>
+
+
+
+</overlay>
