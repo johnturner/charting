@@ -54,8 +54,6 @@ var charting = {
     var source_url = escape(content.window.location.toString());
     var source_title = escape(content.document.title);
 
-    alert(selection + "\n" + source_url + "\n" + source_title);
-
     var params= "note[body]=" + selection +
                 "&note[goal]=" + charting.goals[goalIndex] +
                 "&source[location]=" + source_url +
