@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Goals: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'scaffold' %>
+</head>
+<body>
+
+<p style="color: green"><%= notice %></p>
+
+<div id="goalmenu">
+<ul>
+<li><%=link_to "+", new_goal_path%>
+<% if controller_name == "goals"
+	link_path = "notes"
+  else
+	link_path = controller_name
+  end %>
+<li><%=link_to "all", "/" + link_path%></li>
+<% for goal in @all_goals %>
+<li>
+
+	<%=link_to goal.name, goal_path(goal) + "/" + link_path%>
+</li>
+<% end %>
+</ul>
+</div>
+
+<div id="tabmenu">
+	<% if @current_goal %>
+		<%=link_to "notes", goal_notes_path(@current_goal)%>
+		<%=link_to "people", goal_users_path(@current_goal)%>
+		<%=link_to "sources", goal_sources_path(@current_goal)%>
+	<% else %>
+		<%=link_to "notes", notes_path%>
+		<%=link_to "people", users_path%>
+		<%=link_to "sources", sources_path%>
+	<% end %>
+</div>
+
+<%= yield %>
+
+</body>
+</html>
