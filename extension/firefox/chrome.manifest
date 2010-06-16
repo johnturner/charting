@@ -1,0 +1,7 @@
+content   charting                 chrome/content/
+skin      charting   classic/1.0   chrome/skin/
+locale    charting   en-US         chrome/locale/en-US/
+
+
+overlay   chrome://browser/content/browser.xul   chrome://charting/content/ff-overlay.xul
+style chrome://global/content/customizeToolbar.xul chrome://charting/skin/overlay.css

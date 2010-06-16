@@ -30,7 +30,7 @@ if cgi.params["quote"].first and cgi.params["url"].first
   print cgi.header({'Status' => '302 Moved', 'location' => redirect_url})
 else
   cgi.out do 
-    "Errorz. :("
+    "Error, no url and quote provided."
   end
 end
 
