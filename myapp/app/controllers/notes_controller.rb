@@ -1,9 +1,14 @@
 class NotesController < ApplicationController
+  protect_from_forgery :except => ['create']
   # GET /notes
   # GET /notes.xml
   def index
-    @notes = Note.all
-
+   if @current_goal
+      @notes = @current_goal.notes
+    else
+      @notes = Note.all
+    end
+ 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @notes }
@@ -40,16 +45,31 @@ class NotesController < ApplicationController
   # POST /notes
   # POST /notes.xml
   def create
-    
+    if params[:note] and params[:note][:goal]
+      @goal = Goal.find_by_name params[:note][:goal]
+      params[:note].delete :goal
+    end
     @note = Note.new(params[:note])
 
+    @note.goals << @goal
+
+    if params[:source] and params[:source][:location]
+      @source = Source.find_by_location params[:source][:location]
+      unless @source
+        @source = Source.new(params[:source])
+      end
+      @note.source = @source
+    end
+    
     respond_to do |format|
       if @note.save
         format.html { redirect_to(@note, :notice => 'Note was successfully created.') }
         format.xml  { render :xml => @note, :status => :created, :location => @note }
+        format.json  { render :json => @note, :status => :created, :location => @note }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @note.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @note.errors, :status => :unprocessable_entity }
       end
     end
   end

@@ -3,8 +3,7 @@
 <!ENTITY chartingContext2.label "Tag this page with tag 2">
 <!ENTITY chartingContext.accesskey "1">
 <!ENTITY chartingContext2.accesskey "2">
-<!ENTITY chartingToolbarButton.label "Your Toolbar Button">
-<!ENTITY chartingToolbarButton.tooltip "This is your toolbar button!">
-<!ENTITY chartingSidebar.label "Your Sidebar">
-<!ENTITY chartingToolbar.name  "example">
-<!ENTITY chartingToolbar.label "This is an example toolbar. You can hide it under View &gt; toolbars &gt; &chartingToolbar.name;">
+<!ENTITY chartingOptionsToolbarButton.label "Charting Options">
+<!ENTITY chartingOptionsToolbarButton.tooltip "Charting Options">
+<!ENTITY chartingNoteToolbarButton.label "Note this page">
+<!ENTITY chartingNoteToolbarButton.tooltip "Note this page">

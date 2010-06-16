@@ -3,20 +3,24 @@
 {
   color: red ! important;
 }
-#charting-toolbar-button
+
+.charting-toolbar-button
 {
   list-style-image: url("chrome://charting/skin/toolbar-button.png");
   -moz-image-region: rect(0px 24px 24px 0px);
 }
-#charting-toolbar-button:hover
+
+.charting-toolbar-button:hover
 {
   -moz-image-region: rect(24px 24px 48px  0px);
 }
-[iconsize="small"] #charting-toolbar-button
+
+[iconsize="small"] .charting-toolbar-button
 {
   -moz-image-region: rect( 0px 40px 16px 24px);
 }
-[iconsize="small"] #charting-toolbar-button:hover
+
+[iconsize="small"] .charting-toolbar-button:hover
 {
   -moz-image-region: rect(24px 40px 40px 24px);
 }

@@ -2,7 +2,11 @@ class SourcesController < ApplicationController
   # GET /sources
   # GET /sources.xml
   def index
-    @sources = Source.all
+   if @current_goal
+      @sources = @current_goal.sources
+    else
+      @sources = Source.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb

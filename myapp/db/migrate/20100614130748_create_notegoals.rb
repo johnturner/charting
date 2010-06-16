@@ -1,7 +1,7 @@
 class CreateNotegoals < ActiveRecord::Migration
   def self.up
     create_table :notegoals do |t|
-      t.references :user
+      t.references :note
       t.references :goal
 
       t.timestamps

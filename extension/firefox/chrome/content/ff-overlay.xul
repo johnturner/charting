@@ -2,6 +2,7 @@
 <?xml-stylesheet href="chrome://charting/skin/overlay.css" type="text/css"?>
 <!DOCTYPE overlay SYSTEM "chrome://charting/locale/overlay.dtd">
 <overlay id="charting-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="json2.js"/>
   <script src="overlay.js"/>
   <script src="ff-overlay.js"/>
 
@@ -11,20 +12,17 @@
 
   <popup id="contentAreaContextMenu">
 
-    <!--<menuitem id="context-charting" label="&chartingContext.label;"
-              accesskey="&chartingContext.accesskey;"
-              insertafter="context-stop"
-              oncommand="charting.onMenuItemCommand(event)"/> -->
-    <menuseparator id="charting-end" insertafter="context-stop" />
-    <menuseparator id="charting-start" insertafter="context-stop" />
+    <menuseparator id="charting-end" insertafter="context-sep-stop" />
+    <menuitem label="Charting" disabled="true" insertafter="context-sep-stop" />
   </popup>
 
   <toolbarpalette id="BrowserToolbarPalette">
-  <toolbarbutton id="charting-toolbar-button" class="toolbarbutton-1 chromeclass-toolbar-additional"
-    label="&chartingToolbarButton.label;" tooltiptext="&chartingToolbarButton.tooltip;"
-    oncommand="charting.onToolbarButtonCommand()"/>
+    <toolbarbutton id="charting-options-toolbar-button" class="toolbarbutton-1 chromeclass-toolbar-additional charting-toolbar-button"
+      label="&chartingOptionsToolbarButton.label;" tooltiptext="&chartingOptionsToolbarButton.tooltip;"
+      oncommand="charting.onToolbarOptionsButtonCommand()"/>
+    <toolbarbutton id="charting-note-toolbar-button" class="toolbarbutton-1 chromeclass-toolbar-additional charting-toolbar-button"
+      label="&chartingNoteToolbarButton.label;" tooltiptext="&chartingNoteToolbarButton.tooltip;"
+      oncommand="charting.onToolbarNoteButtonCommand()"/>
   </toolbarpalette>
-
-
 
 </overlay>
