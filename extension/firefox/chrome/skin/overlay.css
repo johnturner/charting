@@ -1,6 +1,12 @@
-.charting-toolbar-button
+#charting-options-toolbar-button
 {
   list-style-image: url("chrome://charting/skin/toolbar-button.png");
+  -moz-image-region: rect(0px 24px 24px 0px);
+}
+
+#charting-note-toolbar-button
+{
+  list-style-image: url("chrome://charting/skin/note-button.png");
   -moz-image-region: rect(0px 24px 24px 0px);
 }
 
