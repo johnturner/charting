@@ -80,7 +80,7 @@ var charting = {
   },
 
   onToolbarOptionsButtonCommand: function(e) {
-    alert("Options!");
+    alert("Options not implemented yet.");
   },
 
   onToolbarNoteButtonCommand: function(e) {
@@ -121,7 +121,6 @@ var charting = {
         params += "&note[goals][]=" + charting.goals[i];
       }
     }
-    alert(params);
 
     var request = new XMLHttpRequest();
     request.open("POST", CHARTING_URL + "notes.json", true);
@@ -131,7 +130,7 @@ var charting = {
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
         if (request.status == 201) {
-          alert("Created note.");
+          charting.noteWindow.close();
         }
         else {
           alert("Failed to create note.");
