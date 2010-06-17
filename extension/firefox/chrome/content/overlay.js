@@ -1,6 +1,6 @@
 var charting = {
   loadGoals: function() {
-    var url = "http://localhost:3000/goals.json";
+    var url = CHARTING_URL + "goals.json";
     var request = new XMLHttpRequest();
     request.open("GET", url, true);
     request.onreadystatechange = function() {
@@ -61,7 +61,7 @@ var charting = {
                 "&source[doctype]=webpage";
 
     var request = new XMLHttpRequest();
-    request.open("POST", "http://localhost:3000/notes.json", true);
+    request.open("POST", CHARTING_URL + "/notes.json", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.setRequestHeader("Content-length", params.length);
 
@@ -124,7 +124,7 @@ var charting = {
     alert(params);
 
     var request = new XMLHttpRequest();
-    request.open("POST", "http://localhost:3000/notes.json", true);
+    request.open("POST", CHARTING_URL + "notes.json", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.setRequestHeader("Content-length", params.length);
 

@@ -1,4 +1,5 @@
 const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+const CHARTING_URL = "http://charting.mhnltd.co.uk/";
 
 charting.onFirefoxLoad = function(event) {
   charting.loadGoals();
