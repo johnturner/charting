@@ -45,13 +45,13 @@ class NotesController < ApplicationController
   # POST /notes
   # POST /notes.xml
   def create
-    if params[:note] and params[:note][:goal]
-      @goal = Goal.find_by_name params[:note][:goal]
-      params[:note].delete :goal
+    if params[:note] and params[:note][:goals]
+      @goals = params[:note][:goals]
+      params[:note].delete :goals
+    else
+      @goals = []
     end
     @note = Note.new(params[:note])
-
-    @note.goals << @goal
 
     if params[:source] and params[:source][:location]
       @source = Source.find_by_location params[:source][:location]
@@ -59,6 +59,11 @@ class NotesController < ApplicationController
         @source = Source.new(params[:source])
       end
       @note.source = @source
+    end
+
+    @goals.each do |goal|
+      goal = Goal.find_by_name goal
+      @note.goals << goal
     end
     
     respond_to do |format|

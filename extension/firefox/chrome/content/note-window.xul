@@ -1,0 +1,20 @@
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://charting/skin/overlay.css" type="text/css"?>
+
+<window id="charting-note-window" 
+        title="Note page" 
+        orient="horizontal" 
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+  <vbox>
+    <description>Note this page.</description>
+    <textbox id="page-title"/>
+    <label id="page-url"/>
+    <textbox id="page-description" multiline="true"></textbox>
+    <scrollbox id="charting-goal-buttons"/>
+    <hbox>
+      <spacer flex="1"/>
+      <button label="Save" id="save-button"/>
+    </hbox>
+  </vbox>
+</window>
