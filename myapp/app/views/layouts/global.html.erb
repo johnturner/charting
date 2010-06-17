@@ -14,7 +14,7 @@
 <div id="goalmenu">
 <ul>
 <li><%=link_to "+", new_goal_path%>
-<% if controller_name == "goals"
+<% if controller_name == "goals" || controller_name == "welcome"
 	link_path = "notes"
   else
 	link_path = controller_name
