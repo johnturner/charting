@@ -6,8 +6,11 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :notes
-  map.resources :users
+  map.resources :users, :collection => {:logout => :get, :login => :post}
   map.resources :sources
+  map.me 'me', :controller => :users, :action => :me
+  map.api_key 'api_key', :controller => :users, :action => :api_key
+  map.verify_api_key 'verify_api_key', :controller => :users, :action => :verify_api_key
 
   # The priority is based upon order of creation: first created -> highest priority.
 

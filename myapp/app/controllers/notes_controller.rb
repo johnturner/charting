@@ -1,5 +1,7 @@
 class NotesController < ApplicationController
   protect_from_forgery :except => ['create']
+  before_filter :require_login, :only => [:new, :edit, :create, :update, :destroy]
+  
   # GET /notes
   # GET /notes.xml
   def index
@@ -65,6 +67,8 @@ class NotesController < ApplicationController
       goal = Goal.find_by_name goal
       @note.goals << goal
     end
+
+    @note.user = @current_user
     
     respond_to do |format|
       if @note.save
@@ -99,7 +103,12 @@ class NotesController < ApplicationController
   # DELETE /notes/1.xml
   def destroy
     @note = Note.find(params[:id])
-    @note.destroy
+    if @current_goal
+      @note.goals -= @current_goal
+      @note.save
+    else
+      @note.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to(notes_url) }

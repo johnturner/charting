@@ -2,17 +2,17 @@
 
 <table>
   <tr>
-    <th>Body</th>
+    <th>Note</th>
     <th>Source</th>
+    <th>Creator</th>
   </tr>
 
 <% @notes.each do |note| %>
   <tr>
-    <td><%=h note.body %></td>
-    <td><%=h note.source %></td>
-    <td><%= link_to 'Show', note %></td>
-    <td><%= link_to 'Edit', edit_note_path(note) %></td>
-    <td><%= link_to 'Destroy', note, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=link_to note.truncated_body, note %></td>
+    <td><%=link_to note.source, note.source %></td>
+    <td><%=h note.user %></td>
+    <td><%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

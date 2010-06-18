@@ -1,23 +1,19 @@
-<h1>Listing users</h1>
+<h1><%=h @current_goal ? @current_goal.name : "All"%> users</h1>
 
 <table>
   <tr>
     <th>Name</th>
-    <th>Password</th>
     <th>Position</th>
     <th>Bio</th>
+    <th>Goals</th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
-    <td><%=h user.name %></td>
-    <td><%=h user.password %></td>
+    <td><%=link_to user.name, user %></td>
     <td><%=h user.position %></td>
     <td><%=h user.bio %></td>
-	<td><%=h user.goals %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=h user.goals.join(", ") %></td>
   </tr>
 <% end %>
 </table>

@@ -1,4 +1,20 @@
 class GoalsController < ApplicationController
+
+  before_filter :load_goal, :only => [:show, :edit, :update, :destroy]
+  before_filter :require_login, :only => [:new, :edit, :create, :update, :destroy]
+  before_filter :require_admin, :only => [:edit, :update, :destroy]
+
+  def load_goal
+    @goal = Goal.find(params[:id])
+  end
+
+  def require_admin
+    unless @current_user == @goal.admin
+      flash[:error] = "You are not the admin of this goal."
+      redirect_to request.referer
+    end
+  end
+
   # GET /goals
   # GET /goals.xml
   def index
@@ -14,8 +30,6 @@ class GoalsController < ApplicationController
   # GET /goals/1
   # GET /goals/1.xml
   def show
-    @goal = Goal.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @goal }
@@ -35,16 +49,18 @@ class GoalsController < ApplicationController
 
   # GET /goals/1/edit
   def edit
-    @goal = Goal.find(params[:id])
   end
 
   # POST /goals
   # POST /goals.xml
   def create
     @goal = Goal.new(params[:goal])
+    @goal.admin = @current_user
+    @goal.status = "active"
 
     respond_to do |format|
       if @goal.save
+        @current_user.goals << @goal
         format.html { redirect_to(goal_notes_path(@goal), :notice => 'Goal was successfully created.') }
         format.xml  { render :xml => @goal, :status => :created, :location => @goal }
       else
@@ -57,8 +73,6 @@ class GoalsController < ApplicationController
   # PUT /goals/1
   # PUT /goals/1.xml
   def update
-    @goal = Goal.find(params[:id])
-
     respond_to do |format|
       if @goal.update_attributes(params[:goal])
         format.html { redirect_to(@goal, :notice => 'Goal was successfully updated.') }
@@ -73,7 +87,6 @@ class GoalsController < ApplicationController
   # DELETE /goals/1
   # DELETE /goals/1.xml
   def destroy
-    @goal = Goal.find(params[:id])
     @goal.destroy
 
     respond_to do |format|

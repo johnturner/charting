@@ -14,13 +14,14 @@
   <popup id="contentAreaContextMenu">
 
     <menuseparator id="charting-end" insertafter="context-sep-stop" />
-    <menuitem label="Charting" disabled="true" insertafter="context-sep-stop" />
+    <menuitem label="Load Charting API key" insertafter="context-sep-stop" oncommand="charting.loadAPIKey()" />
+    <menuitem id="charting-label" label="Charting" disabled="true" insertafter="context-sep-stop" />
   </popup>
 
   <toolbarpalette id="BrowserToolbarPalette">
-    <toolbarbutton id="charting-options-toolbar-button" class="toolbarbutton-1 chromeclass-toolbar-additional charting-toolbar-button"
+    <!--<toolbarbutton id="charting-options-toolbar-button" class="toolbarbutton-1 chromeclass-toolbar-additional charting-toolbar-button"
       label="&chartingOptionsToolbarButton.label;" tooltiptext="&chartingOptionsToolbarButton.tooltip;"
-      oncommand="charting.onToolbarOptionsButtonCommand()"/>
+      oncommand="charting.onToolbarOptionsButtonCommand()"/>-->
     <toolbarbutton id="charting-note-toolbar-button" class="toolbarbutton-1 chromeclass-toolbar-additional charting-toolbar-button"
       label="&chartingNoteToolbarButton.label;" tooltiptext="&chartingNoteToolbarButton.tooltip;"
       oncommand="charting.onToolbarNoteButtonCommand()"/>

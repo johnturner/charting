@@ -5,8 +5,12 @@ class Goal < ActiveRecord::Base
   has_many :notes, :through => :notegoals
   has_many :notegoals
 
+  validates_uniqueness_of :name
+  
+  belongs_to :admin, :class_name => "User"
+
   def to_s
-    name.to_s+" "+status.to_s 
+    name.to_s
   end
 
   def sources

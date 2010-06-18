@@ -1,15 +1,14 @@
-<h1>Editing user</h1>
+<h1>Editing profile for <%=h @user.name%></h1>
 
 <% form_for(@user) do |f| %>
   <%= f.error_messages %>
-
   <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.label :new_password, "New Password" %><br />
+    <%= f.password_field :new_password %>
   </p>
   <p>
-    <%= f.label :password %><br />
-    <%= f.text_field :password %>
+    <%= f.label :new_password_confirmation, "Confirm New Password" %><br />
+    <%= f.password_field :new_password_confirmation %>
   </p>
   <p>
     <%= f.label :position %><br />
@@ -17,7 +16,7 @@
   </p>
   <p>
     <%= f.label :bio %><br />
-    <%= f.text_field :bio %>
+    <%= f.text_area :bio, :rows => 3 %>
   </p>
   <p>
     <%= f.submit 'Update' %>

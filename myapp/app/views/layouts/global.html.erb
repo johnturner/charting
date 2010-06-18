@@ -9,39 +9,45 @@
 </head>
 <body>
 
-<p style="color: green"><%= notice %></p>
-
 <div id="goalmenu">
+<h3>Your Goals</h3>
 <ul>
-<li><%=link_to "+", new_goal_path%>
-<% if controller_name == "goals" || controller_name == "welcome"
-	link_path = "notes"
-  else
-	link_path = controller_name
-  end %>
-<li><%=link_to "all", "/" + link_path%></li>
-<% for goal in @all_goals %>
-<li>
-
-	<%=link_to goal.name, goal_path(goal) + "/" + link_path%>
-</li>
-<% end %>
-</ul>
+<li><%=link_to "[+]", new_goal_path%>
+  <% if controller_name == "goals" || controller_name == "welcome"
+    link_path = "notes"
+    else
+    link_path = controller_name
+    end %>
+  <li><%=link_to "all goals", "/" + link_path%></li>
+  <% for goal in @all_goals %>
+    <li> <%=link_to goal.name, goal_path(goal) + "/" + link_path%> </li>
+  <% end %>
+  </ul>
 </div>
 
-<div id="tabmenu">
-	<% if @current_goal %>
-		<%=link_to "notes", goal_notes_path(@current_goal)%>
-		<%=link_to "people", goal_users_path(@current_goal)%>
-		<%=link_to "sources", goal_sources_path(@current_goal)%>
-	<% else %>
-		<%=link_to "notes", notes_path%>
-		<%=link_to "people", users_path%>
-		<%=link_to "sources", sources_path%>
-	<% end %>
-</div>
+<div id="right">
+  <div id="tabmenu">
+    <%= render :partial => 'layouts/login' %>
+    <h3>
+    <% if @current_goal %>
+      <%=link_to "notes", goal_notes_path(@current_goal)%> | 
+      <%=link_to "people", goal_users_path(@current_goal)%> | 
+      <%=link_to "sources", goal_sources_path(@current_goal)%>
+    <% else %>
+      <%=link_to "notes", notes_path%> | 
+      <%=link_to "people", users_path%> | 
+      <%=link_to "sources", sources_path%>
+    <% end %>
+    </h3>
+  </div>
 
-<%= yield %>
+  <div id="content">
+    <p style="color: green"><%= notice %></p>
+    <p style="color: red"><%= flash[:error] %></p>
+
+    <%= yield %>
+  </div>
+</div>
 
 </body>
 </html>

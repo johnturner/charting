@@ -2,6 +2,8 @@ var charting = {
   loadGoals: function() {
     var url = CHARTING_URL + "goals.json";
     var request = new XMLHttpRequest();
+    var params="?user[key]=" + escape(Prefs.getCharPref("apiKey")) +
+               "&user[name]=" + escape(Prefs.getCharPref("user"));
     request.open("GET", url, true);
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
@@ -24,6 +26,49 @@ var charting = {
       }
     }
 
+    request.send(null);
+  },
+
+  loadAPIKey: function(e) {
+    var url = CHARTING_URL + "api_key";
+    var request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.onreadystatechange = function() {
+      if (request.readyState == 4) {
+        if (request.status == 200) {
+          var info = JSON.parse(request.responseText);
+          Prefs.setCharPref("apiKey", info.key);
+          Prefs.setCharPref("user", info.user);
+          charting.loadGoals();
+        }
+        else if (request.status == 401) {
+          document.getElementById('charting-label').label = "Charting: Please log in to load API key.";
+        }
+        else {
+          document.getElementById('charting-label').label = "Charting: Couldn't connect to Charting server.";
+        }
+      }
+    }
+
+    request.send(null);
+  },
+
+  verifyAPIKey: function(e) {
+    var url = CHARTING_URL + "verify_api_key";
+    var params = "?user[name]="+escape(Prefs.getCharPref("user")) +
+                 "&user[key]="+escape(Prefs.getCharPref("apiKey"));
+    var request = new XMLHttpRequest();
+    request.open("GET", url+params, true);
+    request.onreadystatechange = function() {
+      if (request.readyState == 4) {
+        if (request.status == 200) {
+          charting.loadGoals();
+        }
+        else {
+          charting.loadAPIKey();
+        }
+      }
+    }
     request.send(null);
   },
 
@@ -61,7 +106,7 @@ var charting = {
                 "&source[doctype]=webpage";
 
     var request = new XMLHttpRequest();
-    request.open("POST", CHARTING_URL + "/notes.json", true);
+    request.open("POST", CHARTING_URL + "notes.json", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.setRequestHeader("Content-length", params.length);
 
