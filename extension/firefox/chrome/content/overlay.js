@@ -88,7 +88,9 @@ var charting = {
   removeGoalMenuItems: function() {
     for (i in this.goals) {
       var menuItem = document.getElementById('goal-menu-item' + i);
-      menuItem.parentNode.removeChild(menuItem);
+      if (menuItem) {
+        menuItem.parentNode.removeChild(menuItem);
+      }
     }
   },
 
@@ -107,7 +109,9 @@ var charting = {
                 "&note[goals][]=" + escape(charting.goals[goalIndex]) +
                 "&source[location]=" + source_url +
                 "&source[title]=" + source_title +
-                "&source[doctype]=webpage";
+                "&source[doctype]=webpage" + 
+                "&user[name]=" + escape(Prefs.getCharPref("user")) +
+                "&user[key]=" + escape(Prefs.getCharPref("apiKey"));
 
     var request = new XMLHttpRequest();
     request.open("POST", CHARTING_URL + "notes.json", true);

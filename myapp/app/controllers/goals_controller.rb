@@ -17,8 +17,7 @@ class GoalsController < ApplicationController
 
   # GET /goals
   def index
-    @goals = Goal.all
-
+    @goals = @all_goals
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @goals }
