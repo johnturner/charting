@@ -67,7 +67,7 @@ a:hover { background-color:#eff; }
 	border-right: 1px solid black;
 }
 
-#goalmenu h3 {
+#goalmenu h1, #goalmenu h2, #goalmenu h3, #goalmenu h4 {
   padding-left: 10px;
 }
 

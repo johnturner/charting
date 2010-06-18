@@ -10,7 +10,12 @@
 <body>
 
 <div id="goalmenu">
+<h2><%=link_to "Charting", root_path%></h2>
+<% if @current_user %>
 <h3>Your Goals</h3>
+<% else %>
+<h3>All Goals</h3>
+<% end %>
 <ul>
 <li><%=link_to "[+]", new_goal_path%>
   <% if controller_name == "goals" || controller_name == "welcome"
