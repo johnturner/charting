@@ -21,9 +21,20 @@
       else
       link_path = controller_name
       end %>
-    <li><%=link_to "all goals", "/" + link_path%></li>
+
+    <% if @current_goal %>
+      <li>
+    <% else %>
+      <li class="active-goal">
+    <% end %>
+      <%=link_to "all goals", "/" + link_path%>
+    </li>
     <% for goal in @all_goals %>
-      <li> 
+      <% if goal == @current_goal %>
+        <li class="active-goal"> 
+      <% else %>
+        <li>
+      <%end%>
         <%=link_to goal.name, goal_path(goal) + "/" + link_path%> 
         <%= link_to '[-]', goal, :confirm => 'Are you sure?', :method => :delete %></td>
       </li>

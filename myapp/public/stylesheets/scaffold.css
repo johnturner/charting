@@ -102,6 +102,10 @@ a:hover { background-color:#eff; }
   padding: 15px;
 }
 
+#goalmenu .active-goal {
+  background-color: #cff;
+}
+
 .note-body a {
   text-decoration: none;
 }
