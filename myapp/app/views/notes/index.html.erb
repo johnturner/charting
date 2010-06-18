@@ -17,7 +17,9 @@
     </td>
     <td><%=link_to note.source, note.source %></td>
     <td><%=h note.user %></td>
-    <td><%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if @current_user == @note.user %>
+      <td><%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>

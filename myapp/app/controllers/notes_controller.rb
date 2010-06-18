@@ -1,6 +1,7 @@
 class NotesController < ApplicationController
   protect_from_forgery :except => ['create']
   before_filter :require_login, :only => [:new, :edit, :create, :update, :destroy]
+  before_filter :require_creator, :only => [:destroy, :edit, :update]
   
   # GET /notes
   # GET /notes.xml
@@ -123,5 +124,13 @@ class NotesController < ApplicationController
     else
       render :text => "Error, note not found."
     end
+  end
+end
+
+private
+def require_creator
+  unless @current_user == @note.user
+    flash[:error] = "Cannot change someone else's note."
+    redirect_to(request.referer || "/")
   end
 end
