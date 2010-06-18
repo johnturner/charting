@@ -6,6 +6,7 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Charting: <%= controller_name %></title>
   <%= stylesheet_link_tag 'scaffold' %>
+  <%= javascript_include_tag :defaults %>
 </head>
 <body>
 
@@ -22,7 +23,10 @@
       end %>
     <li><%=link_to "all goals", "/" + link_path%></li>
     <% for goal in @all_goals %>
-      <li> <%=link_to goal.name, goal_path(goal) + "/" + link_path%> </li>
+      <li> 
+        <%=link_to goal.name, goal_path(goal) + "/" + link_path%> 
+        <%= link_to '[-]', goal, :confirm => 'Are you sure?', :method => :delete %></td>
+      </li>
     <% end %>
   <% else %>
     <h3>Please log in.</h3>

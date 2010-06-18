@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
     goals.resources :sources
   end
   
-  map.resources :notes
+  map.resources :notes, :member => {:full_text => :get}
   map.resources :users, :collection => {:logout => :get, :login => :post}
   map.resources :sources
   map.me 'me', :controller => :users, :action => :me

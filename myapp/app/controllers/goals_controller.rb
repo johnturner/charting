@@ -2,7 +2,7 @@ class GoalsController < ApplicationController
 
   before_filter :load_goal, :only => [:show, :edit, :update, :destroy]
   before_filter :require_login, :only => [:new, :edit, :create, :update, :destroy]
-  before_filter :require_admin, :only => [:edit, :update, :destroy]
+  before_filter :require_admin, :only => [:edit, :update]
 
   def load_goal
     @goal = Goal.find(params[:id])
@@ -81,7 +81,7 @@ class GoalsController < ApplicationController
 
   # DELETE /goals/1
   def destroy
-    @goal.destroy
+    @current_user.goals.delete @goal
 
     respond_to do |format|
       format.html { redirect_to(goals_url) }

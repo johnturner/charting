@@ -102,6 +102,13 @@ a:hover { background-color:#eff; }
   padding: 15px;
 }
 
+.note-body a {
+  text-decoration: none;
+}
+.note-body {
+  width: 600px;
+}
+
 table {
   border-collapse: collapse;
 }

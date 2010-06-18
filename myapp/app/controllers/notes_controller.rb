@@ -115,4 +115,13 @@ class NotesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def full_body
+    @note = Note.find(params[:id])
+    if @note
+      render :text => @note.body
+    else
+      render :text => "Error, note not found."
+    end
+  end
 end

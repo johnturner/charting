@@ -9,7 +9,12 @@
 
 <% @notes.each do |note| %>
   <tr>
-    <td><%=link_to note.truncated_body, note %></td>
+    <td id="note-body-<%=note.id%>" class="note-body">
+      <%=link_to_remote note.truncated_body, 
+                        :update => "note-body-#{note.id}", 
+                        :url => {:action => "full_body", 
+                        :id => note.id} %>
+    </td>
     <td><%=link_to note.source, note.source %></td>
     <td><%=h note.user %></td>
     <td><%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -19,4 +24,3 @@
 
 <br />
 
-<%= link_to 'New note', new_note_path %>
