@@ -14,7 +14,7 @@
   <popup id="contentAreaContextMenu">
 
     <menuseparator id="charting-end" insertafter="context-sep-stop" />
-    <menuitem label="Resync Charting" insertafter="context-sep-stop" oncommand="charting.loadAPIKey()" />
+    <menuitem label="Resync Charting" insertafter="context-sep-stop" oncommand="charting.verifyAPIKey()" />
     <menuitem id="charting-label" label="Charting" disabled="true" insertafter="context-sep-stop" />
   </popup>
 
