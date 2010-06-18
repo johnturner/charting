@@ -12,22 +12,22 @@
 <div id="goalmenu">
 <h2><%=link_to "Charting", root_path%></h2>
 <% if @current_user %>
-<h3>Your Goals</h3>
-<% else %>
-<h3>All Goals</h3>
-<% end %>
-<ul>
-<li><%=link_to "[+]", new_goal_path%>
-  <% if controller_name == "goals" || controller_name == "welcome"
-    link_path = "notes"
-    else
-    link_path = controller_name
-    end %>
-  <li><%=link_to "all goals", "/" + link_path%></li>
-  <% for goal in @all_goals %>
-    <li> <%=link_to goal.name, goal_path(goal) + "/" + link_path%> </li>
-  <% end %>
+  <h3>Your Goals</h3>
+  <ul>
+    <li><%=link_to "[+]", new_goal_path%>
+    <% if controller_name == "goals" || controller_name == "welcome"
+      link_path = "notes"
+      else
+      link_path = controller_name
+      end %>
+    <li><%=link_to "all goals", "/" + link_path%></li>
+    <% for goal in @all_goals %>
+      <li> <%=link_to goal.name, goal_path(goal) + "/" + link_path%> </li>
+    <% end %>
+  <% else %>
+    <h3>Please log in.</h3>
   </ul>
+<% end %>
 </div>
 
 <div id="right">

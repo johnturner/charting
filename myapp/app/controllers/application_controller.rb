@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     if @current_user
       @all_goals = @current_user.goals
     else
-      @all_goals = Goal.all
+      @all_goals = []
     end
       
     params[:goal_id] = params[:id] if self.is_a? GoalsController
