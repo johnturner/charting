@@ -1,6 +1,6 @@
 const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-//const CHARTING_URL = "http://charting.mhnltd.co.uk/";
-const CHARTING_URL = "http://localhost:3000/";
+const CHARTING_URL = "http://charting.mhnltd.co.uk/";
+//const CHARTING_URL = "http://localhost:3000/";
 var Prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
 Prefs = Prefs.getBranch("extensions.charting.");
 
@@ -13,10 +13,6 @@ charting.onFirefoxLoad = function(e) {
 };
 
 charting.onPageLoad = function(e) {
-  /*var doc = e.originalTarget;
-  if(doc.location.host == "localhost:3000" ) {
-    charting.
-  alert(doc.location.toString());*/
 }
 
 window.addEventListener("load", charting.onFirefoxLoad, false);
