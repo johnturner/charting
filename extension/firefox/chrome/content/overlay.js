@@ -19,9 +19,10 @@ var charting = {
           charting.goals = goalsOut;
           
           charting.addGoalMenuItems();
+          document.getElementById('charting-label').label = "Charting: Ready";
         }
         else {
-          alert("Error: Couldn't connect to charting server.");
+          document.getElementById('charting-label').label = "Charting: Failed to load goals.";
         }
       }
     }
@@ -39,6 +40,7 @@ var charting = {
           var info = JSON.parse(request.responseText);
           Prefs.setCharPref("apiKey", info.key);
           Prefs.setCharPref("user", info.user);
+          document.getElementById('charting-label').label = "Charting: Loading goals...";
           charting.loadGoals();
         }
         else if (request.status == 401) {
@@ -62,9 +64,11 @@ var charting = {
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
         if (request.status == 200) {
+          document.getElementById('charting-label').label = "Charting: Loading goals...";
           charting.loadGoals();
         }
         else {
+          document.getElementById('charting-label').label = "Charting: Loading API key...";
           charting.loadAPIKey();
         }
       }
