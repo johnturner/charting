@@ -84,7 +84,7 @@ class GoalsController < ApplicationController
     @current_user.goals.delete @goal
 
     respond_to do |format|
-      format.html { redirect_to(goals_url) }
+      format.html { redirect_to(request.referer) }
     end
   end
 end
