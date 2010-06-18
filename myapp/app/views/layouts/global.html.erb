@@ -36,7 +36,7 @@
         <li>
       <%end%>
         <%=link_to goal.name, goal_path(goal) + "/" + link_path%> 
-        <%= link_to '[-]', goal, :confirm => 'Are you sure?', :method => :delete %></td>
+        <%= link_to '[-]', goal, :confirm => "Remove #{goal.name}?", :method => :delete %></td>
       </li>
     <% end %>
   <% else %>
