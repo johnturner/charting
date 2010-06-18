@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   def require_login
     unless @current_user
       flash[:error] = "You must be logged in to do that."
-      redirect_to request.referer
+      redirect_to (request.referer or '/')
     end
   end
 
