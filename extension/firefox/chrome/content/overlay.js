@@ -4,7 +4,7 @@ var charting = {
     var request = new XMLHttpRequest();
     var params="?user[key]=" + escape(Prefs.getCharPref("apiKey")) +
                "&user[name]=" + escape(Prefs.getCharPref("user"));
-    request.open("GET", url, true);
+    request.open("GET", url+params, true);
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
         if (request.status == 200) {
@@ -87,8 +87,8 @@ var charting = {
 
   removeGoalMenuItems: function() {
     for (i in this.goals) {
-      var menuItem = document.getElementById('goal-menu-item' + i);
-      if (menuItem) {
+      var menuItem = document.getElementById('goal-menu-item-' + i);
+      if (menuItem != null) {
         menuItem.parentNode.removeChild(menuItem);
       }
     }
