@@ -1,4 +1,5 @@
 pref("extensions.charting.apiKey", "Please log in to get API key.");
+pref("extensions.charting.user", "Please log in to charting.");
 pref("browser.preferences.instantApply", true);
 
 // https://developer.mozilla.org/en/Localizing_extension_descriptions
