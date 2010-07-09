@@ -1,6 +1,6 @@
 class GoalsController < ApplicationController
 
-  before_filter :load_goal, :only => [:show, :edit, :update, :destroy]
+  before_filter :load_goal, :only => [:show, :edit, :update, :destroy, :adopt]
   before_filter :require_login, :only => [:new, :edit, :create, :update, :destroy]
   before_filter :require_admin, :only => [:edit, :update]
 
@@ -66,6 +66,12 @@ class GoalsController < ApplicationController
         end
       end
     end
+  end
+
+  def adopt
+    @current_user.goals << @goal
+    @current_user.save!
+    redirect_to goal_notes_path(@goal)
   end
 
   # PUT /goals/1

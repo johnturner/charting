@@ -4,15 +4,11 @@
 </p>
 
 <p>
-  <b>Status:</b>
-  <%=h @goal.status %>
+  <b>Status:</b> <%=h @goal.status %>
 </p>
 
 <p>
-  <b>Admin:</b>
-  <%=h @goal.admin %>
+  <b>Admin:</b> <%=h @goal.admin %>
 </p>
 
-
-<%= link_to 'Edit', edit_goal_path(@goal) %> |
-<%= link_to 'Back', goals_path %>
+<%= link_to 'Adopt', adopt_goal_path(@goal) %>

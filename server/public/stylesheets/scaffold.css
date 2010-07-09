@@ -122,3 +122,6 @@ td, th {
  padding: 2px;
 }
 
+#new_goal_field {
+  border: 1px solid #ccc;
+}

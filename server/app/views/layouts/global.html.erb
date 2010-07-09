@@ -15,7 +15,14 @@
 <% if @current_user %>
   <h3>Your Goals</h3>
   <ul>
-    <li><%=link_to "[+]", new_goal_path%>
+    <li>
+    <% form_for Goal.new do |f| %>
+      <%= f.text_field :name, 
+                       :size => 10, 
+                       :id => 'new_goal_field', 
+                       :value => 'new goal', 
+                       :onFocus => 'if (this.value == "new goal") {this.value = "";};' %>
+    <% end %>
     <% if controller_name == "goals" || controller_name == "welcome"
       link_path = "notes"
       else

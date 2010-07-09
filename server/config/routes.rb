@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :goals do |goals|
+  map.resources :goals, :member => {:adopt => :get} do |goals|
     goals.resources :notes
     goals.resources :users
     goals.resources :sources

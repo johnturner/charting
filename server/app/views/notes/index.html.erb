@@ -24,5 +24,9 @@
 <% end %>
 </table>
 
+<% if @current_goal %>
+  <%= link_to 'Adopt this goal', adopt_goal_path(@current_goal) %>
+<% end %>
+
 <br />
 

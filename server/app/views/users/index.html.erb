@@ -13,7 +13,12 @@
     <td><%=link_to user.name, user %></td>
     <td><%=h user.position %></td>
     <td><%=h user.bio %></td>
-    <td><%=h user.goals.join(", ") %></td>
+    <td>
+      | 
+      <% user.goals.each do |goal| %>
+        <%=link_to goal.name, goal_notes_path(goal) %> |
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
