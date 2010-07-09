@@ -21,8 +21,10 @@
                        :size => 10, 
                        :id => 'new_goal_field', 
                        :value => 'new goal', 
-                       :onFocus => 'if (this.value == "new goal") {this.value = "";};' %>
+                       :onFocus => 'if (this.value == "new goal") {this.value = "";};',
+                       :onBlur => 'if (this.value == "") {this.value = "new goal";};' %>
     <% end %>
+    <br/>
     <% if controller_name == "goals" || controller_name == "welcome"
       link_path = "notes"
       else
