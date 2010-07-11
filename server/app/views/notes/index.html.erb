@@ -15,7 +15,13 @@
                         :url => {:action => "full_body", 
                         :id => note.id} %>
     </td>
-    <td><%=link_to note.source, note.source %></td>
+    <td>
+      <% if note.source %>
+        <%=link_to note.source, note.source %>
+      <% else %>
+        No source.
+      <% end %>
+    </td>
     <td><%=h note.user %></td>
     <% if @current_user == note.user %>
       <td><%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -24,9 +30,9 @@
 <% end %>
 </table>
 
+<br />
+
 <% if @current_goal %>
   <%= link_to 'Adopt this goal', adopt_goal_path(@current_goal) %>
 <% end %>
-
-<br />
 
