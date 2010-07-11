@@ -14,7 +14,7 @@ class Goal < ActiveRecord::Base
   end
 
   def sources
-    Source.find_by_sql ["select sources.* from sources, notes, goals, notegoals 
+    Source.find_by_sql ["select distinct sources.* from sources, notes, goals, notegoals 
                          where sources.id = notes.source_id 
                          and notegoals.note_id = notes.id 
                          and notegoals.goal_id = ?", id]
