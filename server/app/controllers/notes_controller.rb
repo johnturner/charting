@@ -129,6 +129,7 @@ end
 
 private
 def require_creator
+  @note = Note.find(params[:id])
   unless @current_user == @note.user
     flash[:error] = "Cannot change someone else's note."
     redirect_to(request.referer || "/")
