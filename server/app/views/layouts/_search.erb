@@ -1,0 +1,10 @@
+<span id="searchbox">
+  <% form_for 'search', :url => search_path do |f| %>
+    <%= f.text_field :text, 
+                     :size => 20, 
+                     :id => 'search_field', 
+                     :value => 'search', 
+                     :onFocus => 'if (this.value == "search") {this.value = "";};',
+                     :onBlur => 'if (this.value == "") {this.value = "search";};' %>
+  <% end %>
+</span>

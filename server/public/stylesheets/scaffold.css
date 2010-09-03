@@ -91,15 +91,16 @@ a:hover { background-color:#eff; }
   position: absolute;
   left: 150px;
   right: 0px;
+  top: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  border-left: 1px solid;
 }
 
 #content {
-  padding: 15px;
-}
-
-#tabmenu {
-  border-bottom: 1px solid black;
-  padding: 15px;
+  padding-left: 15px;
 }
 
 #goalmenu .active-goal {
@@ -109,6 +110,7 @@ a:hover { background-color:#eff; }
 .note-body a {
   text-decoration: none;
 }
+
 .note-body {
   width: 600px;
 }
@@ -122,6 +124,61 @@ td, th {
  padding: 2px;
 }
 
-#new_goal_field {
+input {
   border: 1px solid #ccc;
+}
+
+#login-bar {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+}
+
+#tabmenu {
+  position: relative;
+  border-bottom: 1px solid black;
+  padding-left: 15px;
+  padding-top: 15px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+#tabs {
+  position: absolute;
+  bottom: 0px;
+}
+
+#tabmenu .tab {
+  border-top: 1px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-bottom: 1px;
+  
+  margin-right: 0px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+
+  -webkit-border-top-left-radius: 2px;
+  -webkit-border-top-right-radius: 2px;
+  -moz-border-radius-topleft: 2px;
+  -moz-border-radius-topright: 2px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+#tabmenu .active {
+  background-color: #cff;
+}
+
+#tabmenu .tab a {
+  text-decoration: none;
+}
+
+#searchbox {
+  position: absolute;
+  bottom: 0px;
+  left: 200px;
 }

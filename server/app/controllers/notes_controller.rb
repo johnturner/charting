@@ -9,7 +9,12 @@ class NotesController < ApplicationController
    if @current_goal
       @notes = @current_goal.notes
     else
-      @notes = Note.all
+      @show_goal = true
+      if @current_user
+        @notes = Note.find :all, :conditions => {:user_id => @current_user.id}, :include => :goals
+      else
+        @notes = Note.all
+      end
     end
  
     respond_to do |format|

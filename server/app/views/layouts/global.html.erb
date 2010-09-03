@@ -25,10 +25,10 @@
                        :onBlur => 'if (this.value == "") {this.value = "new goal";};' %>
     <% end %>
     <br/>
-    <% if controller_name == "goals" || controller_name == "welcome"
-      link_path = "notes"
-      else
+    <% if ['notes', 'users', 'sources'].include? controller_name
       link_path = controller_name
+      else
+      link_path = "notes"
       end %>
 
     <% if @current_goal %>
@@ -55,19 +55,15 @@
 </div>
 
 <div id="right">
+  <%= render :partial => 'layouts/login' %>
   <div id="tabmenu">
-    <%= render :partial => 'layouts/login' %>
-    <h3>
-    <% if @current_goal %>
-      <%=link_to "notes", goal_notes_path(@current_goal)%> | 
-      <%=link_to "people", goal_users_path(@current_goal)%> | 
-      <%=link_to "sources", goal_sources_path(@current_goal)%>
-    <% else %>
-      <%=link_to "notes", notes_path%> | 
-      <%=link_to "people", users_path%> | 
-      <%=link_to "sources", sources_path%>
-    <% end %>
-    </h3>
+    <div id="tabs">
+      <% if @current_goal %>
+        <% ["notes", "users", "sources"].each do |tab| -%><% if tab == controller_name -%><span class="active tab"><%=link_to(tab, goal_path(@current_goal) + "/" + tab)-%></span><% else -%><span class="tab"><%=link_to(tab, goal_path(@current_goal) + "/" + tab)-%></span><% end -%><% end -%>
+      <% else -%><% ["notes", "users", "sources"].each do |tab| -%><% if tab == controller_name -%><span class="active tab"><%=link_to tab, "/" + tab -%></span><% else -%><span class="tab"><%=link_to tab, "/" + tab -%></span><% end -%><% end -%>
+      <% end %>
+    </div>
+    <%= render :partial => 'layouts/search' %>
   </div>
 
   <div id="content">

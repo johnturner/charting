@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.me 'me', :controller => :users, :action => :me
   map.api_key 'api_key', :controller => :users, :action => :api_key
   map.verify_api_key 'verify_api_key', :controller => :users, :action => :verify_api_key
+  map.search 'search', :controller => :search, :action => :search
 
   # The priority is based upon order of creation: first created -> highest priority.
 

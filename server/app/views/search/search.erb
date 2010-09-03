@@ -1,0 +1,23 @@
+Results for: <%=h @text %>
+
+<h3>Goals</h3>
+<ul>
+<% for goal in @goals %>
+  <li><%= link_to goal.name, goal_notes_path(goal) %></li>
+<% end %>
+</ul>
+
+<h3>Notes</h3>
+<ul>
+<% for note in @notes %>
+  <li><%= link_to note.body[0..100], note %></li>
+<% end %>
+</ul>
+
+<h3>Sources</h3>
+<ul>
+<% for source in @sources %>
+  <li><%= link_to source.title, source %></li>
+<% end %>
+</ul>
+

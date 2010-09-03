@@ -1,3 +1,4 @@
+<div id="login-bar">
 <% if @current_user %>
   Hello <%=link_to @current_user.name, @current_user%>.<br/><%= link_to "logout", logout_users_path %> | <%= link_to "edit profile", edit_user_path(@current_user) %>
 <% else %>
@@ -8,3 +9,4 @@
     or <%= link_to "sign up", new_user_path%>
   <% end %>
 <% end  %>
+</div>

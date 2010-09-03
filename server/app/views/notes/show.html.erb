@@ -1,12 +1,10 @@
-<p>
-  <b>Body:</b>
-  <%=h @note.body %>
-</p>
-
-<p>
-  <b>Source:</b>
-  <%=h @note.source %>
-</p>
+<h3>From: <%=link_to @note.source.title, @note.source %></h3>
+<%=h @note.body %><br/>
+<h3>Goals:
+<% for goal in @note.goals %>
+    <%=link_to goal.name, goal%><% unless goal == @note.goals.last %>, <%end%>
+<% end %>
+</h3>
 
 
 <%= link_to 'Edit', edit_note_path(@note) %> |
