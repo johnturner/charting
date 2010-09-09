@@ -5,13 +5,14 @@ ActionController::Routing::Routes.draw do |map|
     goals.resources :sources
   end
   
-  map.resources :notes, :member => {:full_text => :get}
+  map.resources :notes, :member => {:full_text => :get, :set_goals => :put}
   map.resources :users, :collection => {:logout => :get, :login => :post}
   map.resources :sources
   map.me 'me', :controller => :users, :action => :me
   map.api_key 'api_key', :controller => :users, :action => :api_key
   map.verify_api_key 'verify_api_key', :controller => :users, :action => :verify_api_key
   map.search 'search', :controller => :search, :action => :search
+  map.orphan_notes 'orphan_notes', :controller => :notes, :action => :orphan_notes
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -52,6 +53,6 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  # map.connect ':controller/:action/:id'
+  # map.connect ':controller/:action/:id.:format'
 end

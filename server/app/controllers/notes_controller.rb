@@ -9,7 +9,6 @@ class NotesController < ApplicationController
    if @current_goal
       @notes = @current_goal.notes
     else
-      @show_goal = true
       if @current_user
         @notes = Note.find :all, :conditions => {:user_id => @current_user.id}, :include => :goals
       else
@@ -21,6 +20,38 @@ class NotesController < ApplicationController
       format.html # index.html.erb
       format.xml  { render :xml => @notes }
     end
+  end
+
+  def orphan_notes
+    @notabs = true
+    if @current_user
+      @notes = Note.find_by_sql(["select notes.* from notes where 
+                                    notes.id not in 
+                                      (select note_id from notegoals, goals, usergoals where 
+                                        notegoals.goal_id = goals.id and goals.id = usergoals.goal_id and usergoals.user_id = ?)
+                                    and notes.user_id = ?", @current_user, @current_user])
+    end
+  end
+
+  def set_goals
+    @note = Note.find(params[:id])
+    if params[:note]
+      @goals = params[:note][:goals]
+    end
+    @goals ||= []
+    
+    @note.goals = @goals.map{|g| Goal.find_by_name(g)}
+    
+    if params[:goal]
+      @current_goal = Goal.find(params[:goal][:id])
+    end
+    
+    if @current_goal
+      @notes = @current_goal.notes
+    else 
+      @notes = Note.find :all, :conditions => {:user_id => @current_user.id}, :include => :goals
+    end
+    render :partial => 'note_table'
   end
 
   # GET /notes/1
@@ -122,7 +153,7 @@ class NotesController < ApplicationController
     end
   end
 
-  def full_body
+  def full_text
     @note = Note.find(params[:id])
     if @note
       render :text => @note.body

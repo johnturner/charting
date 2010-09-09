@@ -31,7 +31,7 @@
       link_path = "notes"
       end %>
 
-    <% if @current_goal %>
+    <% if @current_goal or action_name == "orphan_notes" %>
       <li>
     <% else %>
       <li class="active-goal">
@@ -48,6 +48,14 @@
         <%= link_to '[-]', goal, :confirm => "Remove #{goal.name}?", :method => :delete %></td>
       </li>
     <% end %>
+
+    <% if action_name == "orphan_notes" %>
+      <li class="active-goal">
+    <% else %>
+      <li>
+    <% end %>
+      <%=link_to "orphan notes", orphan_notes_path%>
+    </li>
   <% else %>
     <h3>Please log in.</h3>
   </ul>
@@ -58,28 +66,30 @@
   <%= render :partial => 'layouts/login' %>
   <div id="tabmenu">
     <div id="tabs">
-      <%  ["notes", "users", "sources"].each do |tab|
-        tab_disp = ""
-        if tab == "users"
-          tab_disp = "people"
-        else
-          tab_disp = tab
-        end
-        
-        if tab == controller_name
-          if @current_goal
-            -%><span class="active tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><% 
-          else 
-            -%><span class="active tab"><%=link_to tab_disp, "/" + tab -%></span><% 
-          end
-        else 
-          if @current_goal
-            -%><span class="tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><%
+      <% unless @notabs %>
+        <%  ["notes", "users", "sources"].each do |tab|
+          tab_disp = ""
+          if tab == "users"
+            tab_disp = "people"
           else
-            -%><span class="tab"><%=link_to tab_disp, "/" + tab -%></span><%
+            tab_disp = tab
           end
-        end
-      end %>
+          
+          if tab == controller_name
+            if @current_goal
+              -%><span class="active tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><% 
+            else 
+              -%><span class="active tab"><%=link_to tab_disp, "/" + tab -%></span><% 
+            end
+          else 
+            if @current_goal
+              -%><span class="tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><%
+            else
+              -%><span class="tab"><%=link_to tab_disp, "/" + tab -%></span><%
+            end
+          end
+        end 
+      end%>
     </div>
     <%= render :partial => 'layouts/search' %>
   </div>

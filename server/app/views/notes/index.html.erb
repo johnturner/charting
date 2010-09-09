@@ -1,49 +1,6 @@
-<h1><%=h @current_goal ? @current_goal.name : "All"%> notes</h1>
+<h1><%=h @current_goal ? @current_goal.name : "all"%> notes</h1>
 
-<table>
-  <tr>
-    <th>Note</th>
-    <th>Source</th>
-    <th>Creator</th>
-    <% if @show_goal %>
-      <th>Goals</th>
-    <% end %>
-  </tr>
-
-<% @notes.each do |note| %>
-  <tr>
-    <td id="note-body-<%=note.id%>" class="note-body">
-      <%=link_to_remote note.truncated_body, 
-                        :update => "note-body-#{note.id}", 
-                        :url => {:action => "full_body", 
-                        :id => note.id} %>
-    </td>
-    <td>
-      <% if note.source %>
-        <%=link_to note.source, note.source %>
-      <% else %>
-        No source.
-      <% end %>
-    </td>
-    <td><%=h note.user %></td>
-    
-    <% if @show_goal %>
-      <td>
-        <% for goal in note.goals %>
-            <%=link_to goal.name, goal%><% unless goal == note.goals.last %>, <%end%>
-        <% end %>
-      </td>
-    <% end %>
-    
-    <% if @current_user == note.user %>
-      <td><%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %></td>
-    <% end %>
-
-  </tr>
-<% end %>
-</table>
-
-<br />
+<%= render :partial => 'note_table' %>
 
 <% if @current_goal %>
   <%= link_to 'Adopt this goal', adopt_goal_path(@current_goal) %>
