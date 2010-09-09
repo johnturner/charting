@@ -9,7 +9,12 @@ class UsersController < ApplicationController
    if @current_goal
       @users = @current_goal.users
     else
-      @users = User.all
+      if @current_user
+        #Find all people who share a goal with the current user.
+        @users = User.find_by_sql(["select distinct users.* from users, usergoals g1, usergoals g2 where users.id = g1.user_id and g1.goal_id = g2.goal_id and g2.user_id = ?", @current_user.id])
+      else
+        @users = User.all
+      end
     end
     respond_to do |format|
       format.html # by default index.html.erb

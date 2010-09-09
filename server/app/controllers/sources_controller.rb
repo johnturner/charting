@@ -5,7 +5,17 @@ class SourcesController < ApplicationController
    if @current_goal
       @sources = @current_goal.sources
     else
-      @sources = Source.all
+      if @current_user
+        #Find all sources for all notes of all goals of the current user.
+        @sources = Source.find_by_sql(["select distinct sources.* from 
+                                        sources, notes, notegoals, goals, usergoals, users where 
+                                        users.id = ? and users.id = usergoals.user_id and
+                                        goals.id = usergoals.goal_id and goals.id = notegoals.goal_id and
+                                        notes.id = notegoals.note_id and notes.source_id = sources.id",
+                                        @current_user.id])
+      else
+        @sources = Source.all
+      end
     end
 
     respond_to do |format|
