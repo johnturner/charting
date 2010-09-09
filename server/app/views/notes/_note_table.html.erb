@@ -30,7 +30,7 @@
           <%= f.select 'goals', @current_user.goals, {}, {:multiple => true} %>
           <% if @current_goal %>
             <%= hidden_field 'goal', 'id', :value => @current_goal.id %>
-          <% end %>
+          <% end %><br/>
           <%= submit_tag 'save' %>
         <% end %>
       <% else %>
