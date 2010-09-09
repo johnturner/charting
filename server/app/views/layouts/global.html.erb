@@ -58,10 +58,28 @@
   <%= render :partial => 'layouts/login' %>
   <div id="tabmenu">
     <div id="tabs">
-      <% if @current_goal %>
-        <% ["notes", "users", "sources"].each do |tab| -%><% if tab == controller_name -%><span class="active tab"><%=link_to(tab, goal_path(@current_goal) + "/" + tab)-%></span><% else -%><span class="tab"><%=link_to(tab, goal_path(@current_goal) + "/" + tab)-%></span><% end -%><% end -%>
-      <% else -%><% ["notes", "users", "sources"].each do |tab| -%><% if tab == controller_name -%><span class="active tab"><%=link_to tab, "/" + tab -%></span><% else -%><span class="tab"><%=link_to tab, "/" + tab -%></span><% end -%><% end -%>
-      <% end %>
+      <%  ["notes", "users", "sources"].each do |tab|
+        tab_disp = ""
+        if tab == "users"
+          tab_disp = "people"
+        else
+          tab_disp = tab
+        end
+        
+        if tab == controller_name
+          if @current_goal
+            -%><span class="active tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><% 
+          else 
+            -%><span class="active tab"><%=link_to tab_disp, "/" + tab -%></span><% 
+          end
+        else 
+          if @current_goal
+            -%><span class="tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><%
+          else
+            -%><span class="tab"><%=link_to tab_disp, "/" + tab -%></span><%
+          end
+        end
+      end %>
     </div>
     <%= render :partial => 'layouts/search' %>
   </div>
