@@ -1,0 +1,50 @@
+<table id="note-table">
+  <tr>
+    <th>Note</th>
+    <th>Source</th>
+    <th>Creator</th>
+    <th>Goals</th>
+  </tr>
+
+<% @notes.each do |note| %>
+  <tr>
+    <td id="note-body-<%=note.id%>" class="note-body">
+      <%=link_to_remote note.truncated_body, 
+                        :update => "note-body-#{note.id}", 
+                        :method => :get,
+                        :url => {:action => "full_text",
+                        :id => note.id} %>
+    </td>
+    <td>
+      <% if note.source %>
+        <%=link_to note.source, note.source %>
+      <% else %>
+        No source.
+      <% end %>
+    </td>
+    <td><%=h note.user %></td>
+    
+    <td>
+      <% if @current_user == note.user %>
+        <% remote_form_for note, :url => set_goals_note_path(note), :update => "note-table" do |f| -%>
+          <%= f.select 'goals', @current_user.goals, {}, {:multiple => true} %>
+          <% if @current_goal %>
+            <%= hidden_field 'goal', 'id', :value => @current_goal.id %>
+          <% end %>
+          <%= submit_tag 'save' %>
+        <% end %>
+      <% else %>
+        <% for goal in note.goals %>
+            <%=link_to goal.name, goal%><% unless goal == note.goals.last %>, <%end%>
+        <% end %>
+      <% end %>
+    </td>
+    
+    <% if @current_user == note.user %>
+      <td><%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
+
+  </tr>
+<% end %>
+</table>
+
