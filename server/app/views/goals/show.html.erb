@@ -11,4 +11,6 @@
   <b>Admin:</b> <%=h @goal.admin %>
 </p>
 
-<%= link_to 'Adopt', adopt_goal_path(@goal) %>
+<% if @goal and not @all_goals.include? @goal %>
+  <%= link_to 'Adopt this goal', adopt_goal_path(@goal) %>
+<% end %>
