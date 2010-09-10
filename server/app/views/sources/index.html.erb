@@ -9,7 +9,7 @@
 
 <% @sources.each do |source| %>
   <tr>
-    <td><%=h source.title %></td>
+    <td><%=h source %></td>
     <td><%=link_to source.location, source.location %></td>
     <td><%=h source.doctype %></td>
     <td><%= link_to 'delete', source, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -18,3 +18,5 @@
 </table>
 
 <br />
+
+<%= will_paginate @sources %>

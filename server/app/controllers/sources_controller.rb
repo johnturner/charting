@@ -3,18 +3,20 @@ class SourcesController < ApplicationController
   # GET /sources.xml
   def index
    if @current_goal
-      @sources = @current_goal.sources
+      @sources = Source.paginate :page => params[:page],
+                                 :per_page => 10,
+                                 :include => {:notes => :notegoals},
+                                 :conditions => {"notegoals.goal_id" => @current_goal.id}
     else
       if @current_user
         #Find all sources for all notes of all goals of the current user.
-        @sources = Source.find_by_sql(["select distinct sources.* from 
-                                        sources, notes, notegoals, goals, usergoals, users where 
-                                        users.id = ? and users.id = usergoals.user_id and
-                                        goals.id = usergoals.goal_id and goals.id = notegoals.goal_id and
-                                        notes.id = notegoals.note_id and notes.source_id = sources.id",
-                                        @current_user.id])
+        @sources = Source.paginate :page => params[:page],
+                                   :per_page => 10,
+                                   :include => {:notes => {:goals => :users}},
+                                   :conditions => {"users.id" => @current_user.id}
       else
-        @sources = Source.all
+        @sources = Source.paginate :page => params[:page],
+                                   :per_page => 10
       end
     end
 
