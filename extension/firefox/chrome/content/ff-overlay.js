@@ -3,7 +3,6 @@ var Prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(
 Prefs = Prefs.getBranch("extensions.charting.");
 
 charting.onFirefoxLoad = function(e) {
-  alert("Charting!"); 
   charting.verifyAPIKey();
   var appcontent = document.getElementById("appcontent");
   if(appcontent) {
