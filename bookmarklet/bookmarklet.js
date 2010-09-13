@@ -7,7 +7,7 @@ var script = document.createElement('script');      // script to inject
 script.src="http://dev.mhnltd.co.uk/charting.js";
 // set to true once script init is complete, to guard re-init.
 var initComplete=false;
-// different events + readyState states for different browsers
+// function called to initialise script after injection.
 var initFunc = 
   function()
   {
@@ -16,6 +16,7 @@ var initFunc =
         !initComplete &&
         (
           !this.readyState ||
+          // different readyState states for different browsers
           this.readyState == 'loaded' ||
           this.readyState == 'complete'
         )
