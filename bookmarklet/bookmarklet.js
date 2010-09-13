@@ -1,9 +1,10 @@
 // USE http://ted.mielczarek.org/code/mozilla/bookmarklet.html TO REDUCE
-========================================================================
+
+// ================================START================================
 // HTML Elements for injection.
 var head=document.getElementsByTagName('head')[0];  // doc head
-var script = document.createElement('script');      // script to inject
-// MHN Charting Script Source
+var script = document.createElement('script');      // script element
+// MHN Charting Script Source -- script to inject.
 script.src="http://dev.mhnltd.co.uk/charting.js";
 // set to true once script init is complete, to guard re-init.
 var initComplete=false;
@@ -38,4 +39,4 @@ script.onreadystatechange = initFunc;
 
 // add script to head of page.
 head.appendChild(script);
-========================================================================
+//===============================END======================================
