@@ -15,8 +15,8 @@ class NotesController < ApplicationController
       if @current_user
         @notes = Note.paginate :page => params[:page],
                                :per_page => 10,
-                               :conditions => {:user_id => @current_user.id}, 
-                               :include => [:goals, :user]
+                               :conditions => {"usergoals.user_id" => @current_user.id}, 
+                               :include => [{:goals => :usergoals}, :user]
       else
         @notes = Note.paginate :page => params[:page],
                                :per_page => 10,
@@ -31,15 +31,14 @@ class NotesController < ApplicationController
   end
 
   #Notes from all users in the system, regardless of who is logged in
-  def everyone_notes
+  def all_goals
     @notes = Note.paginate :page => params[:page],
                            :per_page => 10,
                            :include => [:goals, :user]
     @notabs = true
-    render :index
   end
 
-  def orphan_notes
+  def inbox 
     @notabs = true
     if @current_user
       @notes = Note.paginate_by_sql(["select notes.* from notes where 

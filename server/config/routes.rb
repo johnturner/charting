@@ -12,9 +12,8 @@ ActionController::Routing::Routes.draw do |map|
   map.api_key 'api_key', :controller => :users, :action => :api_key
   map.verify_api_key 'verify_api_key', :controller => :users, :action => :verify_api_key
   map.search 'search', :controller => :search, :action => :search
-  map.orphan_notes 'orphan_notes', :controller => :notes, :action => :orphan_notes
-  map.all_goals 'all_goals', :controller => :goals, :action => :all_goals
-  map.everyone_notes 'everyone_notes', :controller => :notes, :action => :everyone_notes
+  map.inbox 'inbox', :controller => :notes, :action => :inbox
+  map.all_goals 'all_goals', :controller => :notes, :action => :all_goals
 
   # The priority is based upon order of creation: first created -> highest priority.
 

@@ -182,3 +182,8 @@ input {
   bottom: 0px;
   left: 200px;
 }
+
+#new_goal_form {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
