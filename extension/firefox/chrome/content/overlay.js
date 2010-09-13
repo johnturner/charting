@@ -1,6 +1,10 @@
 var charting = {
+  rootURL: function() {
+    return Prefs.getCharPref("url") + "/";
+  },
+
   loadGoals: function() {
-    var url = CHARTING_URL + "goals.json";
+    var url = this.rootURL() + "goals.json";
     var request = new XMLHttpRequest();
     var params="?user[key]=" + escape(Prefs.getCharPref("apiKey")) +
                "&user[name]=" + escape(Prefs.getCharPref("user"));
@@ -31,7 +35,7 @@ var charting = {
   },
 
   loadAPIKey: function(e) {
-    var url = CHARTING_URL + "api_key";
+    var url = this.rootURL() + "api_key";
     var request = new XMLHttpRequest();
     request.open("GET", url, true);
     request.onreadystatechange = function() {
@@ -56,7 +60,7 @@ var charting = {
   },
 
   verifyAPIKey: function(e) {
-    var url = CHARTING_URL + "verify_api_key";
+    var url = this.rootURL() + "verify_api_key";
     var params = "?user[name]="+escape(Prefs.getCharPref("user")) +
                  "&user[key]="+escape(Prefs.getCharPref("apiKey"));
     var request = new XMLHttpRequest();
@@ -114,7 +118,7 @@ var charting = {
                 "&user[key]=" + escape(Prefs.getCharPref("apiKey"));
 
     var request = new XMLHttpRequest();
-    request.open("POST", CHARTING_URL + "notes.json", true);
+    request.open("POST", this.rootURL() + "notes", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.setRequestHeader("Content-length", params.length);
 
@@ -133,7 +137,8 @@ var charting = {
   },
 
   onToolbarOptionsButtonCommand: function(e) {
-    alert("Options not implemented yet.");
+    var features = "chrome,titlebar,toolbar,centerscreen,modal";
+    window.openDialog("chrome://charting/content/preferences.xul", "Preferences", features);
   },
 
   onToolbarNoteButtonCommand: function(e) {
@@ -176,7 +181,7 @@ var charting = {
     }
 
     var request = new XMLHttpRequest();
-    request.open("POST", CHARTING_URL + "notes.json", true);
+    request.open("POST", this.rootURL() + "notes", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.setRequestHeader("Content-length", params.length);
 
