@@ -3,22 +3,20 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Status</th>
     <th>Admin</th>
   </tr>
 
 <% @goals.each do |goal| %>
   <tr>
-    <td><%=h goal.name %></td>
-    <td><%=h goal.status %></td>
+    <td><%=link_to goal.name, goal_notes_path(goal) %></td>
     <td><%=h goal.admin %></td>
-    <td><%= link_to 'Show', goal %></td>
-    <td><%= link_to 'Edit', edit_goal_path(goal) %></td>
-    <td><%= link_to 'Destroy', goal, :confirm => 'Are you sure?', :method => :delete %></td>
+  <% if @current_goal and not @all_goals.include? @current_goal %>
+    <td><%= link_to 'adopt', adopt_goal_path(@current_goal) %></td>
+  <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New goal', new_goal_path %>
+<%= will_paginate @goals %>

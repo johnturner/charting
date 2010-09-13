@@ -30,6 +30,15 @@ class NotesController < ApplicationController
     end
   end
 
+  #Notes from all users in the system, regardless of who is logged in
+  def everyone_notes
+    @notes = Note.paginate :page => params[:page],
+                           :per_page => 10,
+                           :include => [:goals, :user]
+    @notabs = true
+    render :index
+  end
+
   def orphan_notes
     @notabs = true
     if @current_user

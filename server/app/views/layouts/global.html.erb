@@ -31,10 +31,10 @@
       link_path = "notes"
       end %>
 
-    <% if @current_goal or action_name == "orphan_notes" %>
-      <li>
-    <% else %>
+    <% unless @current_goal or action_name == "orphan_notes" or action_name == "everyone_notes" %>
       <li class="active-goal">
+    <% else %>
+      <li>
     <% end %>
       <%=link_to "all goals", "/" + link_path%>
     </li>
@@ -49,12 +49,21 @@
       </li>
     <% end %>
 
+    <li></li>
     <% if action_name == "orphan_notes" %>
       <li class="active-goal">
     <% else %>
       <li>
     <% end %>
       <%=link_to "orphan notes", orphan_notes_path%>
+    </li>
+
+    <% if action_name == "everyone_notes" %>
+      <li class="active-goal">
+    <% else %>
+      <li>
+    <% end %>
+      <%=link_to "everyone's notes", everyone_notes_path%>
     </li>
   <% else %>
     <h3>Please log in.</h3>

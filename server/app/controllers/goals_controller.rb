@@ -24,6 +24,11 @@ class GoalsController < ApplicationController
     end
   end
 
+  def all_goals
+    @goals = Goal.paginate :page => params[:page], :per_page => 20
+    render :index
+  end
+
   # GET /goals/1
   def show
     respond_to do |format|
