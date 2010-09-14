@@ -11,23 +11,10 @@ var charting = {
     request.open("GET", url+params, true);
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
-        if (request.status == 200) {
-          charting.removeGoalMenuItems();
-
-          var goalsString = request.responseText;
-          var goalsJSON = JSON.parse(goalsString);
-          var goalsOut = [];
-          for (var i in goalsJSON) {
-            goalsOut[i] = goalsJSON[i].goal.name;
-          }
-          charting.goals = goalsOut;
-          
-          charting.addGoalMenuItems();
-          document.getElementById('charting-label').label = "Charting: Ready";
-        }
-        else {
-          document.getElementById('charting-label').label = "Charting: Failed to load goals.";
-        }
+        eval(request.responseText);
+        //else {
+        //  document.getElementById('charting-label').label = "Charting: Failed to load goals.";
+        //}
       }
     }
 
@@ -40,8 +27,9 @@ var charting = {
     request.open("GET", url, true);
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
+        eval(request.responseText);
         if (request.status == 200) {
-          var info = JSON.parse(request.responseText);
+          var info = eval(request.responseText);
           Prefs.setCharPref("apiKey", info.key);
           Prefs.setCharPref("user", info.user);
           document.getElementById('charting-label').label = "Charting: Loading goals...";
@@ -203,5 +191,28 @@ var charting = {
   }
   
 };
+
+
+/**
+ * JSONP callbacks:
+ */
+function charting_error(err) {
+  alert(err);
+}
+
+function charting_goals(goals) {
+  charting.removeGoalMenuItems();
+
+  for (var i in goals) {
+    goalsOut[i] = goalsJSON[i].goal.name;
+  }
+  charting.goals = goalsOut;
+  
+  charting.addGoalMenuItems();
+  document.getElementById('charting-label').label = "Charting: Ready";
+}
+
+function charting_api_key(key) {
+}
 
 window.addEventListener("load", charting.onLoad, false);

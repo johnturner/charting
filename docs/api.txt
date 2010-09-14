@@ -1,15 +1,20 @@
+All API keys use JSONP to return js which when evaluated (using eval or by script tag injections) calls a callback function.
+
 GET: http://charting.mhnltd.co.uk/api_key
-Uses the session cookie of the user to fetch their API key, uses jsonp to call
-either charting_api_key(object) or charting_error(message), with the fields of
+Uses the session cookie of the user to fetch their API key, calls either
+charting.api_key(object) or charting.api_key_error(message), with the fields of
 object as:
   foo.apiKey -> the key
   foo.user -> the username of the user
 
 GET: http://charting.mhnltd.co.uk/verify_api_key
-Verifies that this API key belongs to this user.  Returns 200 with the text Verified if the API key is correct or 401 otherwise.
+Verifies that this API key belongs to this user. Calls either
+charting.key_verified("Verified.") or charting.key_invalid("Invalid.").
 
 GET: http://charting.mhnltd.co.uk/goals.json?user[key]=KEY&user[name]=NAME
-Returns a jsonp callback to charting_error(message) or charting_goals(goals), passing an array of objects, with each object as:
+Calls charting.goals(goals) for this user if they are logged in or provide a
+valid key, otherwise calls charting.goals_error(message).
+charting.goals(goals) is passed an array of objects, with each object as:
   foo.name -> the name of the goal
   foo.created_at -> date created
   foo.updated_at -> date updated
@@ -20,7 +25,9 @@ Returns a jsonp callback to charting_error(message) or charting_goals(goals), pa
 
 POST: http://charting.mhnltd.co.uk/notes OR
 GET: http://charting.mhnltd.co.uk/create_note
-Create a note using the following params:
+Create a note using the following params, calls either
+charting.note_success(note_object) or charting.note_error(message).  The params
+for the POST or GET request are:
   "note[body]=" -> the body of the note
   "note[goals][]=" -> the id of a goal selected, repeated per goal (The [] at
     the end is the rails notation for this being part of an array of values)
@@ -29,4 +36,4 @@ Create a note using the following params:
   "source[doctype]=" -> type of source, "webpage" for webpages.
   "user[name]=" -> username of the person creating this note
   "user[key]=" -> API key for creating this note
-
+The fields of the note object are body, id and creator_id.

@@ -117,17 +117,17 @@ class UsersController < ApplicationController
   def api_key
     if @current_user
       info = {:user => @current_user.name, :key => @current_user.api_key}
-      render :json => info, :callback => :charting_api_key
+      render :json => info, :callback => 'charting.api_key'
     else
-      render :json => '"Not logged in."', :callback => :charting_error
+      render :json => '"Not logged in."', :callback => 'charting.api_key_error'
     end
   end
 
   def verify_api_key
     if User.find_by_name_and_api_key(params[:user][:name], params[:user][:key])
-      render :text => "Verified."
+      render :json => '"Verified."', :callback => 'charting.key_verified'
     else
-      render :text => "Not verified.", :status => 401
+      render :text => '"Invalid."', :callback => 'charting.key_invalid'
     end
   end
 

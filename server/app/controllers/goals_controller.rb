@@ -17,10 +17,11 @@ class GoalsController < ApplicationController
 
   # GET /goals
   def index
-    @goals = @all_goals.paginate :page => params[:page], :per_page => 20
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @goals, :callback => "charting_goals" }
+    if @current_user
+      @goals = @all_goals
+      render :json => @goals, :callback => "charting.goals"
+    else 
+      render :json => '"Not logged in."', :callback => "charting.goals_error"
     end
   end
 
