@@ -116,10 +116,10 @@ class UsersController < ApplicationController
 
   def api_key
     if @current_user
-      hash = {:user => @current_user.name, :key => @current_user.api_key}
-      render :json => hash
+      info = {:user => @current_user.name, :key => @current_user.api_key}
+      render :json => info, :callback => :charting_api_key
     else
-      render :text => "Not logged in.", :status => 401
+      render :json => '"Not logged in."', :callback => :charting_error
     end
   end
 

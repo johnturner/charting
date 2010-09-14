@@ -14,6 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   map.search 'search', :controller => :search, :action => :search
   map.inbox 'inbox', :controller => :notes, :action => :inbox
   map.all_goals 'all_goals', :controller => :notes, :action => :all_goals
+  map.create_note 'create_note', :controller => :notes, :action => :create
 
   # The priority is based upon order of creation: first created -> highest priority.
 

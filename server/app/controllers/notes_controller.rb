@@ -141,7 +141,7 @@ class NotesController < ApplicationController
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @note.errors, :status => :unprocessable_entity }
-        format.json  { render :json => @note.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @note.errors, :status => :unprocessable_entity, :callback => 'charting_error' }
       end
     end
   end

@@ -1,6 +1,7 @@
 GET: http://charting.mhnltd.co.uk/api_key
-Uses the session cookie of the user to fetch their API key, returns a json
-object as, or a 401 status if they're not logged in:
+Uses the session cookie of the user to fetch their API key, uses jsonp to call
+either charting_api_key(object) or charting_error(message), with the fields of
+object as:
   foo.apiKey -> the key
   foo.user -> the username of the user
 
@@ -8,7 +9,7 @@ GET: http://charting.mhnltd.co.uk/verify_api_key
 Verifies that this API key belongs to this user.  Returns 200 with the text Verified if the API key is correct or 401 otherwise.
 
 GET: http://charting.mhnltd.co.uk/goals.json?user[key]=KEY&user[name]=NAME
-Returns a json array of objects, with each object having:
+Returns a jsonp callback to charting_error(message) or charting_goals(goals), passing an array of objects, with each object as:
   foo.name -> the name of the goal
   foo.created_at -> date created
   foo.updated_at -> date updated
@@ -17,15 +18,15 @@ Returns a json array of objects, with each object having:
   foo.id -> the id of this goal
   foo.status -> Currently always "active".
 
-POST: http://charting.mhnltd.co.uk/notes
-Create a note using the following form encoded params:
-
-"note[body]=" -> the body of the note
-"note[goals][]=" -> the id of a goal selected, repeated per goal (The [] at
-  the end is the rails notation for this being part of an array of values)
-"source[location]=" -> source url for this note
-"source[title]=" -> title of the source (usually the page title)
-"source[doctype]=" -> type of source, "webpage" for webpages.
-"user[name]=" -> username of the person creating this note
-"user[key]=" -> API key for creating this note
+POST: http://charting.mhnltd.co.uk/notes OR
+GET: http://charting.mhnltd.co.uk/create_note
+Create a note using the following params:
+  "note[body]=" -> the body of the note
+  "note[goals][]=" -> the id of a goal selected, repeated per goal (The [] at
+    the end is the rails notation for this being part of an array of values)
+  "source[location]=" -> source url for this note
+  "source[title]=" -> title of the source (usually the page title)
+  "source[doctype]=" -> type of source, "webpage" for webpages.
+  "user[name]=" -> username of the person creating this note
+  "user[key]=" -> API key for creating this note
 

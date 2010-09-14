@@ -17,10 +17,10 @@ class GoalsController < ApplicationController
 
   # GET /goals
   def index
-    @goals = @all_goals
+    @goals = @all_goals.paginate :page => params[:page], :per_page => 20
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @goals }
+      format.json { render :json => @goals, :callback => "charting_goals" }
     end
   end
 
