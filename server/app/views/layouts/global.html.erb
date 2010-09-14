@@ -13,31 +13,14 @@
 <div id="goalmenu">
 <h2><%=link_to "Charting", root_path%></h2>
 <% if @current_user %>
-  <h3>Your Goals</h3>
+  <h3>My Goals</h3>
   <ul>
-    <li>
-    <% form_for Goal.new do |f| %>
-      <%= f.text_field :name, 
-                       :size => 10, 
-                       :id => 'new_goal_field', 
-                       :value => 'new goal', 
-                       :onFocus => 'if (this.value == "new goal") {this.value = "";};',
-                       :onBlur => 'if (this.value == "") {this.value = "new goal";};' %>
-    <% end %>
-    <br/>
     <% if ['notes', 'users', 'sources'].include? controller_name
       link_path = controller_name
       else
       link_path = "notes"
       end %>
 
-    <% if @current_goal or action_name == "orphan_notes" %>
-      <li>
-    <% else %>
-      <li class="active-goal">
-    <% end %>
-      <%=link_to "all goals", "/" + link_path%>
-    </li>
     <% for goal in @all_goals %>
       <% if goal == @current_goal %>
         <li class="active-goal"> 
@@ -48,14 +31,43 @@
         <%= link_to '[-]', goal, :confirm => "Remove #{goal.name}?", :method => :delete %></td>
       </li>
     <% end %>
+    
+    <li>
+    <% form_for Goal.new, :html => {:id => "new_goal_form"} do |f| %>
+      <%= f.text_field :name, 
+                       :size => 10, 
+                       :id => 'new_goal_field', 
+                       :value => 'new goal', 
+                       :onFocus => 'if (this.value == "new goal") {this.value = "";};',
+                       :onBlur => 'if (this.value == "") {this.value = "new goal";};' %>
+    <% end %>
+    </li>
 
-    <% if action_name == "orphan_notes" %>
+   
+    <% if action_name == "inbox" %>
       <li class="active-goal">
     <% else %>
       <li>
     <% end %>
-      <%=link_to "orphan notes", orphan_notes_path%>
+      <%=link_to "Inbox", inbox_path%>
     </li>
+
+    <% if action_name == "all_goals" %>
+      <li class="active-goal">
+    <% else %>
+      <li>
+    <% end %>
+      <%=link_to "All goals", all_goals_path%>
+    </li>
+    
+    <% unless @current_goal or action_name == "inbox" or action_name == "all_goals" %>
+      <li class="active-goal">
+    <% else %>
+      <li>
+    <% end %>
+      <%=link_to "All my goals", "/" + link_path%>
+    </li>
+ 
   <% else %>
     <h3>Please log in.</h3>
   </ul>

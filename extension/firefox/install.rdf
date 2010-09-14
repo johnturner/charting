@@ -4,15 +4,16 @@
     <em:id>charting@mhnltd.co.uk</em:id>
     <em:type>2</em:type>
     <em:name>Charting</em:name>
-    <em:version>0.51</em:version>
+    <em:version>0.54</em:version>
     <em:creator>John Turner</em:creator>
     <em:contributor>James Hanlon</em:contributor>
     <em:description>Allows tagging of resources to facilitate learning towards a goal.</em:description>
+    <em:optionsURL>chrome://charting/content/preferences.xul</em:optionsURL>
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!-- Firefox -->
         <em:minVersion>3.0a1</em:minVersion>
-        <em:maxVersion>4.0.*</em:maxVersion>
+        <em:maxVersion>4.0b6pre</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>

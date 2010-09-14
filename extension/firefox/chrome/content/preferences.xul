@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<prefwindow id="chartingPreferences"
+   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" title="Charting Preferences">
+
+  <prefpane id="chartingPrefsPane" label="Charting Preferences">
+    <preferences>
+       <preference id="apiKey" name="extensions.charting.apiKey" type="string" />
+       <preference id="url" name="extensions.charting.url" type="string" />
+    </preferences>
+
+    <groupbox>
+      <caption label="Settings"/>
+      <grid>
+        <columns>
+          <column flex="1"/>
+          <column flex="4"/>
+        </columns>
+        <rows>
+          <row>
+            <label control="apiKeyField" value="API Key:"/>
+            <textbox preference="apiKey" id="apiKeyField"/>
+          </row>
+          <row>
+            <label control="urlField" value="Server URL:"/>
+            <textbox preference="url" id="urlField"/>
+          </row>
+        </rows>
+      </grid>
+    </groupbox>
+  </prefpane>
+</prefwindow>

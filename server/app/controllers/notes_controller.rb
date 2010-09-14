@@ -15,8 +15,8 @@ class NotesController < ApplicationController
       if @current_user
         @notes = Note.paginate :page => params[:page],
                                :per_page => 10,
-                               :conditions => {:user_id => @current_user.id}, 
-                               :include => [:goals, :user]
+                               :conditions => {"usergoals.user_id" => @current_user.id}, 
+                               :include => [{:goals => :usergoals}, :user]
       else
         @notes = Note.paginate :page => params[:page],
                                :per_page => 10,
@@ -30,7 +30,15 @@ class NotesController < ApplicationController
     end
   end
 
-  def orphan_notes
+  #Notes from all users in the system, regardless of who is logged in
+  def all_goals
+    @notes = Note.paginate :page => params[:page],
+                           :per_page => 10,
+                           :include => [:goals, :user]
+    @notabs = true
+  end
+
+  def inbox 
     @notabs = true
     if @current_user
       @notes = Note.paginate_by_sql(["select notes.* from notes where 
@@ -125,16 +133,10 @@ class NotesController < ApplicationController
 
     @note.user = @current_user
     
-    respond_to do |format|
-      if @note.save
-        format.html { redirect_to(@note, :notice => 'Note was successfully created.') }
-        format.xml  { render :xml => @note, :status => :created, :location => @note }
-        format.json  { render :json => @note, :status => :created, :location => @note }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @note.errors, :status => :unprocessable_entity }
-        format.json  { render :json => @note.errors, :status => :unprocessable_entity }
-      end
+    if @note.save
+      render :json => @note, :status => :created, :location => @note, :callback => 'charting.note_success'
+    else
+      render :json => @note.errors, :status => :unprocessable_entity, :callback => 'charting.note_error'
     end
   end
 

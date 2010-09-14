@@ -1,29 +1,20 @@
 var charting = {
+  rootURL: function() {
+    return Prefs.getCharPref("url") + "/";
+  },
+
   loadGoals: function() {
-    var url = CHARTING_URL + "goals.json";
+    var url = charting.rootURL() + "goals.json";
     var request = new XMLHttpRequest();
     var params="?user[key]=" + escape(Prefs.getCharPref("apiKey")) +
                "&user[name]=" + escape(Prefs.getCharPref("user"));
     request.open("GET", url+params, true);
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
-        if (request.status == 200) {
-          charting.removeGoalMenuItems();
-
-          var goalsString = request.responseText;
-          var goalsJSON = JSON.parse(goalsString);
-          var goalsOut = [];
-          for (var i in goalsJSON) {
-            goalsOut[i] = goalsJSON[i].goal.name;
-          }
-          charting.goals = goalsOut;
-          
-          charting.addGoalMenuItems();
-          document.getElementById('charting-label').label = "Charting: Ready";
-        }
-        else {
-          document.getElementById('charting-label').label = "Charting: Failed to load goals.";
-        }
+        eval(request.responseText);
+        //else {
+        //  document.getElementById('charting-label').label = "Charting: Failed to load goals.";
+        //}
       }
     }
 
@@ -31,13 +22,14 @@ var charting = {
   },
 
   loadAPIKey: function(e) {
-    var url = CHARTING_URL + "api_key";
+    var url = charting.rootURL() + "api_key";
     var request = new XMLHttpRequest();
     request.open("GET", url, true);
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
+        eval(request.responseText);
         if (request.status == 200) {
-          var info = JSON.parse(request.responseText);
+          var info = eval(request.responseText);
           Prefs.setCharPref("apiKey", info.key);
           Prefs.setCharPref("user", info.user);
           document.getElementById('charting-label').label = "Charting: Loading goals...";
@@ -56,7 +48,7 @@ var charting = {
   },
 
   verifyAPIKey: function(e) {
-    var url = CHARTING_URL + "verify_api_key";
+    var url = charting.rootURL() + "verify_api_key";
     var params = "?user[name]="+escape(Prefs.getCharPref("user")) +
                  "&user[key]="+escape(Prefs.getCharPref("apiKey"));
     var request = new XMLHttpRequest();
@@ -114,7 +106,7 @@ var charting = {
                 "&user[key]=" + escape(Prefs.getCharPref("apiKey"));
 
     var request = new XMLHttpRequest();
-    request.open("POST", CHARTING_URL + "notes.json", true);
+    request.open("POST", charting.rootURL() + "notes.json", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.setRequestHeader("Content-length", params.length);
 
@@ -133,7 +125,8 @@ var charting = {
   },
 
   onToolbarOptionsButtonCommand: function(e) {
-    alert("Options not implemented yet.");
+    var features = "chrome,titlebar,toolbar,centerscreen,modal";
+    window.openDialog("chrome://charting/content/preferences.xul", "Preferences", features);
   },
 
   onToolbarNoteButtonCommand: function(e) {
@@ -157,6 +150,7 @@ var charting = {
   },
 
   noteFromWindow: function(e) {
+    var url = charting.rootURL() + "notes.json";
     var selectedGoals = [];
     
     var body = escape(charting.noteWindow.document.getElementById('page-description').value);
@@ -166,7 +160,9 @@ var charting = {
     var params= "note[body]=" + body +
                 "&source[location]=" + source_url +
                 "&source[title]=" + source_title +
-                "&source[doctype]=webpage";
+                "&source[doctype]=webpage" +
+                "&user[name]=" + escape(Prefs.getCharPref("user")) +
+                "&user[key]=" + escape(Prefs.getCharPref("apiKey"));
 
     for (var i in charting.goals) {
       var button = charting.noteWindow.document.getElementById('goal-button-' + i);
@@ -176,10 +172,10 @@ var charting = {
     }
 
     var request = new XMLHttpRequest();
-    request.open("POST", CHARTING_URL + "notes.json", true);
+    request.open("POST", url, true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.setRequestHeader("Content-length", params.length);
-
+    
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
         if (request.status == 201) {
@@ -195,5 +191,28 @@ var charting = {
   }
   
 };
+
+
+/**
+ * JSONP callbacks:
+ */
+function charting_error(err) {
+  alert(err);
+}
+
+function charting_goals(goals) {
+  charting.removeGoalMenuItems();
+
+  for (var i in goals) {
+    goalsOut[i] = goalsJSON[i].goal.name;
+  }
+  charting.goals = goalsOut;
+  
+  charting.addGoalMenuItems();
+  document.getElementById('charting-label').label = "Charting: Ready";
+}
+
+function charting_api_key(key) {
+}
 
 window.addEventListener("load", charting.onLoad, false);
