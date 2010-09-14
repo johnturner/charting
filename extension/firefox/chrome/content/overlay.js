@@ -4,7 +4,7 @@ var charting = {
   },
 
   loadGoals: function() {
-    var url = this.rootURL() + "goals.json";
+    var url = charting.rootURL() + "goals.json";
     var request = new XMLHttpRequest();
     var params="?user[key]=" + escape(Prefs.getCharPref("apiKey")) +
                "&user[name]=" + escape(Prefs.getCharPref("user"));
@@ -35,7 +35,7 @@ var charting = {
   },
 
   loadAPIKey: function(e) {
-    var url = this.rootURL() + "api_key";
+    var url = charting.rootURL() + "api_key";
     var request = new XMLHttpRequest();
     request.open("GET", url, true);
     request.onreadystatechange = function() {
@@ -60,7 +60,7 @@ var charting = {
   },
 
   verifyAPIKey: function(e) {
-    var url = this.rootURL() + "verify_api_key";
+    var url = charting.rootURL() + "verify_api_key";
     var params = "?user[name]="+escape(Prefs.getCharPref("user")) +
                  "&user[key]="+escape(Prefs.getCharPref("apiKey"));
     var request = new XMLHttpRequest();
@@ -118,7 +118,7 @@ var charting = {
                 "&user[key]=" + escape(Prefs.getCharPref("apiKey"));
 
     var request = new XMLHttpRequest();
-    request.open("POST", this.rootURL() + "notes", true);
+    request.open("POST", charting.rootURL() + "notes.json", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.setRequestHeader("Content-length", params.length);
 
@@ -162,6 +162,7 @@ var charting = {
   },
 
   noteFromWindow: function(e) {
+    var url = charting.rootURL() + "notes.json";
     var selectedGoals = [];
     
     var body = escape(charting.noteWindow.document.getElementById('page-description').value);
@@ -171,7 +172,9 @@ var charting = {
     var params= "note[body]=" + body +
                 "&source[location]=" + source_url +
                 "&source[title]=" + source_title +
-                "&source[doctype]=webpage";
+                "&source[doctype]=webpage" +
+                "&user[name]=" + escape(Prefs.getCharPref("user")) +
+                "&user[key]=" + escape(Prefs.getCharPref("apiKey"));
 
     for (var i in charting.goals) {
       var button = charting.noteWindow.document.getElementById('goal-button-' + i);
@@ -181,10 +184,10 @@ var charting = {
     }
 
     var request = new XMLHttpRequest();
-    request.open("POST", this.rootURL() + "notes", true);
+    request.open("POST", url, true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.setRequestHeader("Content-length", params.length);
-
+    
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
         if (request.status == 201) {
