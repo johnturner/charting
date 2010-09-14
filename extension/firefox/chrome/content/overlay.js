@@ -12,13 +12,29 @@ var charting = {
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
         eval(request.responseText);
-        //else {
-        //  document.getElementById('charting-label').label = "Charting: Failed to load goals.";
-        //}
       }
     }
-
+    
     request.send(null);
+  },
+  
+  //Callback called from JSONP 
+  goals: function(goalArray) {
+    charting.removeGoalMenuItems();
+
+    var goalsOut = [];
+
+    for (var i in goalArray) {
+      goalsOut[i] = goalArray[i].goal.name;
+    }
+    charting.userGoals = goalsOut;
+    
+    charting.addGoalMenuItems();
+    document.getElementById('charting-label').label = "Charting: Ready";
+  },
+
+  goals_error: function(message) {
+    document.getElementById('charting-label').label = "Charting: Failed to load goals: " + message;
   },
 
   loadAPIKey: function(e) {
@@ -28,23 +44,21 @@ var charting = {
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
         eval(request.responseText);
-        if (request.status == 200) {
-          var info = eval(request.responseText);
-          Prefs.setCharPref("apiKey", info.key);
-          Prefs.setCharPref("user", info.user);
-          document.getElementById('charting-label').label = "Charting: Loading goals...";
-          charting.loadGoals();
-        }
-        else if (request.status == 401) {
-          document.getElementById('charting-label').label = "Charting: Please log in to load API key.";
-        }
-        else {
-          document.getElementById('charting-label').label = "Charting: Couldn't connect to Charting server.";
-        }
       }
     }
 
     request.send(null);
+  },
+
+  api_key: function(info) {
+    Prefs.setCharPref("apiKey", info.key);
+    Prefs.setCharPref("user", info.user);
+    document.getElementById('charting-label').label = "Charting: Loading goals...";
+    charting.loadGoals();
+  },
+
+  api_key_error: function(message) {
+    document.getElementById('charting-label').label = "Charting: Couldn't load API key: " + message;
   },
 
   verifyAPIKey: function(e) {
@@ -55,24 +69,27 @@ var charting = {
     request.open("GET", url+params, true);
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
-        if (request.status == 200) {
-          document.getElementById('charting-label').label = "Charting: Loading goals...";
-          charting.loadGoals();
-        }
-        else {
-          document.getElementById('charting-label').label = "Charting: Loading API key...";
-          charting.loadAPIKey();
-        }
+        eval(request.responseText);
       }
     }
     request.send(null);
   },
 
+  key_verified: function(message) {
+    document.getElementById('charting-label').label = "Charting: Loading goals...";
+    charting.loadGoals();
+  },
+
+  key_invalid: function(message) {
+    document.getElementById('charting-label').label = "Charting: Loading API key...";
+    charting.loadAPIKey();
+  },
+
   addGoalMenuItems: function() {
     var context_menu = document.getElementById("contentAreaContextMenu");
     var charting_end = document.getElementById("charting-end");
-    for (goal in charting.goals) {
-      var menu_item = createGoalMenuItem(goal, charting.goals[goal]);
+    for (goal in charting.userGoals) {
+      var menu_item = createGoalMenuItem(goal, charting.userGoals[goal]);
       context_menu.insertBefore(menu_item, charting_end);
     }
   },
@@ -98,7 +115,7 @@ var charting = {
     var source_title = escape(content.document.title);
 
     var params= "note[body]=" + selection +
-                "&note[goals][]=" + escape(charting.goals[goalIndex]) +
+                "&note[goals][]=" + escape(charting.userGoals[goalIndex]) +
                 "&source[location]=" + source_url +
                 "&source[title]=" + source_title +
                 "&source[doctype]=webpage" + 
@@ -112,16 +129,23 @@ var charting = {
 
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
-        if (request.status == 201) {
-          alert("Created note for " + charting.goals[goalIndex]);
-        }
-        else {
-          alert("Failed to create note.");
-        }
+        alert(request.responseText);
+        eval(request.responseText);
       }
     }
 
     request.send(params);
+  },
+
+  note_success: function(noteObj) {
+    alert("Created note.");
+    if (charting.noteWindow != null) {
+      charting.noteWindow.close();
+    }
+  },
+
+  note_error: function(message) {
+    alert("Error creating note: " + message);
   },
 
   onToolbarOptionsButtonCommand: function(e) {
@@ -141,8 +165,8 @@ var charting = {
 
     //Add buttons for each goal.
     var buttons = charting.noteWindow.document.getElementById("charting-goal-buttons");
-    for (i in charting.goals) {
-      var button = createGoalButton(i, charting.goals[i]);
+    for (i in charting.userGoals) {
+      var button = createGoalButton(i, charting.userGoals[i]);
       buttons.appendChild(button);
     }
 
@@ -164,10 +188,10 @@ var charting = {
                 "&user[name]=" + escape(Prefs.getCharPref("user")) +
                 "&user[key]=" + escape(Prefs.getCharPref("apiKey"));
 
-    for (var i in charting.goals) {
+    for (var i in charting.userGoals) {
       var button = charting.noteWindow.document.getElementById('goal-button-' + i);
       if (button.getAttribute('checked')) {
-        params += "&note[goals][]=" + charting.goals[i];
+        params += "&note[goals][]=" + charting.userGoals[i];
       }
     }
 
@@ -178,41 +202,12 @@ var charting = {
     
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
-        if (request.status == 201) {
-          charting.noteWindow.close();
-        }
-        else {
-          alert("Failed to create note.");
-        }
+        eval(request.responseText);
       }
     }
-
+    
     request.send(params);
   }
-  
 };
-
-
-/**
- * JSONP callbacks:
- */
-function charting_error(err) {
-  alert(err);
-}
-
-function charting_goals(goals) {
-  charting.removeGoalMenuItems();
-
-  for (var i in goals) {
-    goalsOut[i] = goalsJSON[i].goal.name;
-  }
-  charting.goals = goalsOut;
-  
-  charting.addGoalMenuItems();
-  document.getElementById('charting-label').label = "Charting: Ready";
-}
-
-function charting_api_key(key) {
-}
 
 window.addEventListener("load", charting.onLoad, false);
