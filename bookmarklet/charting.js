@@ -4,7 +4,6 @@
  * charting system.
  *
  * TODO:
- * - Remove goal from combobox once it is added; avoid double-addition.
  * - Make first 140 characters of Body red.
  * - Implement reset.
  * - Deal with multiple instances (avoid this happening)
