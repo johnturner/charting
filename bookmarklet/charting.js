@@ -5,8 +5,6 @@
  *
  * TODO:
  * - Make first 140 characters of Body red.
- * - Implement reset.
- * - Deal with multiple instances (avoid this happening)
  * - Handle login to charting server if session does not exist.
  * - Use API key.
  * - Handle no-goals.
