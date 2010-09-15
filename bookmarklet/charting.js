@@ -161,11 +161,11 @@ function setForm(goals)
 
     "<center>" +
     "<input type=\"submit\" value=\"Submit\" " +
-    "onclick=\"javascript:hideForm()\">" + 
+    "onclick=\"javascript:cancel()\">" + 
     "<input type=\"button\" value=\"Reset\" " +
-    "onclick=\"javascript:resetForm()\"/>" + 
-    "<input type=\"button\" value=\"Hide\" " +
-    "onclick=\"javascript:hideForm()\">" + 
+    "onclick=\"javascript:mhnChartingMain()\"/>" + 
+    "<input type=\"button\" value=\"Cancel\" " +
+    "onclick=\"javascript:cancel()\">" + 
     "</center>" +
     
     "</form>";
@@ -176,7 +176,7 @@ function setForm(goals)
  * at this point, since it will be re-initialised when the bookmarklet is
  * relaunched.
  */
-function hideForm()
+function cancel()
 {
   body.removeChild(div);
 }
@@ -191,22 +191,46 @@ function addGoal()
   numGoalsAdded++;
   var addedGoals = document.getElementById('added_goals');
   var addedGoal = document.createElement('p');
-  // get index of selected goal
   var goalSelect = document.getElementById("goal_select");
   var selIndex = goalSelect.selectedIndex;
-  addedGoal.id = 'selected_goal_' + goalSelect.options[selIndex].value;
+  // get ID of selected goal
+  var goalID = goalSelect.options[selIndex].value;
+  // get index of selected goal within charting.theGoals
+  var goalIndex = getGoalIndex(goalID);
+  addedGoal.id = 'selected_goal_' + goalIndex;
   addedGoal.innerHTML = goalSelect.options[selIndex].text;
   addedGoal.innerHTML += "&nbsp;&nbsp; - <a href=\"#\" " + 
-    "onclick=\"javascript:removeGoal('" + addedGoal.id + "')\">remove</a>"
-  goalSelect.options[selIndex].disabled = true;
+    "onclick=\"javascript:removeGoal('" + goalIndex + "')\">remove</a>"
+  goalSelect.remove(selIndex);
   addedGoals.appendChild(addedGoal);
 }
 
-function removeGoal(goalID)
+/**
+ * Get the index of the given goal.id
+ */
+function getGoalIndex(goalID)
 {
-  var goalRemove = document.getElementById(goalID);
+  for(var i = 0; i < charting.theGoals.length; i++)
+  {
+    if(charting.theGoals[i].goal.id == goalID)
+    {
+      return i;
+    }
+  }
+  return null;
+}
+
+function removeGoal(goalIndex)
+{
+  var goalRemove = document.getElementById("selected_goal_" + goalIndex);
   var addedGoals = document.getElementById('added_goals');
   addedGoals.removeChild(goalRemove);
+  var goalOption = document.createElement("option");
+  goalOption.value = charting.theGoals[goalIndex].goal.id;
+  goalOption.text = charting.theGoals[goalIndex].goal.name;
+  var goalSelect = document.getElementById("goal_select");
+  goalSelect.options.add(goalOption);
+
 }
 
 function getGoalSelect(goals)
