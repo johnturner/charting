@@ -1,3 +1,24 @@
+/**
+ * JavaScript Bookmarklet Code Version 0.1A
+ * Raises a div above the existing page, for the user to add notes to the
+ * charting system.
+ *
+ * TODO:
+ * - Remove goal from combobox once it is added; avoid double-addition.
+ * - Make first 140 characters of Body red.
+ * - Implement reset.
+ * - Deal with multiple instances (avoid this happening)
+ * - Handle login to charting server if session does not exist.
+ * - Use API key.
+ * - Handle no-goals.
+ * - Extend use of JS and DOM namespace to avoid collisions with existing script
+ *   or HTML.
+ * - Fix layout widths: why does it work in some cases (e.g.
+ *   http://chinesefood.about.com) and not others?
+ * - Stop original page CSS polluting form (e.g. http://www.ducea.com)
+ * - Make generally more visually appealing.
+ * - Clean up this code into a single charting class/object.
+ */
 
 var serverLocation = "http://dev.mhnltd.co.uk:3000";
 var goalsScript = serverLocation + "/goals.json";
@@ -30,6 +51,10 @@ function getGoals()
   runScript(goalsScript, getGoalsBottom);
 }
 
+/*
+ * Callback to be called once goals have been retrieved via JSONP. Finishes the
+ * initialisation of the form.
+ */
 function getGoalsBottom()
 {
   setForm(charting.theGoals);
@@ -92,7 +117,7 @@ function runScript(src, callbackFunc)
  */
 function setForm(goals)
 {
-  div.style.height =          "300px";
+  div.style.height =          "500px";
   div.style.width =           "760px";
   div.style.marginLeft =      "-380px";   // offset the width for centering.
   div.style.position =        "fixed";
@@ -102,8 +127,13 @@ function setForm(goals)
   div.style.left =            "50%";      // centered
   div.style.textAlign =       "left";     // inner elements LHS aligned
   div.style.border =          "2px solid black";
+  div.style.padding =         "10px";
+  div.style.font =            "12pt Arial";
+  div.style.color =           "black";
+  div.style.overflow =        "auto";
   div.innerHTML =
-    "<form name=\"note_add_form\" action=\"" + serverLocation + "/notes\" method=\"post\">" +
+    "<form name=\"note_add_form\" action=\"" + serverLocation + "/notes\" " +
+    "method=\"post\" target=\"_blank\">" +
 
     "<input type=\"hidden\" name=\"user[name]\" value=\"" + name + "\" />" +
 
@@ -114,21 +144,41 @@ function setForm(goals)
 
     "<input type=\"hidden\" name=\"source[doctype]\" value=\"webpage\" />" +
 
-    "<label for=\"note[title]\">Title: </label>" +
+    "Title<br/>" +
     "<input type=\"text\" name=\"source[title]\" value=\"" +
     document.title +
-    "\"/><br />" +
+    "\" style=\"border: 1px solid black; font: 12pt Courier; width: 740px\" " +
+    "/><br />" +
 
-    "<label for=\"note[body]\">Body: </label>" +
-    "<textarea name=\"note[body]\" rows=\"10\" cols=\"80\"></textarea><br />" +
+    "Body<br/>" +
+    "<textarea name=\"note[body]\" " +
+    "style=\"border: 1px solid black; font: 12pt Courier; width: 740px; " +
+    "height: 200px\"></textarea><br />" +
 
-    "<div id=\"added_goals\"></div>" +
+    "<div id=\"added_goals\">Goals:<br/></div>" +
 
     getGoalSelect(goals) + "<br />" +
 
-    "<input type=\"submit\" value=\"Submit\">" + 
+    "<center>" +
+    "<input type=\"submit\" value=\"Submit\" " +
+    "onclick=\"javascript:hideForm()\">" + 
+    "<input type=\"button\" value=\"Reset\" " +
+    "onclick=\"javascript:resetForm()\"/>" + 
+    "<input type=\"button\" value=\"Hide\" " +
+    "onclick=\"javascript:hideForm()\">" + 
+    "</center>" +
     
-    "</form>"
+    "</form>";
+}
+
+/**
+ * Removes the div from the body, hiding the form. The form is effectively reset
+ * at this point, since it will be re-initialised when the bookmarklet is
+ * relaunched.
+ */
+function hideForm()
+{
+  body.removeChild(div);
 }
 
 /**
@@ -162,7 +212,6 @@ function removeGoal(goalID)
 function getGoalSelect(goals)
 {
     var goalSelect = 
-    "<label for=\"goal_select\">Goal: </label>" +
     "<select id=\"goal_select\">";
     for (var i = 0; i < goals.length; i++)
     {
