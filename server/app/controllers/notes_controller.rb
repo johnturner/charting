@@ -134,9 +134,9 @@ class NotesController < ApplicationController
     @note.user = @current_user
     
     if @note.save
-      render :json => @note, :status => :created, :location => @note, :callback => 'charting.note_success'
+      render :json => @note, :status => :created, :location => @note, :callback => 'charting.noteSuccess'
     else
-      render :json => @note.errors, :status => :unprocessable_entity, :callback => 'charting.note_error'
+      render :json => @note.errors, :status => :unprocessable_entity, :callback => 'charting.noteError'
     end
   end
 

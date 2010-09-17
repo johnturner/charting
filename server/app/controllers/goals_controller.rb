@@ -18,10 +18,12 @@ class GoalsController < ApplicationController
   # GET /goals
   def index
     if @current_user
-      @goals = @all_goals
-      render :json => @goals, :callback => "charting.goals"
+      @goals = @all_goals.map do |goal|
+        goal.name
+      end
+      render :json => @goals, :callback => "charting.setGoals"
     else 
-      render :json => '"Not logged in."', :callback => "charting.goals_error"
+      render :json => '"Not logged in."', :callback => "charting.goalsError"
     end
   end
 
