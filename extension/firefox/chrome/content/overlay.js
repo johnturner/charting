@@ -19,21 +19,18 @@ var charting = {
   },
   
   //Callback called from JSONP 
-  goals: function(goalArray) {
+  setGoals: function(goalArray) {
     charting.removeGoalMenuItems();
 
     var goalsOut = [];
 
-    for (var i in goalArray) {
-      goalsOut[i] = goalArray[i].goal.name;
-    }
     charting.userGoals = goalsOut;
     
     charting.addGoalMenuItems();
     document.getElementById('charting-label').label = "Charting: Ready";
   },
 
-  goals_error: function(message) {
+  goalsError: function(message) {
     document.getElementById('charting-label').label = "Charting: Failed to load goals: " + message;
   },
 
@@ -137,14 +134,14 @@ var charting = {
     request.send(params);
   },
 
-  note_success: function(noteObj) {
+  noteSuccess: function(noteObj) {
     alert("Created note.");
     if (charting.noteWindow != null) {
       charting.noteWindow.close();
     }
   },
 
-  note_error: function(message) {
+  noteError: function(message) {
     alert("Error creating note: " + message);
   },
 
