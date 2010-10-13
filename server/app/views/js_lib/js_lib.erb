@@ -155,7 +155,7 @@ function setForm(goals)
 
     "<center>" +
     "<input type=\"submit\" value=\"Submit\" " +
-    "onclick=\"javascript:chartingSubmit()\">" + 
+    "onclick=\"javascript:cancel(); return true;\">" + 
     "<input type=\"button\" value=\"Reset\" " +
     "onclick=\"javascript:mhnChartingMain()\"/>" + 
     "<input type=\"button\" value=\"Cancel\" " +
@@ -173,11 +173,6 @@ function setForm(goals)
 function cancel()
 {
   body.removeChild(div);
-}
-
-function chartingSubmit()
-{
-  document.getElementById('note_add_form').submit();
 }
 
 /**

@@ -5,7 +5,7 @@ class Note < ActiveRecord::Base
   has_many :goals, :through => :notegoals
   has_many :notegoals
   
-  validates_length_of :body, :minimum => 1
+  #validates_length_of :body, :minimum => 1
 
   def truncated_body
     if body and body.length > 140
