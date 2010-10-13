@@ -3,7 +3,7 @@
   catch(error){
     var head=document.getElementsByTagName('head')[0];
     var script=document.createElement('script');
-    script.src='http://<%=request.host%>:<%=request.port%>/charting.js';
+    script.src='http://<%=request.host%>:<%=request.port%>/js_lib.js';
     var initComplete=false;
     var initFunc=function(){
       if(!initComplete
