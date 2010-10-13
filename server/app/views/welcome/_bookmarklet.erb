@@ -1,0 +1,23 @@
+<a id="bookmarklet" href="javascript:(function(){
+  try{mhnChartingMain();}
+  catch(error){
+    var head=document.getElementsByTagName('head')[0];
+    var script=document.createElement('script');
+    script.src='http://<%=request.host%>:<%=request.port%>/charting.js';
+    var initComplete=false;
+    var initFunc=function(){
+      if(!initComplete
+        &&(!this.readyState||this.readyState=='loaded'||this.readyState=='complete')) {
+          initComplete=true;
+          mhnChartingMain();
+          script.onload=null;
+          script.onreadystatechange=null;
+          head.removeChild(script);
+      }
+    };
+    script.onload=initFunc;
+    script.onreadystatechange=initFunc;
+    head.appendChild(script);
+    }
+  }
+)();">tag this page</a>.

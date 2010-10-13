@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.inbox 'inbox', :controller => :notes, :action => :inbox
   map.all_goals 'all_goals', :controller => :notes, :action => :all_goals
   map.create_note 'create_note', :controller => :notes, :action => :create
+  map.js_lib 'js_lib.js', :controller => :js_lib, :action => :js_lib
 
   # The priority is based upon order of creation: first created -> highest priority.
 

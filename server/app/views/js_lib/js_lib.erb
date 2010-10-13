@@ -1,0 +1,250 @@
+/**
+ * JavaScript Bookmarklet Code Version 0.1A
+ * Raises a div above the existing page, for the user to add notes to the
+ * charting system.
+ *
+ * TODO:
+ * - Make first 140 characters of Body red.
+ * - Handle login to charting server if session does not exist.
+ * - Use API key.
+ * - Handle no-goals.
+ * - Extend use of JS and DOM namespace to avoid collisions with existing script
+ *   or HTML.
+ * - Fix layout widths: why does it work in some cases (e.g.
+ *   http://chinesefood.about.com) and not others?
+ * - Stop original page CSS polluting form (e.g. http://www.ducea.com)
+ * - Make generally more visually appealing.
+ * - Clean up this code into a single charting class/object.
+ */
+
+var serverLocation = 'http://<%=request.host%>:<%=request.port%>';
+var goalsScript = serverLocation + "/goals.json";
+var div = document.createElement('div');
+var body = document.getElementsByTagName('body')[0];
+// stubbed, for now.
+var name = "fred";
+//var key = "";
+
+var charting =
+{
+  theGoals: null,
+  setGoals: function (theGoals)
+  {
+    this.theGoals = theGoals;
+  }
+}
+
+function mhnChartingMain()
+{
+  var goals = getGoals();
+  // execution is continued at getGoalsBottom
+}
+
+/*
+ * Retrieves the goals for this user, as an array of indexed strings.
+ */
+function getGoals()
+{
+  runScript(goalsScript, getGoalsBottom);
+}
+
+/*
+ * Callback to be called once goals have been retrieved via JSONP. Finishes the
+ * initialisation of the form.
+ */
+function getGoalsBottom()
+{
+  setForm(charting.theGoals);
+  body.appendChild(div);
+
+  var formBodyField = document.getElementsByName('note[body]')[0];
+  formBodyField.value = getSelectedText();
+
+}
+
+/*
+ * runs a script as specified.
+ */
+function runScript(src, callbackFunc)
+{
+  var retValue = null;
+  // HTML Elements for injection.
+  var head=document.getElementsByTagName('head')[0];  // doc head
+  var script = document.createElement('script');      // script element
+  // MHN Charting Script Source -- script to inject.
+  script.src=src;
+  // set to true once script init is complete, to guard re-init.
+  var initComplete=false;
+  // function called to initialise script after injection.
+  var initFunc = 
+    function()
+    {
+      if
+        (
+         !initComplete &&
+         (
+          !this.readyState ||
+          // different readyState states for different browsers
+          this.readyState == 'loaded' ||
+          this.readyState == 'complete'
+         )
+        )
+        {
+          // avoid multiple triggerings due to races.
+          initComplete=true;
+          callbackFunc();
+          // avoid re-init by removing reference to this func.
+          script.onload = null;
+          script.onreadystatechange = null;
+          // remove init script element.
+          head.removeChild(script);
+        }
+    };
+  script.onload = initFunc;
+  script.onreadystatechange = initFunc;
+
+  // add script to head of page.
+  head.appendChild(script);
+  return retValue;
+}
+
+
+/**
+ * Initialise form for div.
+ */
+function setForm(goals)
+{
+  div.style.width =           "310px";
+  div.style.position =        "fixed";
+  div.style.backgroundColor = "#efefef";     // grey
+  div.style.zIndex =          "1337";     // on top of other DIVs
+  div.style.top =             "0";        // at top of the screen
+  div.style.right =           "0";        // and the far right
+  div.style.textAlign =       "left";     // inner elements LHS aligned
+  div.style.border =          "2px solid black";
+  div.style.padding =         "10px";
+  div.style.font =            "12pt Arial";
+  div.style.color =           "black";
+  div.style.overflow =        "auto";
+  div.innerHTML =
+    "<form id=\"note_add_form\" name=\"note_add_form\" action=\"" + serverLocation + "/notes\" " +
+    "method=\"post\" target=\"_blank\">" +
+
+    "<input type=\"hidden\" name=\"user[name]\" value=\"" + name + "\" />" +
+
+    //"<input type=\"hidden\" name=\"note[key]\" value=\"" + key + "\" />" +
+
+    "<input type=\"hidden\" name=\"source[location]\" value=\"" +
+    document.location.href + "\" />" +
+
+    "<input type=\"hidden\" name=\"source[doctype]\" value=\"webpage\" />" +
+
+    "Title<br/>" +
+    "<input type=\"text\" name=\"source[title]\" value=\"" +
+    document.title +
+    "\" style=\"border: 1px solid black; font: 10pt Sans-Serif; width: 300px\" " +
+    "/><br />" +
+
+    "Body<br/>" +
+    "<textarea name=\"note[body]\" " +
+    "style=\"border: 1px solid black; font: 10pt Sans-Serif; width: 300px; " +
+    "height: 100px\"></textarea><br />" +
+
+    getGoalSelect(goals) + "<br />" +
+    "<div id=\"added_goals\">Goals:<br/></div>" +
+
+    "<center>" +
+    "<input type=\"submit\" value=\"Submit\" " +
+    "onclick=\"javascript:chartingSubmit()\">" + 
+    "<input type=\"button\" value=\"Reset\" " +
+    "onclick=\"javascript:mhnChartingMain()\"/>" + 
+    "<input type=\"button\" value=\"Cancel\" " +
+    "onclick=\"javascript:cancel()\">" + 
+    "</center>" +
+    
+    "</form>";
+}
+
+/**
+ * Removes the div from the body, hiding the form. The form is effectively reset
+ * at this point, since it will be re-initialised when the bookmarklet is
+ * relaunched.
+ */
+function cancel()
+{
+  body.removeChild(div);
+}
+
+function chartingSubmit()
+{
+  document.getElementById('note_add_form').submit();
+}
+
+/**
+ * Takes whatever goal is currently selected and adds it to note[goals][] by
+ * way of a hidden input added to the form.
+ */
+var numGoalsAdded = 0;
+function addGoal()
+{
+  numGoalsAdded++;
+  var addedGoals = document.getElementById('added_goals');
+  var addedGoal = document.createElement('div');
+  var goalSelect = document.getElementById("goal_select");
+  var selIndex = goalSelect.selectedIndex;
+  var goal = goalSelect.options[selIndex].value;
+  addedGoal.id = 'selected_goal_' + goal;
+  addedGoal.innerHTML = goal;
+  addedGoal.innerHTML += "&nbsp;&nbsp; - <a href=\"#\" " + 
+    "onclick=\"javascript:removeGoal('" + goal + "')\">remove</a>" +
+    "<input type=\"hidden\" name=\"note[goals][]\" value=\"" + goal + "\">"
+  goalSelect.remove(selIndex);
+  addedGoals.appendChild(addedGoal);
+}
+
+function removeGoal(goal)
+{
+  var goalRemove = document.getElementById("selected_goal_" + goal);
+  var addedGoals = document.getElementById('added_goals');
+  addedGoals.removeChild(goalRemove);
+  var goalOption = document.createElement("option");
+  goalOption.value = goal;
+  goalOption.text = goal;
+  var goalSelect = document.getElementById("goal_select");
+  goalSelect.options.add(goalOption);
+
+}
+
+function getGoalSelect(goals)
+{
+    var goalSelect = 
+    "<select id=\"goal_select\">";
+    for (var i = 0; i < goals.length; i++)
+    {
+      goalSelect += 
+        "<option value=\"" + goals[i] + "\">" + goals[i] +
+        "</option>";
+    }
+    goalSelect += "</select>";
+    goalSelect += "<a href=\"#\" onclick=\"javascript:addGoal()\">Add</a>";
+    return goalSelect;
+}
+
+function getSelectedText()
+{
+  var selectedText = "";
+  if (window.getSelection)
+  {
+    selectedText = window.getSelection();
+  }
+  else if (document.getSelection)
+  {
+    selectedText = document.getSelection();
+  }
+  else if (document.selection)
+  {
+    selectedText = document.selection.createRange().text;
+  }
+
+  return selectedText;
+}
