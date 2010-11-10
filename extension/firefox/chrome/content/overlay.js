@@ -4,7 +4,7 @@ var charting = {
   },
 
   loadGoals: function() {
-    var url = charting.rootURL() + "goals.json";
+    var url = charting.rootURL() + "goals.js";
     var request = new XMLHttpRequest();
     var params="?user[key]=" + escape(Prefs.getCharPref("apiKey")) +
                "&user[name]=" + escape(Prefs.getCharPref("user"));
@@ -35,7 +35,7 @@ var charting = {
   },
 
   loadAPIKey: function(e) {
-    var url = charting.rootURL() + "api_key";
+    var url = charting.rootURL() + "api_key.js";
     var request = new XMLHttpRequest();
     request.open("GET", url, true);
     request.onreadystatechange = function() {
@@ -59,7 +59,7 @@ var charting = {
   },
 
   verifyAPIKey: function(e) {
-    var url = charting.rootURL() + "verify_api_key";
+    var url = charting.rootURL() + "verify_api_key.js";
     var params = "?user[name]="+escape(Prefs.getCharPref("user")) +
                  "&user[key]="+escape(Prefs.getCharPref("apiKey"));
     var request = new XMLHttpRequest();
@@ -120,7 +120,7 @@ var charting = {
                 "&user[key]=" + escape(Prefs.getCharPref("apiKey"));
 
     var request = new XMLHttpRequest();
-    request.open("POST", charting.rootURL() + "notes.json", true);
+    request.open("POST", charting.rootURL() + "notes.js", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.setRequestHeader("Content-length", params.length);
 
@@ -171,7 +171,7 @@ var charting = {
   },
 
   noteFromWindow: function(e) {
-    var url = charting.rootURL() + "notes.json";
+    var url = charting.rootURL() + "notes.js";
     var selectedGoals = [];
     
     var body = escape(charting.noteWindow.document.getElementById('page-description').value);
