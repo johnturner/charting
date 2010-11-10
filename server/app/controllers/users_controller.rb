@@ -143,14 +143,14 @@ class UsersController < ApplicationController
 
   def verify_api_key
     respond_to do |format|
-      if User.find_by_name_and_api_key(params[:user][:name], params[:user][:key])
+      if params[:user] and User.find_by_name_and_api_key(params[:user][:name], params[:user][:key])
         format.xml  {render :text => '<apiKey><status>Verified</status></apiKey>'}
         format.json {render :json => '"Verified."'}
         format.js   {render :json => '"Verified."', :callback => 'charting.keyVerified'}
       else
         format.xml  {render :text => '<apiKey><status>Failed</status></apiKey>'}
         format.json {render :text => '"Invalid."', :status => :forbidden}
-        format.js   {render :text => '"Invalid."', :callback => 'charting.keyInvalid'}
+        format.js   {render :json => '"Invalid."', :callback => 'charting.keyInvalid'}
       end
     end
   end

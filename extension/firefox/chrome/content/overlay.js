@@ -21,11 +21,7 @@ var charting = {
   //Callback called from JSONP 
   setGoals: function(goalArray) {
     charting.removeGoalMenuItems();
-
-    var goalsOut = [];
-
-    charting.userGoals = goalsOut;
-    
+    charting.userGoals = goalArray;
     charting.addGoalMenuItems();
     document.getElementById('charting-label').label = "Charting: Ready";
   },
@@ -47,18 +43,19 @@ var charting = {
     request.send(null);
   },
 
-  api_key: function(info) {
-    Prefs.setCharPref("apiKey", info.key);
-    Prefs.setCharPref("user", info.user);
+  apiKey: function(info) {
+    Prefs.setCharPref("apiKey", info.api_key);
+    Prefs.setCharPref("user", info.name);
     document.getElementById('charting-label').label = "Charting: Loading goals...";
     charting.loadGoals();
   },
 
-  api_key_error: function(message) {
+  apiKeyError: function(message) {
     document.getElementById('charting-label').label = "Charting: Couldn't load API key: " + message;
   },
 
   verifyAPIKey: function(e) {
+    document.getElementById('charting-label').label = "Charting: Verifying API key...";
     var url = charting.rootURL() + "verify_api_key.js";
     var params = "?user[name]="+escape(Prefs.getCharPref("user")) +
                  "&user[key]="+escape(Prefs.getCharPref("apiKey"));
@@ -72,12 +69,12 @@ var charting = {
     request.send(null);
   },
 
-  key_verified: function(message) {
+  keyVerified: function(message) {
     document.getElementById('charting-label').label = "Charting: Loading goals...";
     charting.loadGoals();
   },
 
-  key_invalid: function(message) {
+  keyInvalid: function(message) {
     document.getElementById('charting-label').label = "Charting: Loading API key...";
     charting.loadAPIKey();
   },
@@ -102,6 +99,7 @@ var charting = {
 
   onLoad: function() {
     // initialization code
+    document.getElementById('charting-label').label = "Charting: Loading...";
     this.initialized = true;
     this.strings = document.getElementById("charting-strings");
   },
@@ -126,7 +124,6 @@ var charting = {
 
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
-        alert(request.responseText);
         eval(request.responseText);
       }
     }
