@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   
   before_filter :load_user, :only => [:show, :edit, :update, :destroy]
   before_filter :must_be_self, :only => [:edit, :update, :destroy]
+  protect_from_forgery :except => [:api_key, :login]
  
   # GET /users
   # GET /users.xml
@@ -115,19 +116,42 @@ class UsersController < ApplicationController
   end
 
   def api_key
-    if @current_user
-      hash = {:user => @current_user.name, :key => @current_user.api_key}
-      render :json => hash
-    else
-      render :text => "Not logged in.", :status => 401
+    
+    # Allow login parameters to be passed when requesting an api key.
+    if params[:login]
+      user = User.auth(params[:login][:username], 
+                       params[:login][:password])
+      if user
+        session[:current_user] = user.id
+        @current_user = user
+      end
+    end
+    
+    respond_to do |format|
+      if @current_user
+        info = {:apiKey => {:user => @current_user.name, :key => @current_user.api_key}}
+        format.xml  {render :xml => @current_user.to_xml(:only => [:name, :api_key])}
+        format.json {render :json => @current_user.to_json(:only => [:name, :api_key])}
+        format.js   {render :json => @current_user.to_json(:only => [:name, :api_key]), :callback => 'charting.apiKey'}
+      else
+        format.xml  {render :text => '<error>Not logged in.</error>', :status => :forbidden}
+        format.json {render :json => '"Not logged in."', :status => :forbidden}
+        format.js   {render :json => '"Not logged in."', :callback => 'charting.apiKeyError'}
+      end
     end
   end
 
   def verify_api_key
-    if User.find_by_name_and_api_key(params[:user][:name], params[:user][:key])
-      render :text => "Verified."
-    else
-      render :text => "Not verified.", :status => 401
+    respond_to do |format|
+      if User.find_by_name_and_api_key(params[:user][:name], params[:user][:key])
+        format.xml  {render :text => '<apiKey><status>Verified</status></apiKey>'}
+        format.json {render :json => '"Verified."'}
+        format.js   {render :json => '"Verified."', :callback => 'charting.keyVerified'}
+      else
+        format.xml  {render :text => '<apiKey><status>Failed</status></apiKey>'}
+        format.json {render :text => '"Invalid."', :status => :forbidden}
+        format.js   {render :text => '"Invalid."', :callback => 'charting.keyInvalid'}
+      end
     end
   end
 

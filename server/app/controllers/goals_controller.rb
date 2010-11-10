@@ -17,10 +17,19 @@ class GoalsController < ApplicationController
 
   # GET /goals
   def index
-    @goals = @all_goals
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @goals }
+      if @current_user
+        @goals = @all_goals.map do |goal|
+          goal.name
+        end
+        format.xml  {render :text => "<goals>" + @goals.map{|g| "<goal>#{g}</goal>"}.join + "</goals>"}
+        format.json {render :json => @goals}
+        format.js   {render :json => @goals, :callback => "charting.setGoals"}
+      else 
+        format.xml  {render :text => '<error>Not logged in.</error>'}
+        format.json {render :json => '"Not logged in."', :status => :forbidden}
+        format.js   {render :json => '"Not logged in."', :callback => "charting.goalsError"}
+      end
     end
   end
 

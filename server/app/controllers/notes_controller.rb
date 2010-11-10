@@ -135,13 +135,15 @@ class NotesController < ApplicationController
     
     respond_to do |format|
       if @note.save
-        format.html { redirect_to(@note, :notice => 'Note was successfully created.') }
-        format.xml  { render :xml => @note, :status => :created, :location => @note }
-        format.json  { render :json => @note, :status => :created, :location => @note }
+        format.html { redirect_to @note }
+        format.xml  { render :xml => @note, :status => :created, :location => @note}
+        format.json { render :json => @note, :status => :created, :location => @note}
+        format.js   { render :json => @note, :callback => 'charting.noteSuccess' }
       else
-        format.html { render :action => "new" }
+        format.html { render :new }
         format.xml  { render :xml => @note.errors, :status => :unprocessable_entity }
-        format.json  { render :json => @note.errors, :status => :unprocessable_entity }
+        format.json { render :json => @note.errors, :status => :unprocessable_entity }
+        format.js   { render :json => @note.errors, :callback => 'charting.noteError' }
       end
     end
   end

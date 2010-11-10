@@ -1,4 +1,5 @@
 class Source < ActiveRecord::Base
+  validates_length_of :title, :minimum => 1
   has_many :notes
 
   def to_s
