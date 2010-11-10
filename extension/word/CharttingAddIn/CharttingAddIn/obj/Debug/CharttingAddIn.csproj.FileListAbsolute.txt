@@ -1,0 +1,10 @@
+C:\Users\norgg\Desktop\charting\CharttingAddIn\CharttingAddIn\bin\Debug\ChartingRibbon.xml
+C:\Users\norgg\Desktop\charting\CharttingAddIn\CharttingAddIn\bin\Debug\CharttingAddIn.dll
+C:\Users\norgg\Desktop\charting\CharttingAddIn\CharttingAddIn\bin\Debug\CharttingAddIn.pdb
+C:\Users\norgg\Desktop\charting\CharttingAddIn\CharttingAddIn\bin\Debug\CharttingAddIn.dll.manifest
+C:\Users\norgg\Desktop\charting\CharttingAddIn\CharttingAddIn\bin\Debug\CharttingAddIn.vsto
+C:\Users\norgg\Desktop\charting\CharttingAddIn\CharttingAddIn\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\norgg\Desktop\charting\CharttingAddIn\CharttingAddIn\obj\Debug\CharttingAddIn.Properties.Resources.resources
+C:\Users\norgg\Desktop\charting\CharttingAddIn\CharttingAddIn\obj\Debug\CharttingAddIn.csproj.GenerateResource.Cache
+C:\Users\norgg\Desktop\charting\CharttingAddIn\CharttingAddIn\obj\Debug\CharttingAddIn.dll
+C:\Users\norgg\Desktop\charting\CharttingAddIn\CharttingAddIn\obj\Debug\CharttingAddIn.pdb
