@@ -12,7 +12,7 @@ namespace CharttingAddIn
 {
     class ChartingXMLAPI
     {
-        private static string BASE_URL = "http://dev.mhnltd.co.uk:3000/";
+        private static string BASE_URL = "http://charting.mhnltd.co.uk/";
         private static string LOGIN_URL = BASE_URL + "api_key.xml";
         private static string GOALS_URL = BASE_URL + "goals.xml";
         private static string CREATE_NOTE_URL = BASE_URL + "notes.xml";

@@ -78,15 +78,18 @@ namespace CharttingAddIn
         #region Ribbon Callbacks
         public String GetSourceTitle(Office.IRibbonControl editbox)
         {
-            return addIn.GetDocumentName();
+            docTitle = addIn.GetDocumentName();
+            return docTitle;
         }
         public String GetSourceURL(Office.IRibbonControl editbox)
         {
-            return addIn.GetDocumentPath();
+            docURL = addIn.GetDocumentPath();
+            return docURL;
         }
         public String GetNoteBody(Office.IRibbonControl editbox)
         {
-            return addIn.GetSelection();
+            noteText = addIn.GetSelection();
+            return noteText;
         }
 
         public void UpdateSourceTitle(Office.IRibbonControl editbox, string text)
