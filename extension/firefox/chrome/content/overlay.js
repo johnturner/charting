@@ -89,7 +89,7 @@ var charting = {
   },
 
   removeGoalMenuItems: function() {
-    for (i in this.goals) {
+    for (i in charting.userGoals) {
       var menuItem = document.getElementById('goal-menu-item-' + i);
       if (menuItem != null) {
         menuItem.parentNode.removeChild(menuItem);
