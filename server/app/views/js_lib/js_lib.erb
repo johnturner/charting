@@ -128,7 +128,7 @@ function setForm(goals)
   div.style.overflow =        "auto";
   div.innerHTML =
     "<form id=\"note_add_form\" name=\"note_add_form\" action=\"" + serverLocation + "/notes\" " +
-    "method=\"post\" target=\"_blank\">" +
+    "method=\"post\" target=\"_blank\" onsubmit=\"setTimeout('cancel()', 200); return true\">" +
 
     "<input type=\"hidden\" name=\"user[name]\" value=\"" + name + "\" />" +
 
@@ -154,12 +154,11 @@ function setForm(goals)
     "<div id=\"added_goals\">Goals:<br/></div>" +
 
     "<center>" +
-    "<input type=\"submit\" value=\"Submit\" " +
-    "onclick=\"javascript:cancel(); return true;\">" + 
+    "<input type=\"submit\" value=\"Submit\"/> " +
     "<input type=\"button\" value=\"Reset\" " +
-    "onclick=\"javascript:mhnChartingMain()\"/>" + 
+    "onclick=\"mhnChartingMain();\"/>" + 
     "<input type=\"button\" value=\"Cancel\" " +
-    "onclick=\"javascript:cancel()\">" + 
+    "onclick=\"cancel();\">" + 
     "</center>" +
     
     "</form>";
