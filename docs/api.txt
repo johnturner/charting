@@ -1,33 +1,70 @@
-All API keys use JSONP to return js which when evaluated (using eval or by script tag injections) calls a callback function.
+All API calls are accessable as either jsonp, json or xml by adding the
+appropriate extention to the end of the url (jsonp is accessable as ".js"), (eg. api_key.xml)
 
-GET: http://charting.mhnltd.co.uk/api_key
-Uses the session cookie of the user to fetch their API key, calls either
-charting.api_key(object) or charting.api_key_error(message), with the fields of
-object as:
-  foo.apiKey -> the key
-  foo.user -> the username of the user
+For any API call, credentials can be passed using: 
+GET/POST Params of: user[name]=LOGIN_NAME&user[key]=API_KEY
+or:
+Login details in a charting session cookie within a browser.
 
-GET: http://charting.mhnltd.co.uk/verify_api_key
-Verifies that this API key belongs to this user. Calls either
-charting.key_verified("Verified.") or charting.key_invalid("Invalid.").
+=== /api_key ===
+Fetch a user's API key, using either credentials in a cookie or login name and
+password sent as arguments.
 
-GET: http://charting.mhnltd.co.uk/goals.json?user[key]=KEY&user[name]=NAME
-Calls charting.goals(goals) for this user if they are logged in or provide a
-valid key, otherwise calls charting.goals_error(message).
-charting.goals(goals) is passed an array of objects, with each object as:
-  foo.name -> the name of the goal
-  foo.created_at -> date created
-  foo.updated_at -> date updated
-  foo.admin_id -> user id of the admin 
-                  (should probably be changed to the actual username)
-  foo.id -> the id of this goal
-  foo.status -> Currently always "active".
+If using login name/password, the GET params should be:
+?login[username]=LOGIN_NAME&login[password]=PASSWORD
 
+GET: /api_key.json : Returns the api key in a json object of the form:
+  {"name":"norgg",
+   "api_key":"ABCDEFGHI"}
+
+GET: /api_key.js
+calls charting.apiKey(object) with the json object as above or
+charting.api_key_error(message)
+
+GET: /api_key.xml
+Returns the api key as xml of the form:
+<user>
+  <api-key>ABCDEFGHI</api-key>
+  <name>norgg</name>
+</user>
+
+=== /verify_api_key ===
+
+GET: /verify_api_key.json
+Returns either the string "Verified" or "Invalid"
+
+GET: /verify_api_key.js
+Calls either: charting.key_verified("Verified.") or charting.key_invalid("Invalid.").
+
+GET: /verify_api_key.xml
+Returns either 
+<apiKey><status>Verified</status></apiKey>
+or
+<apiKey><status>Failed</status></apiKey>
+
+=== /goals ===
+GET: goals.json
+
+Returns the list of goals for the current user.
+
+/goals.json
+Returns a list of strings, such as:
+["trams","mhn news","rails","git & stuff"]
+
+/goals.js
+Calls charting.setGoals(goals) with the list as above or
+charting.goalsError(message) (usually "Not logged in.")
+
+/goals.xml
+<goals><goal>trams</goal><goal>mhn news</goal><goal>rails</goal><goal>git & stuff</goal></goals>
+or
+<error>Not logged in.</error>
+
+=== /notes ===
 POST: http://charting.mhnltd.co.uk/notes OR
-GET: http://charting.mhnltd.co.uk/create_note
-Create a note using the following params, calls either
-charting.note_success(note_object) or charting.note_error(message).  The params
-for the POST or GET request are:
+GET: http://charting.mhnltd.co.uk/create_note (required for jsonp)
+
+The params for the POST or GET request are:
   "note[body]=" -> the body of the note
   "note[goals][]=" -> the id of a goal selected, repeated per goal (The [] at
     the end is the rails notation for this being part of an array of values)
@@ -36,4 +73,30 @@ for the POST or GET request are:
   "source[doctype]=" -> type of source, "webpage" for webpages.
   "user[name]=" -> username of the person creating this note
   "user[key]=" -> API key for creating this note
-The fields of the note object are body, id and creator_id.
+
+/notes.json
+If successful, returns the note created, eg:
+{
+  "created_at":"2011-02-15T15:17:34Z",
+  "body":"Body Text",
+  "updated_at":"2011-02-15T15:17:34Z",
+  "id":106,
+  "user_id":1,
+  "source_id":1234
+}
+Otherwise will return an error message.
+
+/create_note.js
+charting.note_success(note_object) or charting.note_error(message).  
+
+/notes.xml
+If successfully created, returns xml such as:
+<note>
+  <body>Body Text</body>
+  <created-at type="datetime">2011-02-15T15:15:35Z</created-at>
+  <id type="integer">105</id>
+  <source-id type="integer">22</source-id>
+  <updated-at type="datetime">2011-02-15T15:15:35Z</updated-at>
+  <user-id type="integer">1</user-id>
+</note>
+
