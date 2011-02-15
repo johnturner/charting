@@ -22,7 +22,7 @@ class GoalsController < ApplicationController
         @goals = @all_goals.map do |goal|
           goal.name
         end
-        format.xml  {render :text => "<goals>" + @goals.map{|g| "<goal>#{g}</goal>"}.join + "</goals>"}
+        format.xml  {render :partial => 'goal.xml'}
         format.json {render :json => @goals}
         format.js   {render :json => @goals, :callback => "charting.setGoals"}
       else 
