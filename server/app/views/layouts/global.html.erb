@@ -15,7 +15,7 @@
 <% if @current_user %>
   <h3>My Goals</h3>
   <ul>
-    <% if ['notes', 'users', 'sources'].include? controller_name
+    <% if ['notes', 'users', 'sources', 'export'].include? controller_name
       link_path = controller_name
       else
       link_path = "notes"
@@ -79,7 +79,7 @@
   <div id="tabmenu">
     <div id="tabs">
       <% unless @notabs %>
-        <%  ["notes", "users", "sources"].each do |tab|
+        <%  ["notes", "users", "sources", "export"].each do |tab|
           tab_disp = ""
           if tab == "users"
             tab_disp = "people"

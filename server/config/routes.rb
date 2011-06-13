@@ -11,6 +11,9 @@ ActionController::Routing::Routes.draw do |map|
   map.me 'me', :controller => :users, :action => :me
   map.api_key 'api_key.:format', :controller => :users, :action => :api_key
   map.verify_api_key 'verify_api_key.:format', :controller => :users, :action => :verify_api_key
+  map.export 'export', :controller => :goals, :action => :export
+  map.connect 'goals/:id/export', :controller => :goals, :action => 'download_csv'
+  map.download_csv 'goals/download_csv', :controller => :goals, :action => 'download_csv'
   map.search 'search', :controller => :search, :action => :search
   map.inbox 'inbox', :controller => :notes, :action => :inbox
   map.all_goals 'all_goals', :controller => :notes, :action => :all_goals
