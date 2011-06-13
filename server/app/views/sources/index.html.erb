@@ -12,7 +12,9 @@
     <td><%=h source %></td>
     <td><%=link_to source.location, source.location %></td>
     <td><%=h source.doctype %></td>
-    <td><%= link_to 'delete', source, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td>
+    <%= link_to 'Edit', edit_source_path(source) %>
+    <%= link_to 'Delete', source, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

@@ -5,12 +5,25 @@
 
   <p>
     <%= f.label :body %><br />
-    <%= f.text_field :body %>
+    <%= f.text_area :body, :rows => 5 %>
   </p>
   <p>
     <%= f.submit 'Update' %>
   </p>
 <% end %>
+
+<% if @note.source %>
+
+<h3>Source</h3>
+
+<b>Title: </b> <%=h @note.source %><br />
+<%=link_to @note.source.location, @note.source.location, :target => "_blank" %><br />
+<b>Doctype:</b> <%=h @note.source.doctype %><br />
+
+<br />
+
+<% end %>
+
 
 <%= link_to 'Show', @note %> |
 <%= link_to 'Back', notes_path %>
