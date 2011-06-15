@@ -19,7 +19,7 @@
   <div id = "menu">
     <%= render :partial => 'layouts/search' %>
     <div id="tabmenu">
-      <div id="tabs">
+        <ul class="tab">
         <% unless @notabs %>
           <%  ["notes", "users", "sources", "export"].each do |tab|
             tab_disp = ""
@@ -27,24 +27,25 @@
               tab_disp = "people"
             else
               tab_disp = tab
-            end
+            end %>
 
-            if tab == controller_name
+           <% if tab == controller_name
               if @current_goal
-                -%><span class="active-tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><%
+                -%><li class="active-tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></li><%
               else
-                -%><span class="active-tab"><%=link_to tab_disp, "/" + tab -%></span><%
+                -%><li class="active-tab"><%=link_to tab_disp, "/" + tab -%></li><%
               end
             else
               if @current_goal
-                -%><span class="tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><%
+                -%><li><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></li><%
               else
-                -%><span class="tab"><%=link_to tab_disp, "/" + tab -%></span><%
+                -%><li><%=link_to tab_disp, "/" + tab -%></li><%
               end
-            end
-          end
+            end%>
+            
+          <%end
       end%>
-      </div><!-- end tabs -->
+      </ul><!-- end tabs -->
     </div><!-- end tab menu -->
   </div><!-- end menu -->
 

@@ -132,58 +132,67 @@ a:hover {
   display: block;
   float: left;
   position: relative;
-  padding-left: 15px;
-  padding-top: 15px;
   padding-bottom: 0px;
   margin-left: 200px;
+  height: 35px;
 }
 
-#tabs {
-  /* position: absolute; */
-  bottom: 0px;
+#tabmenu ul.tab
+{ 
+  text-align: left; 
+  margin: 1em 0 1em 0; 
+  border-bottom: 1px solid white;
+  list-style-type: none;
+  padding: 3px 10px 3px 10px; 
 }
 
-#tabmenu .tab {
-
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 5px;
-  padding-top: 5px;
-
-  margin-right: 0px;
-  margin-left: 0px;
-  margin-bottom: 0px;
-
-  -webkit-border-top-left-radius: 2px;
-  -webkit-border-top-right-radius: 2px;
-  -moz-border-radius-topleft: 2px;
-  -moz-border-radius-topright: 2px;
-  -moz-border-top-left-radius: 2px;
-  -moz-border-top-right-radius: 2px; 
+#tabmenu ul.tab li
+{
+  /* do not change */
+  display: inline;
 }
 
-#tabmenu .active-tab a {
+#tabmenu ul.tab li.active-tab a
+{ 
+  border-bottom: 1px solid white;
   background-color: white;
   color: navy;
-  text-decoration: none;
 }
 
-#tabmenu .active-tab a:hover {
-  background-color: white;
-  color: navy;
-  text-decoration: none;
-}
-
-#tabmenu .tab a {
-  text-decoration: none;
+#tabmenu ul.tab li
+{
+  background-color: navy;
   color: white;
+  position: relative;
+  top: 1px;
+  padding-top: 4px; 
 }
 
-#tabmenu .tab a:hover {
+#tabmenu ul.tab li a
+{ 
+  padding: 3px 4px; 
+  border: 1px solid white;
+  background-color: navy;
+  color: white;
+  margin-right: 0px; 
   text-decoration: none;
-  color: navy;
-  background-color: white;
+  border-bottom: none;
 }
+
+#tabmenu ul.tab a:hover
+{ 
+  background: white;
+  color: navy;
+}
+
+/* end css tabs */
+
+
+
+
+
+
+
 
 
 #main {
