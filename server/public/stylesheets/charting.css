@@ -10,7 +10,6 @@
 
 body {
   	color: black;
-	font-weight: 500px;
 	margin:0;
 	padding: 0;
 	text-align: left;
@@ -91,6 +90,7 @@ a:hover {
  * login
  */
 
+
 #login {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -101,6 +101,15 @@ a:hover {
   position: relative;
   height: 25px;
 }
+
+#login table.loginsignup {
+  border: none;
+}
+
+#login table.loginsignup td {
+  border: none;
+}
+
 
 /**************
  * menu
@@ -447,3 +456,53 @@ table th {
 
 * html .bluebutton { border: 3px double #aaa; }
 * html .bluebutton:hover { border-color: #3786c8; }
+
+
+.whitebutton
+{
+    display: block;
+    position: relative;
+    background: white;
+    padding: 2px;
+    color: navy;
+    text-decoration: none;
+    cursor: pointer;
+    width: auto;
+    font-size: 80%;
+    font-variant: small-caps;
+    margin-left: 4px;
+}
+
+.whitebutton.left
+{
+    float: left;
+}
+
+.whitebutton.right
+{
+    float: right;
+}
+
+.whitebutton *
+{
+    font-style: normal;
+    background-image: url('../images/btn2.png');
+    background-repeat: no-repeat;
+    display: block;
+    position: relative;
+}
+
+.whitebutton:hover, .whitebutton:active
+{
+    background-color: #3786c8;
+    color: #fff;
+}
+
+.whitebutton[class]
+{
+    background-image: url('../images/btn.png');
+    background-position: bottom;
+}
+
+* html .whitebutton { border: 3px double #aaa; }
+* html .whitebutton:hover { border-color: #3786c8; }

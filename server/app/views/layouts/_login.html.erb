@@ -3,10 +3,18 @@
   Hello <%=link_to @current_user.name, @current_user%>.<br/><%= link_to "logout", logout_users_path %> | <%= link_to "edit profile", edit_user_path(@current_user) %>
 <% else %>
   <% form_for :login, :url => {:controller => :users, :action => :login} do |f| %>
+  <table class="loginsignup">
+   <tr>
+    <td>
     <%= f.text_field :username, :size => 15 %>
     <%= f.password_field :password, :size => 15 %>
-    <%= f.submit :login %>
+    <%= f.submit :login, :class => 'whitebutton right' %>
+    </td>
+    <td>
     or <%= link_to "sign up", new_user_path%>
+    </td>
+   </tr>
+  </table>
   <% end %>
 <% end  %>
 </div>
