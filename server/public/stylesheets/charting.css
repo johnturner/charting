@@ -1,0 +1,362 @@
+/*
+* charting.css
+*
+* CSS for Charting
+*
+* Author: Ianthe Hind
+* Creation Date: 13/06/2011
+* Last Update: 15/06/2011
+*/
+
+body {
+  	color: black;
+	font-weight: 500px;
+	margin:0;
+	padding: 0;
+	text-align: left;
+	line-height: 1.3em;
+	overflow: auto;
+        height: 100%;
+        width: 100%;
+}
+
+body, p, ol, ul, td {
+  font-family: tahoma,verdana,arial,sans-serif;
+  font-size:   12px;
+  line-height: 18px;
+}
+
+h1, h2, h3, h4 {
+  padding-left: 10px;
+  font-variant: small-caps;
+  color: navy;
+}
+
+pre {
+  /* padding: 10px; */
+  font-size: 11px;
+}
+
+a { color: #003; }
+
+a:hover { 
+    background-color: white;
+}
+
+
+#page {
+    width: 100%;
+    height: 100%;
+}
+
+
+/**************
+ * header
+ **************/
+
+#header {
+    width: 100%;
+    background-color: navy;
+    height: 50px;
+    color: white;
+}
+
+#header a {
+    color: white;
+    text-decoration: underline;
+}
+
+#header a:hover {
+    text-decoration: none;
+    background: none;
+}
+
+#logo {
+    position: relative;
+    display: block;
+    float: left;
+    color: white;
+    font-size: 20px;
+}
+
+#logo h3 {
+  padding-left: 10px;
+  font-variant: small-caps;
+  text-decoration: underline;
+  color: white;
+}
+
+
+/*
+ * login
+ */
+
+#login {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+  margin-right: 10px;
+  display: block;
+  float: right;
+  position: relative;
+  height: 25px;
+}
+
+/**************
+ * menu
+ **************/
+
+#menu {
+    width: 100%;
+    height: 35px;
+    background-color: navy;
+}
+
+
+/*
+ * search box
+ */
+
+#search {
+  display: block;
+  float: left;
+  margin-left: 150px;
+}
+
+
+/*
+ * tabmenu
+ */
+
+#tabmenu {
+  display: block;
+  float: left;
+  position: relative;
+  padding-left: 15px;
+  padding-top: 15px;
+  padding-bottom: 0px;
+  margin-left: 200px;
+}
+
+#tabs {
+  /* position: absolute; */
+  bottom: 0px;
+}
+
+#tabmenu .tab {
+
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+
+  margin-right: 0px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+
+  -webkit-border-top-left-radius: 2px;
+  -webkit-border-top-right-radius: 2px;
+  -moz-border-radius-topleft: 2px;
+  -moz-border-radius-topright: 2px;
+  -moz-border-top-left-radius: 2px;
+  -moz-border-top-right-radius: 2px; 
+}
+
+#tabmenu .active-tab a {
+  background-color: white;
+  color: navy;
+  text-decoration: none;
+}
+
+#tabmenu .active-tab a:hover {
+  background-color: white;
+  color: navy;
+  text-decoration: none;
+}
+
+#tabmenu .tab a {
+  text-decoration: none;
+  color: white;
+}
+
+#tabmenu .tab a:hover {
+  text-decoration: none;
+  color: navy;
+  background-color: white;
+}
+
+
+#main {
+  width: 100%;
+}
+
+/*
+ * goals
+ */
+
+#goalmenu {
+  display: block;
+  position: relative;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#goalmenu h1, #goalmenu h2, #goalmenu h3, #goalmenu h4 {
+  padding-left: 10px;
+  font-variant: small-caps;
+}
+
+#goalmenu ul {
+  list-style-type: none;
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+#goalmenu li {
+  margin-left: 0px;
+  padding-left: 10px;
+  /* border-bottom: 1px solid #ccc; */
+}
+
+#goalmenu li a:hover {
+  background-color: navy;
+  color: white;
+}
+
+#goalmenu li.active-goal a:hover {
+  background-color: navy;
+  color: white;
+}
+
+
+
+/*
+ * left side
+ */
+#left {
+    position: relative;
+    display: block;
+    float: left;
+    width: 20%;
+}
+
+/*
+ * right side
+ */
+
+#right {
+  position: relative;
+  display: block;
+  float: right;
+  right: 0px;
+  top: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  width: 80%;
+}
+
+#content {
+  padding-left: 15px; 
+}
+
+#goalmenu .active-goal {
+  background-color: navy;
+}
+
+#goalmenu .active-goal a{
+  color: white;
+}
+
+#goalmenu .active-goal a:hover{
+  color: navy;
+}
+
+
+.note-body a {
+  text-decoration: none;
+}
+
+.note-body {
+  width: 600px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+ border: 1px solid #ccc;
+ padding: 2px;
+}
+
+input {
+  border: 1px solid #ccc; 
+}
+
+
+
+/*
+ * errors
+ */
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+
+
+
+
+#new_goal_form {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#right a.small {
+  font-size: 80%;
+  text-decoration: underline;
+  text-align: right;
+}
+
+#right a.small:hover {
+  text-decoration: none;
+}
