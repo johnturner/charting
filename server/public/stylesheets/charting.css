@@ -72,11 +72,11 @@ a:hover {
 }
 
 #logo {
-    position: relative;
-    display: block;
-    float: left;
-    color: white;
-    font-size: 20px;
+  padding: 0;
+  float: left;
+  width: 234px;
+  height: 76px;
+  background: url(../images/chartinglogo.png) left center no-repeat;
 }
 
 #logo h3 {
