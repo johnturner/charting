@@ -4,17 +4,19 @@
   <tr>
     <th>Title</th>
     <th>Location</th>
-    <th>Doctype</th>
+    <!--th>Doctype</th-->
   </tr>
 
 <% @sources.each do |source| %>
   <tr>
-    <td><%=h source %></td>
+    <td><%=h source %>
+      <br />
+      <%= link_to 'Edit', edit_source_path(source), :class => 'small' %>
+      <%= link_to 'Delete', source, :confirm => 'Are you sure?', :method => :delete, :class => 'small' %>
+
+    </td>
     <td><%=link_to source.location, source.location %></td>
-    <td><%=h source.doctype %></td>
-    <td>
-    <%= link_to 'Edit', edit_source_path(source) %>
-    <%= link_to 'Delete', source, :confirm => 'Are you sure?', :method => :delete %></td>
+    <!--td><%=h source.doctype %></td-->
   </tr>
 <% end %>
 </table>

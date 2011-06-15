@@ -2,7 +2,7 @@
   <tr>
     <th>Note</th>
     <th>Source</th>
-    <th>Creator</th>
+    <!--th>Creator</th-->
     <th>Goals</th>
   </tr>
 
@@ -14,6 +14,13 @@
                         :method => :get,
                         :url => {:action => "full_text",
                         :id => note.id} %>
+
+    <% if @current_user == note.user %>
+      <br />
+      <%= link_to 'Edit', edit_note_path(note), :class => 'small' %>
+      <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete, :class => 'small' %>
+    <% end %>
+
     </td>
     <td>
       <% if note.source %>
@@ -22,7 +29,7 @@
         No source.
       <% end %>
     </td>
-    <td><%=h note.user %></td>
+    <!--td><%=h note.user %></td-->
     
     <td>
       <% if @current_user == note.user %>
@@ -39,12 +46,6 @@
         <% end %>
       <% end %>
     </td>
-    
-    <% if @current_user == note.user %>
-      <td>
-      <%= link_to 'Edit', edit_note_path(note) %>
-      <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %></td>
-    <% end %>
 
   </tr>
 <% end %>

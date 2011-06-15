@@ -5,114 +5,125 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Charting: <%= controller_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'charting' %>
   <%= javascript_include_tag :defaults %>
 </head>
 <body>
 
-<div id="goalmenu">
-<h2><%=link_to "Charting", root_path%></h2>
-<% if @current_user %>
-  <h3>My Goals</h3>
-  <ul>
-    <% if ['notes', 'users', 'sources', 'export'].include? controller_name
-      link_path = controller_name
-      else
-      link_path = "notes"
-      end %>
+<div id ="page">
 
-    <% for goal in @all_goals %>
-      <% if goal == @current_goal %>
-        <li class="active-goal"> 
-      <% else %>
-        <li>
-      <%end%>
+  <div id = "header">
+    <div id = "logo"><h3>Charting</h3></div>
+    <%= render :partial => 'layouts/login' %>
+  </div><!-- end header -->
+  <div id = "menu">
+    <%= render :partial => 'layouts/search' %>
+    <div id="tabmenu">
+      <div id="tabs">
+        <% unless @notabs %>
+          <%  ["notes", "users", "sources", "export"].each do |tab|
+            tab_disp = ""
+            if tab == "users"
+              tab_disp = "people"
+            else
+              tab_disp = tab
+            end
+
+            if tab == controller_name
+              if @current_goal
+                -%><span class="active-tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><%
+              else
+                -%><span class="active-tab"><%=link_to tab_disp, "/" + tab -%></span><%
+              end
+            else
+              if @current_goal
+                -%><span class="tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><%
+              else
+                -%><span class="tab"><%=link_to tab_disp, "/" + tab -%></span><%
+              end
+            end
+          end
+      end%>
+      </div><!-- end tabs -->
+    </div><!-- end tab menu -->
+  </div><!-- end menu -->
+
+  <div id="main">
+  <div id="left">
+    <div id="goalmenu">
+      <!--h2><%=link_to "Charting", root_path%></h2-->
+      <% if @current_user %>
+      <h3>My Goals</h3>
+      <ul>
+      <% if ['notes', 'users', 'sources', 'export'].include? controller_name
+          link_path = controller_name
+        else
+          link_path = "notes"
+        end %>
+
+      <% for goal in @all_goals %>
+        <% if goal == @current_goal %>
+          <li class="active-goal">
+        <% else %>
+          <li>
+        <%end%>
         <%=link_to goal.name, goal_path(goal) + "/" + link_path%> 
-        <%= link_to '[-]', goal, :confirm => "Remove #{goal.name}?", :method => :delete %>
-      </li>
-    <% end %>
-    
-    <li>
-    <% form_for Goal.new, :html => {:id => "new_goal_form"} do |f| %>
-      <%= f.text_field :name, 
-                       :size => 10, 
-                       :id => 'new_goal_field', 
-                       :value => 'new goal', 
-                       :onFocus => 'if (this.value == "new goal") {this.value = "";};',
-                       :onBlur => 'if (this.value == "") {this.value = "new goal";};' %>
-    <% end %>
-    </li>
+        <!--%= link_to '[-]', goal, :confirm => "Remove #{goal.name}?", :method => :delete %-->
+        </li>
+        <% end %>
+        <li>
+        <% form_for Goal.new, :html => {:id => "new_goal_form"} do |f| %>
+          <%= f.text_field :name,
+                           :size => 20,
+                           :id => 'new_goal_field',
+                           :value => 'new goal',
+                           :onFocus => 'if (this.value == "new goal") {this.value = "";};',
+                           :onBlur => 'if (this.value == "") {this.value = "new goal";};' %>
+        <% end %>
+        </li>
 
    
-    <% if action_name == "inbox" %>
-      <li class="active-goal">
-    <% else %>
-      <li>
-    <% end %>
-      <%=link_to "Inbox", inbox_path%>
-    </li>
+        <% if action_name == "inbox" %>
+          <li class="active-goal">
+        <% else %>
+          <li>
+        <% end %>
+        <%=link_to "Inbox", inbox_path%>
+          </li>
 
-    <% if action_name == "all_goals" %>
-      <li class="active-goal">
-    <% else %>
-      <li>
-    <% end %>
-      <%=link_to "All goals", all_goals_path%>
-    </li>
+        <% if action_name == "all_goals" %>
+          <li class="active-goal">
+        <% else %>
+          <li>
+        <% end %>
+        <%=link_to "All goals", all_goals_path%>
+        </li>
     
-    <% unless @current_goal or action_name == "inbox" or action_name == "all_goals" %>
-      <li class="active-goal">
-    <% else %>
-      <li>
-    <% end %>
-      <%=link_to "All my goals", "/" + link_path%>
-    </li>
-  </ul>
+        <% unless @current_goal or action_name == "inbox" or action_name == "all_goals" %>
+          <li class="active-goal">
+        <% else %>
+          <li>
+        <% end %>
+        <%=link_to "All my goals", "/" + link_path%>
+        </li>
+      </ul>
  
-  <% else %>
-    <h3>Please log in.</h3>
-  <% end %>
-</div>
-
-<div id="right">
-  <%= render :partial => 'layouts/login' %>
-  <div id="tabmenu">
-    <div id="tabs">
-      <% unless @notabs %>
-        <%  ["notes", "users", "sources", "export"].each do |tab|
-          tab_disp = ""
-          if tab == "users"
-            tab_disp = "people"
-          else
-            tab_disp = tab
-          end
-          
-          if tab == controller_name
-            if @current_goal
-              -%><span class="active tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><% 
-            else 
-              -%><span class="active tab"><%=link_to tab_disp, "/" + tab -%></span><% 
-            end
-          else 
-            if @current_goal
-              -%><span class="tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></span><%
-            else
-              -%><span class="tab"><%=link_to tab_disp, "/" + tab -%></span><%
-            end
-          end
-        end 
-      end%>
+      <% else %>
+        <h4>Please log in.</h4>
+      <% end %>
     </div>
-    <%= render :partial => 'layouts/search' %>
-  </div>
+  </div><!-- end left -->
 
-  <div id="content">
-    <p style="color: green"><%= notice %></p>
-    <p style="color: red"><%= flash[:error] %></p>
+  <div id="right">
+    <div id="content">
+      <p style="color: green"><%= notice %></p>
+      <p style="color: red"><%= flash[:error] %></p>
 
-    <%= yield %>
-  </div>
-</div>
+      <%= yield %>
+    </div><!-- end content -->
+  </div><!-- end right -->
+  </div><!-- end main -->
+</div><!-- end page -->
 
 </body>
 </html>
