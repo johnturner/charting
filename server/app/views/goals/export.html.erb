@@ -2,8 +2,7 @@
 
 <table>
   <tr>
-    <th>Name</th>
-    <th></th>
+    <th colspan = "2">Name</th>
   </tr>
 
 <% @goals.each do |goal| %>
@@ -11,7 +10,7 @@
     <td><%=link_to goal.name, goal_notes_path(goal) %></td>
     <td><% form_tag(download_csv_url) do %>
         <%= hidden_field_tag "id", goal.id %>
-        <%= submit_tag "Export Goal" %>
+        <%= submit_tag "Export Goal" , :class => 'bluebutton right' %>
         <% end %>
     </td>
   </tr>

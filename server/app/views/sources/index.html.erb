@@ -15,7 +15,7 @@
       <%= link_to 'Delete', source, :confirm => 'Are you sure?', :method => :delete, :class => 'small' %>
 
     </td>
-    <td><%=link_to source.location, source.location %></td>
+    <td><%=link_to source.location, source.location, { :target => "_blank" } %></td>
     <!--td><%=h source.doctype %></td-->
   </tr>
 <% end %>

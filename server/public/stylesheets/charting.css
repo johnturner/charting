@@ -143,7 +143,8 @@ a:hover {
   margin: 1em 0 1em 0; 
   border-bottom: 1px solid white;
   list-style-type: none;
-  padding: 3px 10px 3px 10px; 
+  padding: 3px 10px 3px 10px;
+  font-variant: small-caps;
 }
 
 #tabmenu ul.tab li
@@ -187,14 +188,6 @@ a:hover {
 
 /* end css tabs */
 
-
-
-
-
-
-
-
-
 #main {
   width: 100%;
 }
@@ -232,16 +225,31 @@ a:hover {
   /* border-bottom: 1px solid #ccc; */
 }
 
-#goalmenu li a:hover {
-  background-color: navy;
-  color: white;
-}
-
 #goalmenu li.active-goal a:hover {
   background-color: navy;
   color: white;
 }
 
+#goalmenu ul li a {
+  text-decoration: none;
+}
+
+#goalmenu ul li a:hover {
+  color: navy;
+  text-decoration: underline;
+}
+
+#goalmenu .active-goal {
+  background-color: navy;
+}
+
+#goalmenu .active-goal a{
+  color: white;
+}
+
+#goalmenu .active-goal a:hover{
+  color: navy;
+}
 
 
 /*
@@ -274,19 +282,6 @@ a:hover {
 #content {
   padding-left: 15px; 
 }
-
-#goalmenu .active-goal {
-  background-color: navy;
-}
-
-#goalmenu .active-goal a{
-  color: white;
-}
-
-#goalmenu .active-goal a:hover{
-  color: navy;
-}
-
 
 .note-body a {
   text-decoration: none;
@@ -352,9 +347,6 @@ input {
 }
 
 
-
-
-
 #new_goal_form {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -364,8 +356,88 @@ input {
   font-size: 80%;
   text-decoration: underline;
   text-align: right;
+  color: navy;
+  font-variant: small-caps;
 }
 
 #right a.small:hover {
   text-decoration: none;
 }
+
+#right a.source-link:hover {
+  text-decoration: underline;
+}
+
+
+
+option:hover {
+    color: white;
+    background: navy;
+}
+
+
+/*****************
+* tables
+*****************/
+
+table th {
+    background: navy;
+    padding: 5px 5px;
+    color: white;
+    text-align: left;
+    font-weight: normal;
+    font-variant: small-caps;
+}
+
+
+/*****************
+* buttons
+*****************/
+
+.bluebutton
+{
+    display: block;
+    position: relative;
+    background: navy;
+    padding: 4px;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    width: auto;
+    font-size: 80%;
+    font-variant: small-caps;
+}
+
+.bluebutton.left
+{
+    float: left;
+}
+
+.bluebutton.right
+{
+    float: right;
+}
+
+.bluebutton *
+{
+    font-style: normal;
+    background-image: url('../images/btn2.png');
+    background-repeat: no-repeat;
+    display: block;
+    position: relative;
+}
+
+.bluebutton:hover, .bluebutton:active
+{
+    background-color: #3786c8;
+    color: #fff;
+}
+
+.bluebutton[class]
+{
+    background-image: url('../images/btn.png');
+    background-position: bottom;
+}
+
+* html .bluebutton { border: 3px double #aaa; }
+* html .bluebutton:hover { border-color: #3786c8; }

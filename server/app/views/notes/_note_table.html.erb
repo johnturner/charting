@@ -15,18 +15,19 @@
                         :url => {:action => "full_text",
                         :id => note.id} %>
 
-    <% if @current_user == note.user %>
-      <br />
-      <%= link_to 'Edit', edit_note_path(note), :class => 'small' %>
-      <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete, :class => 'small' %>
-    <% end %>
-
     </td>
     <td>
+      
       <% if note.source %>
         <%=link_to note.source, note.source %>
       <% else %>
         No source.
+      <% end %>
+
+      <% if @current_user == note.user %>
+        <br /><br />
+        <%= link_to 'Edit', edit_note_path(note), :class => 'small' %> |
+        <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete, :class => 'small' %>
       <% end %>
     </td>
     <!--td><%=h note.user %></td-->
@@ -38,7 +39,7 @@
           <% if @current_goal %>
             <%= hidden_field 'goal', 'id', :value => @current_goal.id %>
           <% end %><br/>
-          <%= submit_tag 'save' %>
+          <%= submit_tag 'save', :class => 'bluebutton right' %>
         <% end %>
       <% else %>
         <% for goal in note.goals %>
