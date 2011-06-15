@@ -1,7 +1,7 @@
 <table id="note-table">
   <tr>
-    <th>Note</th>
-    <th>Source</th>
+    <th><%=h @current_goal ? @current_goal.name : "all my"%> notes</th>
+    <th>Sources</th>
     <!--th>Creator</th-->
     <th>Goals</th>
   </tr>
@@ -19,7 +19,7 @@
     <td>
       
       <% if note.source %>
-        <%=link_to note.source, note.source %>
+        <%=link_to note.source, note.source, :class => 'source-link' %>
       <% else %>
         No source.
       <% end %>

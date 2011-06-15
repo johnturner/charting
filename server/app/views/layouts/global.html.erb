@@ -35,6 +35,14 @@
               else
                 -%><li class="active-tab"><%=link_to tab_disp, "/" + tab -%></li><%
               end
+            elsif
+              if tab == "export" && controller_name == "goals"
+                if @current_goal
+                  -%><li class="active-tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></li><%
+                else
+                  -%><li class="active-tab"><%=link_to tab_disp, "/" + tab -%></li><%
+                end
+              end
             else
               if @current_goal
                 -%><li><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></li><%

@@ -1,5 +1,3 @@
-<h1><%=h @current_goal ? @current_goal.name : "all my"%> notes</h1>
-
 <%= render :partial => 'note_table' %>
 
 <% if @current_goal and not @all_goals.include? @current_goal %>

@@ -364,6 +364,11 @@ input {
   text-decoration: none;
 }
 
+
+#right a.source-link {
+  font-size: 80%;
+}
+
 #right a.source-link:hover {
   text-decoration: underline;
 }
@@ -406,6 +411,7 @@ table th {
     width: auto;
     font-size: 80%;
     font-variant: small-caps;
+    margin-top: 5px;
 }
 
 .bluebutton.left

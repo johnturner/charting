@@ -1,10 +1,8 @@
-<h1><%=h @current_goal ? @current_goal.name : "All"%> people</h1>
-
 <table>
   <tr>
-    <th>Name</th>
+    <th><%=h @current_goal ? @current_goal.name : "All"%> people</th>
     <th>Position</th>
-    <th>Bio</th>
+    <!--th>Bio</th-->
     <th>Goals</th>
   </tr>
 
@@ -12,7 +10,7 @@
   <tr>
     <td><%=link_to user.name, user %></td>
     <td><%=h user.position %></td>
-    <td><%=h user.bio %></td>
+    <!--td><%=h user.bio %></td-->
     <td>
       | 
       <% user.goals.each do |goal| %>
