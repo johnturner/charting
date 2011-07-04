@@ -336,6 +336,18 @@ td, th {
  padding: 2px;
 }
 
+table.welcome {
+    border: none;
+    padding: 5px;
+    border-collapse: collapse;
+}
+
+table.welcome tr, table.welcome th, table.welcome td {
+    border: none;
+    border-color: white;
+    padding: 5px;
+}
+
 input {
   border: 1px solid #ccc; 
 }

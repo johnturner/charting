@@ -1,11 +1,11 @@
 <h3>Welcome to charting.</h3>
 
 <p>Select a goal from the left to view notes and sources and install one of the following tools:
-<ul>
-  <li><a href="/charting.xpi">The firefox plugin</a>
-  <li>The bookmarklet: <%=render :partial => 'welcome/bookmarklet'%> by dragging this link to your bookmarks toolbar.</li>
-  <li><a href="/ChartingWordAddInInstaller.exe">The Microsoft Word AddIn</a></li>
-</ul>
+<table class="welcome">
+  <tr><td><a href="/charting.xpi"><img src="images/firefox.png"></td></a><td><a href="/charting.xpi">The firefox plugin</td></tr>
+  <tr><td><img src="images/cursor.png"></td><td>The bookmarklet: <%=render :partial => 'welcome/bookmarklet'%> by dragging this link to your bookmarks toolbar.</td></tr>
+  <tr><td><a href="/ChartingWordAddInInstaller.exe"><img src="images/word.png"></a></td><td><a href="/ChartingWordAddInInstaller.exe">The Microsoft Word AddIn</a></td></tr>
+</table>
 
 <p>Once the plugin is installed a note button will be available to add to your
 toolbar from View -&gt; Toolbars -&gt; Customize.</p>
