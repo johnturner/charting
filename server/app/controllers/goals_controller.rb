@@ -50,6 +50,7 @@ class GoalsController < ApplicationController
     respond_to do |format|
       if @current_user
         @goals = Goal.all
+        @export = true
         format.html  # export.html.erb
       else
         format.html  { redirect_to(request.referer) }

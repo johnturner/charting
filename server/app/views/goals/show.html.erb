@@ -1,16 +1,22 @@
-<p>
-  <b>Name:</b>
-  <%=h @goal.name %>
-</p>
+<table>
 
-<p>
-  <b>Status:</b> <%=h @goal.status %>
-</p>
+<tr>
+  <th>Name:</th>
+  <td><%=h @goal.name %></td>
+</tr>
 
-<p>
-  <b>Admin:</b> <%=h @goal.admin %>
-</p>
+<tr>
+  <th>Status:</th>
+  <td><%=h @goal.status %></td>
+</tr>
+
+<tr>
+  <th>Admin:</th>
+  <td><%=h @goal.admin %></td>
+</tr>
+
+</table>
 
 <% if @goal and not @all_goals.include? @goal %>
-  <%= link_to 'Adopt this goal', adopt_goal_path(@goal) %>
+  <%= link_to_button('Adopt this goal', adopt_goal_path(@goal), "bluebutton left") %>
 <% end %>

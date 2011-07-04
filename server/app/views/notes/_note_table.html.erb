@@ -1,6 +1,6 @@
 <table id="note-table">
   <tr>
-    <th><%=h @current_goal ? @current_goal.name : "all my"%> notes</th>
+    <th><%=h @current_goal ? "#{@current_goal.name} notes" : @heading %></th>
     <th>Sources</th>
     <!--th>Creator</th-->
     <th>Goals</th>
@@ -8,27 +8,37 @@
 
 <% @notes.each do |note| %>
   <tr>
-    <td id="note-body-<%=note.id%>" class="note-body">
-      <%=link_to_remote note.truncated_body, 
-                        :update => "note-body-#{note.id}", 
-                        :method => :get,
-                        :url => {:action => "full_text",
-                        :id => note.id} %>
+    <td>
+    <div id="note-body-<%=note.id%>-short" class="note-body">
+    <%=link_to_remote note.truncated_body,
+                        :after => "Element.toggle('note-body-#{note.id}-actions');
+                                   Element.toggle('note-body-#{note.id}-short');
+                                   Element.toggle('note-body-#{note.id}-full')" %>
 
+    </div>
+    <div id="note-body-<%=note.id%>-full" class="note-body" style="display:none">
+    <%=link_to_remote note.body,
+                        :after => "Element.toggle('note-body-#{note.id}-actions');
+                                   Element.toggle('note-body-#{note.id}-short');
+                                   Element.toggle('note-body-#{note.id}-full')" %>
+    </div>
+
+    <div id ="note-body-<%=note.id%>-actions" style="display:none">
+      <% if @current_user == note.user %>
+        <br />
+        <%= link_to 'Edit', edit_note_path(note), :class => 'small' %> |
+        <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete, :class => 'small' %>
+      <% end %>
+    </div>
     </td>
     <td>
       
       <% if note.source %>
-        <%=link_to note.source, note.source, :class => 'source-link' %>
+        <%=link_to note.source, note.source.location, :class => 'source-link', :target => '_blank' %>
       <% else %>
         No source.
       <% end %>
 
-      <% if @current_user == note.user %>
-        <br /><br />
-        <%= link_to 'Edit', edit_note_path(note), :class => 'small' %> |
-        <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete, :class => 'small' %>
-      <% end %>
     </td>
     <!--td><%=h note.user %></td-->
     

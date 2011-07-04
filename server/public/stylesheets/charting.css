@@ -28,7 +28,7 @@ body, p, ol, ul, td {
 h1, h2, h3, h4 {
   padding-left: 10px;
   font-variant: small-caps;
-  color: navy;
+  color: #216cf7;
 }
 
 pre {
@@ -55,7 +55,7 @@ a:hover {
 
 #header {
     width: 100%;
-    background-color: navy;
+    background-color: #216cf7;
     height: 50px;
     color: white;
 }
@@ -118,7 +118,7 @@ a:hover {
 #menu {
     width: 100%;
     height: 35px;
-    background-color: navy;
+    background-color: #216cf7;
 }
 
 
@@ -129,7 +129,7 @@ a:hover {
 #search {
   display: block;
   float: left;
-  margin-left: 150px;
+  margin-left: 50px;
 }
 
 
@@ -142,7 +142,7 @@ a:hover {
   float: left;
   position: relative;
   padding-bottom: 0px;
-  margin-left: 200px;
+  margin-left: 20px;
   height: 35px;
 }
 
@@ -166,12 +166,12 @@ a:hover {
 { 
   border-bottom: 1px solid white;
   background-color: white;
-  color: navy;
+  color: #216cf7;
 }
 
 #tabmenu ul.tab li
 {
-  background-color: navy;
+  background-color: #216cf7;
   color: white;
   position: relative;
   top: 1px;
@@ -182,7 +182,7 @@ a:hover {
 { 
   padding: 3px 4px; 
   border: 1px solid white;
-  background-color: navy;
+  background-color: #216cf7;
   color: white;
   margin-right: 0px; 
   text-decoration: none;
@@ -192,7 +192,7 @@ a:hover {
 #tabmenu ul.tab a:hover
 { 
   background: white;
-  color: navy;
+  color: #216cf7;
 }
 
 /* end css tabs */
@@ -235,7 +235,7 @@ a:hover {
 }
 
 #goalmenu li.active-goal a:hover {
-  background-color: navy;
+  background-color: #216cf7;
   color: white;
 }
 
@@ -244,12 +244,12 @@ a:hover {
 }
 
 #goalmenu ul li a:hover {
-  color: navy;
+  color: #216cf7;
   text-decoration: underline;
 }
 
 #goalmenu .active-goal {
-  background-color: navy;
+  background-color: #216cf7;
 }
 
 #goalmenu .active-goal a{
@@ -257,8 +257,35 @@ a:hover {
 }
 
 #goalmenu .active-goal a:hover{
-  color: navy;
+  color: #216cf7;
 }
+
+hr.menu {
+  height: 1px;
+  color: #216cf7;
+  background-color: #216cf7;
+  width: 230px;
+  border: 0;
+}
+
+#goalmenu ul li a.lih3 {
+  /* padding-left: 10px; */
+  font-variant: small-caps;
+  color: #216cf7;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#goalmenu ul li a.lih3:hover {
+  text-decoration: underline;
+}
+
+#goalmenu ul li.active-goal a.lih3 {
+  color: navy;
+  background-color: none;
+}
+
+
 
 
 /*
@@ -365,7 +392,7 @@ input {
   font-size: 80%;
   text-decoration: underline;
   text-align: right;
-  color: navy;
+  color: #216cf7;
   font-variant: small-caps;
 }
 
@@ -375,7 +402,8 @@ input {
 
 
 #right a.source-link {
-  font-size: 80%;
+  font-size: 90%;
+  color: #216cf7;
 }
 
 #right a.source-link:hover {
@@ -386,7 +414,7 @@ input {
 
 option:hover {
     color: white;
-    background: navy;
+    background: #216cf7;
 }
 
 
@@ -395,7 +423,7 @@ option:hover {
 *****************/
 
 table th {
-    background: navy;
+    background: #216cf7;
     padding: 5px 5px;
     color: white;
     text-align: left;
@@ -403,6 +431,9 @@ table th {
     font-variant: small-caps;
 }
 
+select.note_goals {
+    
+}
 
 /*****************
 * buttons
@@ -412,7 +443,7 @@ table th {
 {
     display: block;
     position: relative;
-    background: navy;
+    background: #216cf7;
     padding: 4px;
     color: #fff;
     text-decoration: none;
@@ -464,7 +495,7 @@ table th {
     position: relative;
     background: white;
     padding: 2px;
-    color: navy;
+    color: #216cf7;
     text-decoration: none;
     cursor: pointer;
     width: auto;

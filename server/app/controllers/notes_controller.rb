@@ -24,6 +24,8 @@ class NotesController < ApplicationController
       end
     end
  
+    @heading = "All my Notes"
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @notes }
@@ -35,11 +37,12 @@ class NotesController < ApplicationController
     @notes = Note.paginate :page => params[:page],
                            :per_page => 10,
                            :include => [:goals, :user]
-    @notabs = true
+    #@notabs = true
+    @heading = "All Notes"
   end
 
   def inbox 
-    @notabs = true
+    #@notabs = true
     if @current_user
       @notes = Note.paginate_by_sql(["select notes.* from notes where 
                                       notes.id not in 
@@ -49,6 +52,7 @@ class NotesController < ApplicationController
                                       :page => params[:page],
                                       :per_page => 25)
     end
+    @heading = "All Notes not in any of My Goals"
   end
 
   def set_goals

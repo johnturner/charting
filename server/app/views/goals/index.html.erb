@@ -11,7 +11,8 @@
     <td><%=link_to goal.name, goal_notes_path(goal) %></td>
     <td><%=h goal.admin %></td>
   <% if @current_goal and not @all_goals.include? @current_goal %>
-    <td><%= link_to 'adopt', adopt_goal_path(@current_goal) %></td>
+    <!--td><!--%= link_to 'adopt', adopt_goal_path(@current_goal), :class => 'bluebutton right' %--><!--/td-->
+    <td><%= link_to_button('Adopt this Goal', adopt_goal_path(@current_goal), "bluebutton right") %></td>
   <% end %>
   </tr>
 <% end %>
