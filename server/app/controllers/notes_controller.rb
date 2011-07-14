@@ -9,17 +9,18 @@ class NotesController < ApplicationController
    if @current_goal
       @notes = Note.paginate :page => params[:page],
                              :per_page => 10,
-                             :conditions => {"notegoals.goal_id" => @current_goal.id},
+                             :conditions => {"notegoals.goal_id" => @current_goal.id, "major" => 't'},
                              :include => [:notegoals, :user, :goals]
     else
       if @current_user
         @notes = Note.paginate :page => params[:page],
                                :per_page => 10,
-                               :conditions => {"usergoals.user_id" => @current_user.id}, 
+                               :conditions => {"usergoals.user_id" => @current_user.id, "major" => 't'},
                                :include => [{:goals => :usergoals}, :user]
       else
         @notes = Note.paginate :page => params[:page],
                                :per_page => 10,
+                               :conditions => {"major" => 't'},
                                :include => [:goals, :user]
       end
     end
@@ -48,7 +49,7 @@ class NotesController < ApplicationController
                                       notes.id not in 
                                         (select note_id from notegoals, goals, usergoals where 
                                           notegoals.goal_id = goals.id and goals.id = usergoals.goal_id and usergoals.user_id = ?)
-                                      and notes.user_id = ?", @current_user, @current_user],
+                                      and notes.major = 't' and notes.user_id = ?", @current_user, @current_user],
                                       :page => params[:page],
                                       :per_page => 25)
     end
@@ -139,7 +140,13 @@ class NotesController < ApplicationController
     
     respond_to do |format|
       if @note.save
-        format.html { redirect_to @note }
+        # if it's a comment, redirect to table
+        if params[:note][:parent_id]
+          format.html { redirect_to :back }
+        # else it's a new note
+        else
+          format.html { redirect_to @note }
+        end
         format.xml  { render :xml => @note, :status => :created, :location => @note}
         format.json { render :json => @note, :status => :created, :location => @note}
         format.js   { render :json => @note, :callback => 'charting.noteSuccess' }

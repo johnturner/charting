@@ -108,6 +108,7 @@ a:hover {
 
 #login table.loginsignup td {
   border: none;
+  padding: 0px;
 }
 
 
@@ -422,6 +423,17 @@ input {
   text-decoration: underline;
 }
 
+#actions a {
+  font-size: 80%;
+  text-decoration: underline;
+  text-align: right;
+  color: #216cf7;
+  font-variant: small-caps;
+}
+
+#actions a:hover {
+  text-decoration: none;
+}
 
 
 option:hover {
@@ -441,6 +453,26 @@ table th {
     text-align: left;
     font-weight: normal;
     font-variant: small-caps;
+    border: none;
+}
+
+table.comments {
+    width: 100%;
+}
+
+table.comments tr{
+    width: 100%;
+    border-color: white;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    background-color: white;
+}
+
+table.comments td {
+    font-size: 80%;
+    padding: 5px;
+    background-color: #d8e5fd;
+    border: none;
 }
 
 select.note_goals {

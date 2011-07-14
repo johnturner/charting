@@ -11,6 +11,7 @@
     <td>
     <div id="note-body-<%=note.id%>-short" class="note-body">
     <%=link_to_remote note.truncated_body,
+                        :method => 'get',
                         :after => "Element.toggle('note-body-#{note.id}-actions');
                                    Element.toggle('note-body-#{note.id}-short');
                                    Element.toggle('note-body-#{note.id}-full')" %>
@@ -18,6 +19,7 @@
     </div>
     <div id="note-body-<%=note.id%>-full" class="note-body" style="display:none">
     <%=link_to_remote note.body,
+                        :method => 'get',
                         :after => "Element.toggle('note-body-#{note.id}-actions');
                                    Element.toggle('note-body-#{note.id}-short');
                                    Element.toggle('note-body-#{note.id}-full')" %>
@@ -26,11 +28,52 @@
     <div id ="note-body-<%=note.id%>-actions" style="display:none">
       <% if @current_user == note.user %>
         <br />
-        <%= link_to 'Edit', edit_note_path(note), :class => 'small' %> |
-        <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete, :class => 'small' %>
+        <div id="actions">
+        <%= link_to_remote 'View Comments',
+          :method => 'get',
+          :after => "Element.toggle('note-comment-#{note.id}')" %> |
+        <%= link_to 'Edit', edit_note_path(note) %> |
+        <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %>
+        </div>
+        <br />
       <% end %>
     </div>
-    </td>
+
+    <div id ="note-comment-<%=note.id%>" style="display:none">
+    <table class="comments">
+
+    <% @comments = Note.find_all_by_parent_id note.id %>
+    <% @comments.each do |comment| %>
+
+      <tr>
+        <td><%=h comment.user %>: <%=h comment.body %></td>
+      </tr>
+
+    <% end %>
+
+      <tr>
+        <td>
+
+    <% form_for Note.new, :html => {:id => "new_comment_form"} do |f| %>
+          <%= f.text_field :body,
+                           :size => '100%',
+                           :id => 'new_comment_field',
+                           :value => 'Write a comment...',
+                           :onFocus => 'if (this.value == "Write a comment...") {this.value = "";};',
+                           :onBlur => 'if (this.value == "") {this.value = "Write a comment...";};' %>
+
+        <%= f.hidden_field :parent_id, :value => note.id %>
+        <%= f.hidden_field :major, :value => 'f' %>
+  
+    <% end %>
+          
+        </td>
+      </tr>
+   
+      
+    </table>
+    </div>
+    </td> <!-- end of note block -->
     <td>
       
       <% if note.source %>

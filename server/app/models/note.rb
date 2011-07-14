@@ -1,6 +1,7 @@
 class Note < ActiveRecord::Base
   belongs_to :source
   belongs_to :user
+  belongs_to :note
   
   has_many :goals, :through => :notegoals
   has_many :notegoals
