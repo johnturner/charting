@@ -8,10 +8,12 @@
     <td>
     <%= f.text_field :username, :size => 15 %>
     <%= f.password_field :password, :size => 15 %>
-    <%= f.submit :login, :class => 'whitebutton right' %>
     </td>
     <td>
-    or <%= link_to "sign up", new_user_path%>
+    <%= f.submit :login, :class => 'whitebutton left' %>
+    </td>
+    <td>
+    &nbsp;or <%= link_to "sign up", new_user_path%>
     </td>
    </tr>
   </table>
