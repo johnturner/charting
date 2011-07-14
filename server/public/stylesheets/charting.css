@@ -36,7 +36,7 @@ pre {
   font-size: 11px;
 }
 
-a { color: #003; }
+a { color: #216cf7; }
 
 a:hover { 
     background-color: white;
@@ -322,6 +322,7 @@ hr.menu {
 
 .note-body a {
   text-decoration: none;
+  color: #333;
 }
 
 .note-body {
