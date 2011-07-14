@@ -22,11 +22,11 @@
                         :method => 'get',
                         :after => "Element.toggle('note-body-#{note.id}-actions');
                                    Element.toggle('note-body-#{note.id}-short');
-                                   Element.toggle('note-body-#{note.id}-full')" %>
+                                   Element.toggle('note-body-#{note.id}-full');
+                                   Element.toggle('note-comment-#{note.id}')" %>
     </div>
 
     <div id ="note-body-<%=note.id%>-actions" style="display:none">
-      <% if @current_user == note.user %>
         <br />
         <div id="actions">
         <%= link_to_remote 'View Comments',
@@ -36,7 +36,6 @@
         <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %>
         </div>
         <br />
-      <% end %>
     </div>
 
     <div id ="note-comment-<%=note.id%>" style="display:none">
@@ -46,13 +45,117 @@
     <% @comments.each do |comment| %>
 
       <tr>
-        <td><%=h comment.user %>: <%=h comment.body %></td>
+        <td colspan ="3"><%=h comment.user %>: <%=h comment.body %></td>
+        <td align="right">
+          <%= link_to_remote 'View Comments',
+          :method => 'get',
+          :after => "Element.toggle('note-comment-#{comment.id}')" %>
+        </td>
       </tr>
+
+      <!-- start subcomments row -->
+      <tr id="note-comment-<%=comment.id%>" style="display:none;">
+
+        <!-- subcomments content -->
+        <td colspan="5" class="container">
+
+          <!-- subcomments table -->
+          <table class="comments">
+          <% @subcomments = Note.find_all_by_parent_id comment.id %>
+          <% @subcomments.each do |subcomment| %>
+            <tr>
+              <td class="blank"></td>
+              <td colspan = "3"><%=h subcomment.user %>: <%=h subcomment.body %></td>
+              <td align="right">
+              <%= link_to_remote 'View Comments',
+                :method => 'get',
+                :after => "Element.toggle('note-comment-#{subcomment.id}')" %>
+              </td>
+
+            </tr>
+
+
+            <!-- start subsubcomments row -->
+            <tr id="note-comment-<%=subcomment.id%>" style="display:none;">
+
+              <!-- subsubcomments content -->
+              <td colspan="5" class="container">
+
+                <!-- subsubcomments table -->
+                <table class="comments">
+                <% @subsubcomments = Note.find_all_by_parent_id subcomment.id %>
+                <% @subsubcomments.each do |subsubcomment| %>
+                  <tr>
+                    <td class="blank"></td>
+                    <td class="blank"></td>
+                    <td colspan = "3"><%=h subsubcomment.user %>: <%=h subsubcomment.body %></td>
+                  </tr>
+
+                <% end %>
+
+                  <tr id="note-new-comment-<%=subcomment.id%>">
+                    <td class="blank"></td>
+                    <td class="blank"></td>
+                    <td colspan="3">
+
+                    <% form_for Note.new, :html => {:id => "new_comment_form"} do |f| %>
+                    <%= f.text_field :body,
+                               :size => '100%',
+                               :id => 'new_comment_field',
+                               :value => 'Write a comment...',
+                               :onFocus => 'if (this.value == "Write a comment...") {this.value = "";};',
+                               :onBlur => 'if (this.value == "") {this.value = "Write a comment...";};' %>
+
+                    <%= f.hidden_field :parent_id, :value => subcomment.id %>
+                    <%= f.hidden_field :major, :value => 'f' %>
+
+                    <% end %>
+
+                    </td>
+                  </tr>
+
+                </table> <!-- end subsub comments table -->
+
+
+              </td> <!-- end subsubcomments content -->
+
+            </tr> <!-- end subsubcomments row -->
+
+
+          <% end %>
+
+            <tr id="note-new-comment-<%=comment.id%>">
+              <td class="blank"></td>
+              <td colspan="4">
+
+              <% form_for Note.new, :html => {:id => "new_comment_form"} do |f| %>
+              <%= f.text_field :body,
+                               :size => '100%',
+                               :id => 'new_comment_field',
+                               :value => 'Write a comment...',
+                               :onFocus => 'if (this.value == "Write a comment...") {this.value = "";};',
+                               :onBlur => 'if (this.value == "") {this.value = "Write a comment...";};' %>
+
+              <%= f.hidden_field :parent_id, :value => comment.id %>
+              <%= f.hidden_field :major, :value => 'f' %>
+
+              <% end %>
+
+              </td>
+            </tr>
+
+            </table> <!-- end subcomments table -->
+
+
+        </td> <!-- end subcomments content -->
+
+      </tr> <!-- end subcomments row -->
+
 
     <% end %>
 
-      <tr>
-        <td>
+      <tr id="note-new-comment-<%=note.id%>">
+        <td colspan="4">
 
     <% form_for Note.new, :html => {:id => "new_comment_form"} do |f| %>
           <%= f.text_field :body,
@@ -69,7 +172,6 @@
           
         </td>
       </tr>
-   
       
     </table>
     </div>

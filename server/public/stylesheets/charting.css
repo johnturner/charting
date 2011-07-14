@@ -469,11 +469,35 @@ table.comments tr{
 }
 
 table.comments td {
-    font-size: 80%;
+    font-size: 8pt;
     padding: 5px;
     background-color: #d8e5fd;
     border: none;
 }
+
+table.comments td.blank {
+    background-color: white;
+    border: none;
+}
+
+table.comments td.container {
+    padding: 0px;
+    background-color: white;
+    border: none;
+}
+
+table.comments a {
+  font-size: 7pt;
+  text-decoration: underline;
+  text-align: right;
+  color: #216cf7;
+  font-variant: small-caps;
+}
+
+table.comments a:hover {
+  text-decoration: none;
+}
+
 
 select.note_goals {
     
