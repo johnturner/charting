@@ -15,23 +15,18 @@ class GoalsController < ApplicationController
     end
   end
 
-  # GET /goals
   def index
+     @goals = Goal.paginate :page => params[:page],
+                            :per_page => 10,
+                            :conditions => {"admin_id" => @current_user.id}
+    @heading = "All my Goals"
+
     respond_to do |format|
-      if @current_user
-        @goals = @all_goals.map do |goal|
-          goal.name
-        end
-        format.xml  {render :partial => 'goal.xml'}
-        format.json {render :json => @goals}
-        format.js   {render :json => @goals, :callback => "charting.setGoals"}
-      else 
-        format.xml  {render :text => '<error>Not logged in.</error>'}
-        format.json {render :json => '"Not logged in."', :status => :forbidden}
-        format.js   {render :json => '"Not logged in."', :callback => "charting.goalsError"}
-      end
+      format.html # index.html.erb
+      format.xml  { render :xml => @goals }
     end
   end
+
 
   def all_goals
     @goals = Goal.paginate :page => params[:page], :per_page => 20

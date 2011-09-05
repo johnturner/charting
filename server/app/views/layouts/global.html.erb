@@ -10,6 +10,7 @@
 </head>
 <body>
 
+
 <div id ="page">
 
   <div id = "header">
@@ -18,24 +19,20 @@
   </div><!-- end header -->
 
   <div id="main">
+
   <div id="left">
     <div id="goalmenu">
       <!--h2><%=link_to "Charting", root_path%></h2-->
       <% if @current_user %>
 
       <ul>
-      <% if ['notes', 'users', 'sources', 'export'].include? controller_name
-          link_path = controller_name
-        else
-          link_path = "notes"
-        end %>
 
-        <% unless @current_goal or action_name == "inbox" or action_name == "all_goals" %>
+        <% if controller_name == "goals" && action_name == "index" %>
           <li class="active-heading">
         <% else %>
           <li>
         <% end %>
-        <%=link_to "My Goals", "/" + link_path, :class => 'lih3'%>
+        <%=link_to "My Goals", "/goals", :class => 'lih3'%>
         </li>
 
       <% for goal in @all_goals %>
@@ -44,8 +41,7 @@
         <% else %>
           <li>
         <%end%>
-        <%=link_to goal.name, goal_path(goal) + "/" + link_path%> 
-        <!--%= link_to '[-]', goal, :confirm => "Remove #{goal.name}?", :method => :delete %-->
+        <%=link_to goal.name, goal_path(goal) + "/"%> 
         </li>
         <% end %>
 
@@ -60,7 +56,7 @@
         <% end %>
         </li>
 
-        <% if action_name == "all_goals" %>
+        <% if controller_name == "goals" && action_name == "all_goals" %>
           <li class="active-heading">
         <% else %>
           <li>
@@ -70,7 +66,7 @@
 
         <hr class="menu"></hr>
   
-        <% if action_name == "people" %>
+        <% if controller_name == "users" %>
           <li class="active-heading">
         <% else %>
           <li>
@@ -80,7 +76,7 @@
         
         <hr class="menu"></hr>
 
-        <% if action_name == "notes" %>
+        <% if controller_name == "notes" && action_name == "index" %>
           <li class="active-heading">
         <% else %>
           <li>
@@ -88,7 +84,7 @@
         <%=link_to "My Notes", notes_path, :class => 'lih3' %>
           </li>
 
-        <% if action_name == "inbox" %>
+        <% if controller_name == "notes" && action_name == "inbox" %>
           <li class="active-heading">
         <% else %>
           <li>
@@ -96,17 +92,17 @@
         <%=link_to "Inbox", inbox_path, :class => 'lih4' %>
           </li>
 
-        <% if action_name == "all_notes" %>
+        <% if controller_name == "notes" && action_name == "all_notes" %>
           <li class="active-heading">
         <% else %>
           <li>
         <% end %>
-        <%=link_to "All Notes", notes_path, :class => 'lih3' %>
+        <%=link_to "All Notes", all_notes_path, :class => 'lih3' %>
           </li>
 
         <hr class="menu"></hr>
 
-        <% if action_name == "sources" %>
+        <% if controller_name == "sources" && action_name == "index" %>
           <li class="active-heading">
         <% else %>
           <li>
@@ -114,20 +110,20 @@
         <%=link_to "My Sources", sources_path, :class => 'lih3' %>
           </li>
 
-        <% if action_name == "inbox_sources" %>
+        <% if controller_name == "sources" && action_name == "inbox"%>
           <li class="active-heading">
         <% else %>
           <li>
         <% end %>&nbsp;
-        <%=link_to "Unattributed Sources", sources_path, :class => 'lih4' %>
+        <%=link_to "Unattributed Sources", inbox_sources_path, :class => 'lih4' %>
           </li>
 
-        <% if action_name == "all_sources" %>
+        <% if controller_name == "sources" && action_name == "all_sources" %>
           <li class="active-heading">
         <% else %>
           <li>
         <% end %>
-        <%=link_to "All Sources", sources_path, :class => 'lih3' %>
+        <%=link_to "All Sources", all_sources_path, :class => 'lih3' %>
           </li>
 
       <hr class="menu"></hr>

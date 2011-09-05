@@ -46,6 +46,7 @@
       <tr>
         <td colspan ="3"><%=h comment.user %>: <%=h comment.body %></td>
         <td align="right">
+          <%= link_to_remote 'Promote', :url => {:action => 'update', :id => comment.id, :major => 't'}, :method => 'get', :update => "note-comment-#{note.id}" %> |
           <%= link_to_remote 'View Comments',
           :method => 'get',
           :after => "Element.toggle('note-comment-#{comment.id}')" %>
@@ -66,6 +67,7 @@
               <td class="blank"></td>
               <td colspan = "3"><%=h subcomment.user %>: <%=h subcomment.body %></td>
               <td align="right">
+              <%= link_to_remote 'Promote', :url => {:action => 'update', :id => subcomment.id, :major => 't'} %> |
               <%= link_to_remote 'View Comments',
                 :method => 'get',
                 :after => "Element.toggle('note-comment-#{subcomment.id}')" %>

@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   # GET /users.xml
   def index
    if @current_goal
+      @link_name = "users"
       @users = User.paginate :page => params[:page],
                              :per_page => 10,
                              :include => [:usergoals, :goals],
@@ -16,12 +17,14 @@ class UsersController < ApplicationController
       if @current_user
         #Find all people who share a goal with the current user.
         #(Kind of horrible)
+        @link_name = "users"
         @users = User.paginate :page => params[:page],
                                :per_page => 10,
                                :joins => {:goals => :usergoals},
                                :select => 'distinct users.*',
                                :conditions => {"usergoals_goals.user_id" => @current_user.id}
       else
+        @link_name = "users"
         @users = User.paginate :page => params[:page],
                                :per_page => 10
       end

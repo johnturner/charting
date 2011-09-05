@@ -42,6 +42,15 @@ class NotesController < ApplicationController
     @heading = "All Notes"
   end
 
+  #Notes from all users in the system, regardless of who is logged in
+  def all_notes
+    @notes = Note.paginate :page => params[:page],
+                           :per_page => 10,
+                           :include => [:goals, :user]
+    #@notabs = true
+    @heading = "All Notes"
+  end
+
   def inbox 
     #@notabs = true
     if @current_user
@@ -164,9 +173,19 @@ class NotesController < ApplicationController
   def update
     @note = Note.find(params[:id])
 
+    if params[:major]
+      params[:note][:major] = params[:major]
+    end
+
     respond_to do |format|
       if @note.update_attributes(params[:note])
-        format.html { redirect_to(@note, :notice => 'Note was successfully updated.') }
+        # if it's a comment, redirect to table
+        if params[:major]
+          format.html { redirect_to :back }
+        # else it's a new note
+        else
+          format.html { redirect_to(@note, :notice => 'Note was successfully updated.') }
+        end
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

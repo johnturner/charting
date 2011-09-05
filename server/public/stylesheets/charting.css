@@ -240,6 +240,12 @@ a:hover {
   color: white;
 }
 
+#goalmenu li.active-heading a:hover {
+  background-color: #216cf7;
+  color: white;
+}
+
+
 #goalmenu ul li a {
   text-decoration: none;
 }
@@ -258,6 +264,19 @@ a:hover {
 }
 
 #goalmenu .active-goal a:hover{
+  color: #216cf7;
+}
+
+
+#goalmenu .active-heading {
+  background-color: #216cf7;
+}
+
+#goalmenu .active-heading a{
+  color: white;
+}
+
+#goalmenu .active-heading a:hover{
   color: #216cf7;
 }
 
@@ -286,10 +305,16 @@ hr.menu {
   background-color: white;
 }
 
+#goalmenu ul li.active-heading a.lih3 {
+  color: white;
+  background-color: #216cf7;
+}
+
+
 #goalmenu ul li a.lih4 {
   /* padding-left: 10px; */
   font-variant: small-caps;
-  color: #216cf7;
+  color: c
   font-weight: normal;
   text-decoration: none;
 }
@@ -303,7 +328,10 @@ hr.menu {
   background-color: white;
 }
 
-
+#goalmenu ul li.active-heading a.lih4 {
+  color: white;
+  background-color: #216cf7;
+}
 
 /*
  * left side

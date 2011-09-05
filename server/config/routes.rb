@@ -16,7 +16,10 @@ ActionController::Routing::Routes.draw do |map|
   map.download_csv 'goals/download_csv', :controller => :goals, :action => 'download_csv'
   map.search 'search', :controller => :search, :action => :search
   map.inbox 'inbox', :controller => :notes, :action => :inbox
-  map.all_goals 'all_goals', :controller => :notes, :action => :all_goals
+  map.inbox_sources 'inbox_sources', :controller => :sources, :action => :inbox
+  map.all_goals 'all_goals', :controller => :goals, :action => :all_goals
+  map.all_sources 'all_sources', :controller => :sources, :action => :all_sources
+  map.all_notes 'all_notes', :controller => :notes, :action => :all_notes
   map.create_note 'create_note.:format', :controller => :notes, :action => :create
   map.js_lib 'js_lib.js', :controller => :js_lib, :action => :js_lib
 
