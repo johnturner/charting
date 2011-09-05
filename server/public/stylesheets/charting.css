@@ -56,7 +56,7 @@ a:hover {
 #header {
     width: 100%;
     background-color: #216cf7;
-    height: 50px;
+    height: 80px;
     color: white;
 }
 
@@ -283,9 +283,25 @@ hr.menu {
 
 #goalmenu ul li.active-goal a.lih3 {
   color: navy;
-  background-color: none;
+  background-color: white;
 }
 
+#goalmenu ul li a.lih4 {
+  /* padding-left: 10px; */
+  font-variant: small-caps;
+  color: #216cf7;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+#goalmenu ul li a.lih4:hover {
+  text-decoration: underline;
+}
+
+#goalmenu ul li.active-goal a.lih4 {
+  color: navy;
+  background-color: white;
+}
 
 
 

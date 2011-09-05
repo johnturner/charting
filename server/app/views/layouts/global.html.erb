@@ -16,46 +16,6 @@
     <a href="/"><div id = "logo"></div></a>
     <%= render :partial => 'layouts/login' %>
   </div><!-- end header -->
-  <div id = "menu">
-    <div id="tabmenu">
-        <ul class="tab">
-        <% unless @notabs %>
-          <%  ["notes", "users", "sources", "export"].each do |tab|
-            tab_disp = ""
-            if tab == "users"
-              tab_disp = "people"
-            else
-              tab_disp = tab
-            end %>
-
-           <% if tab == controller_name
-              if @current_goal
-                -%><li class="active-tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></li><%
-              else
-                -%><li class="active-tab"><%=link_to tab_disp, "/" + tab -%></li><%
-              end
-            elsif
-              if tab == "export" && @export == true
-                if @current_goal
-                  -%><li class="active-tab"><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></li><%
-                else
-                  -%><li class="active-tab"><%=link_to tab_disp, "/" + tab -%></li><%
-                end
-              end
-            else
-              if @current_goal
-                -%><li><%=link_to(tab_disp, goal_path(@current_goal) + "/" + tab)-%></li><%
-              else
-                -%><li><%=link_to tab_disp, "/" + tab -%></li><%
-              end
-            end%>
-            
-          <%end
-      end%>
-      </ul><!-- end tabs -->
-    </div><!-- end tab menu -->
-    <%= render :partial => 'layouts/search' %>
-  </div><!-- end menu -->
 
   <div id="main">
   <div id="left">
@@ -70,31 +30,24 @@
           link_path = "notes"
         end %>
 
-        <% if action_name == "inbox" %>
-          <li class="active-heading">
-        <% else %>
-          <li>
-        <% end %>
-        <%=link_to "Inbox", inbox_path, :class => 'lih3' %>
-          </li>
-
-        <% if action_name == "all_goals" %>
-          <li class="active-heading">
-        <% else %>
-          <li>
-        <% end %>
-        <%=link_to "All goals", all_goals_path, :class => 'lih3'%>
-        </li>
-
         <% unless @current_goal or action_name == "inbox" or action_name == "all_goals" %>
           <li class="active-heading">
         <% else %>
           <li>
         <% end %>
-        <%=link_to "All my goals", "/" + link_path, :class => 'lih3'%>
+        <%=link_to "My Goals", "/" + link_path, :class => 'lih3'%>
         </li>
 
-        <hr class="menu"></hr>
+      <% for goal in @all_goals %>
+        <% if goal == @current_goal %>
+          <li class="active-goal">
+        <% else %>
+          <li>
+        <%end%>
+        <%=link_to goal.name, goal_path(goal) + "/" + link_path%> 
+        <!--%= link_to '[-]', goal, :confirm => "Remove #{goal.name}?", :method => :delete %-->
+        </li>
+        <% end %>
 
         <li>
         <% form_for Goal.new, :html => {:id => "new_goal_form"} do |f| %>
@@ -107,29 +60,78 @@
         <% end %>
         </li>
 
-        <hr class="menu"></hr>
-
-        <% unless @current_goal or action_name == "inbox" or action_name == "all_goals" %>
+        <% if action_name == "all_goals" %>
           <li class="active-heading">
         <% else %>
           <li>
         <% end %>
-        <%=link_to "My Goals", "/" + link_path, :class => 'lih3'%>
+        <%=link_to "All goals", all_goals_path, :class => 'lih3'%>
         </li>
 
         <hr class="menu"></hr>
-
-      <% for goal in @all_goals %>
-        <% if goal == @current_goal %>
-          <li class="active-goal">
+  
+        <% if action_name == "people" %>
+          <li class="active-heading">
         <% else %>
           <li>
-        <%end%>
-        <%=link_to goal.name, goal_path(goal) + "/" + link_path%> 
-        <!--%= link_to '[-]', goal, :confirm => "Remove #{goal.name}?", :method => :delete %-->
-        </li>
         <% end %>
-   
+        <%=link_to "People", users_path, :class => 'lih3' %>
+          </li>
+        
+        <hr class="menu"></hr>
+
+        <% if action_name == "notes" %>
+          <li class="active-heading">
+        <% else %>
+          <li>
+        <% end %>
+        <%=link_to "My Notes", notes_path, :class => 'lih3' %>
+          </li>
+
+        <% if action_name == "inbox" %>
+          <li class="active-heading">
+        <% else %>
+          <li>
+        <% end %> &nbsp;&nbsp;
+        <%=link_to "Inbox", inbox_path, :class => 'lih4' %>
+          </li>
+
+        <% if action_name == "all_notes" %>
+          <li class="active-heading">
+        <% else %>
+          <li>
+        <% end %>
+        <%=link_to "All Notes", notes_path, :class => 'lih3' %>
+          </li>
+
+        <hr class="menu"></hr>
+
+        <% if action_name == "sources" %>
+          <li class="active-heading">
+        <% else %>
+          <li>
+        <% end %>
+        <%=link_to "My Sources", sources_path, :class => 'lih3' %>
+          </li>
+
+        <% if action_name == "inbox_sources" %>
+          <li class="active-heading">
+        <% else %>
+          <li>
+        <% end %>&nbsp;
+        <%=link_to "Unattributed Sources", sources_path, :class => 'lih4' %>
+          </li>
+
+        <% if action_name == "all_sources" %>
+          <li class="active-heading">
+        <% else %>
+          <li>
+        <% end %>
+        <%=link_to "All Sources", sources_path, :class => 'lih3' %>
+          </li>
+
+      <hr class="menu"></hr>
+
       </ul>
  
       <% else %>
