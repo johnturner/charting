@@ -19,7 +19,7 @@ class GoalsController < ApplicationController
      @goals = Goal.paginate :page => params[:page],
                             :per_page => 20,
                             :conditions => {"admin_id" => @current_user.id},
-                            :order => "created_at desc"
+                            :order => "updated_at desc"
     @heading = "All my Goals"
 
     respond_to do |format|
@@ -30,7 +30,10 @@ class GoalsController < ApplicationController
 
 
   def all_goals
-    @goals = Goal.paginate :page => params[:page], :per_page => 20
+    @goals = Goal.paginate :page => params[:page],
+      :per_page => 20,
+      :order => "created_at desc"
+
     render :index
   end
 

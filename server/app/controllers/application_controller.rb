@@ -21,7 +21,8 @@ class ApplicationController < ActionController::Base
 
   def load_goals
     if @current_user
-      @all_goals = @current_user.goals
+      # @all_goals = @current_user.goals(:order => "updated_at desc")
+      @all_goals = Goal.find_all_by_admin_id(@current_user, :order => "updated_at DESC")
     else
       @all_goals = []
     end

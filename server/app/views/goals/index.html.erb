@@ -1,4 +1,5 @@
-<table>
+<table class="no-borders">
+
 
 <% @goals.each do |goal| %>
   <tr>
@@ -21,6 +22,9 @@
        <% end %>
      <% end %>
     </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="spacer"></td>
   </tr>
 
   <% if @current_goal and not @all_goals.include? @current_goal %>
