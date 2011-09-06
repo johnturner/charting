@@ -19,6 +19,15 @@ class Goal < ActiveRecord::Base
                          and notegoals.note_id = notes.id 
                          and notegoals.goal_id = ?", id]
   end
+
+  def subscribers
+    User.find_by_sql ["select distinct users.* from users, usergoals, goals
+                       where users.id = usergoals.user_id
+                       and users.id != goals.admin_id
+                       and goals.id = ?
+                       and usergoals.goal_id = ?", id, id]
+
+  end
 end
 
 #name

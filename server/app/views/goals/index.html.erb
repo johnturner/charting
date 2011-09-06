@@ -1,20 +1,33 @@
-<h1>Listing goals</h1>
-
 <table>
-  <tr>
-    <th>Name</th>
-    <th>Admin</th>
-  </tr>
 
 <% @goals.each do |goal| %>
   <tr>
-    <td><%=link_to goal.name, goal_notes_path(goal) %></td>
-    <td><%=h goal.admin %></td>
+    <td><b><%=link_to goal.name, goal_notes_path(goal) %></b></td>
+    <td><div id="actions"><%= link_to 'Edit', edit_goal_path(goal) %> |
+        <%= link_to 'Remove', goal, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>Owned by:
+    <%= link_to "You", user_path(@current_user) %>
+    </td>
+    <td>Subscribers:
+      <% if goal.subscribers.blank? %>
+      none
+      <% else %>
+       <% goal.subscribers.each do |sub| %>
+       <%= link_to sub.name, user_path(sub) %>&nbsp;
+       <% end %>
+     <% end %>
+    </td>
+  </tr>
+
   <% if @current_goal and not @all_goals.include? @current_goal %>
     <!--td><!--%= link_to 'adopt', adopt_goal_path(@current_goal), :class => 'bluebutton right' %--><!--/td-->
-    <td><%= link_to_button('Adopt this Goal', adopt_goal_path(@current_goal), "bluebutton right") %></td>
+    <!--td><%= link_to_button('Adopt this Goal', adopt_goal_path(@current_goal), "bluebutton right") %></td-->
   <% end %>
-  </tr>
+  
 <% end %>
 </table>
 
