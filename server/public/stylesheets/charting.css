@@ -410,6 +410,12 @@ table.no-borders td, th {
 td.spacer {
     height: 10px;
 }
+
+td.subheading {
+    color: #216cf7;
+    font-weight: bold;
+}
+
 /*
  * errors
  */

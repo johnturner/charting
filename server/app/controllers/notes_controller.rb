@@ -7,10 +7,11 @@ class NotesController < ApplicationController
   # GET /notes.xml
   def index
    if @current_goal
-      @notes = Note.paginate :page => params[:page],
-                             :per_page => 10,
-                             :conditions => {"notegoals.goal_id" => @current_goal.id, "major" => 't'},
-                             :include => [:notegoals, :user, :goals]
+     @notes = Note.find_by_sql ["select notes.* from notes, notegoals where notegoals.goal_id = ? and notes.id = notegoals.note_id", @current_goal.id]
+#      @notes = Note.paginate :page => params[:page],
+#                             :per_page => 10,
+#                             :conditions => {"notegoals.goal_id" => @current_goal.id, "major" => 't'},
+#                             :include => [:notegoals, :user, :goals]
     else
       if @current_user
         @notes = Note.paginate :page => params[:page],

@@ -1,4 +1,118 @@
-<%= render :partial => 'note_table' %>
+<table class="no-borders">
+
+  <tr>
+    <td><b><%=link_to @current_goal.name, goal_notes_path(@current_goal) %></b></td>
+    <td>
+      <% if @current_user == @current_goal.admin %>
+      <div id="actions"><%= link_to 'Edit', edit_goal_path(@current_goal) %> |
+        <%= link_to 'Remove', @current_goal, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>Owned by:
+      <% if @current_user == @current_goal.admin %>
+        <%= link_to "You", user_path(@current_user) %>
+      <% else %>
+        <%= link_to @current_goal.admin.name, user_path(@current_goal.admin) %>
+      <% end %>
+    </td>
+    <td>Subscribers:
+      <% if @current_goal.subscribers.blank? %>
+      none
+      <% else %>
+       <% @current_goal.subscribers.each do |sub| %>
+       <%= link_to sub.name, user_path(sub) %>&nbsp;
+       <% end %>
+     <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="spacer"></td>
+  </tr>
+</table>
+
+<table class="no-borders">
+  <tr>
+    <td width="20px"></td>
+    <td>
+<table class="no-borders">
+
+<% @notes.each do |note| %>  
+  
+  <tr>
+    <td class="subheading">
+
+       <% if !note.body.blank? %>
+          <%=h note.body %>
+       <% else %>
+          Note
+       <% end %>
+
+    </td>
+
+    <td width="100px">
+      <% if @current_user == note.user %>
+      <div id="actions"><%= link_to 'Edit', edit_note_path(note) %> |
+        <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+      <% end %>
+    </td>
+
+  </tr><tr>
+
+    <td>
+
+
+      <% if note.source %>
+        <%= link_to note.source, note.source.location, :class => 'source-link', :target => '_blank' %>
+      <% else %>
+        No source.
+      <% end %>
+
+   </td>
+
+    <td>
+      <% if @current_user == note.user %>
+      <div id="actions"><%= link_to 'Edit', edit_source_path(note.source) %> |
+        <%= link_to 'Remove', note.source, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+      <% end %>
+    </td>
+
+
+ </tr>
+
+ <tr>
+
+   <td colspan = "2">
+   Contributed by:
+   <% if @current_user == note.user %>
+      <%= link_to "You", user_path(@current_user) %>
+   <% else %>
+      <%= link_to @note.user.name, user_path(@current_user) %>
+   <% end %>
+
+   </td>
+
+
+ </tr>
+
+  <tr>
+    <td colspan="2" class="spacer"></td>
+  </tr>
+
+<% end %>
+</table>
+
+
+    </td>
+  </tr>
+</table>
+
+
+
 
 <% if @current_goal and not @all_goals.include? @current_goal %>
   <%= link_to_button('Adopt this goal', adopt_goal_path(@current_goal), "bluebutton left") %>
