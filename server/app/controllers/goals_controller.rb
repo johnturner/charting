@@ -17,9 +17,10 @@ class GoalsController < ApplicationController
 
   def index
      @goals = Goal.paginate :page => params[:page],
+                            :include => :usergoals,
                             :per_page => 20,
-                            :conditions => {"admin_id" => @current_user.id},
-                            :order => "updated_at desc"
+                            :conditions => {'usergoals.user_id' => @current_user.id},
+                            :order => "goals.updated_at desc"
     @heading = "All my Goals"
 
     respond_to do |format|

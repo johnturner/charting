@@ -21,10 +21,11 @@ class ApplicationController < ActionController::Base
 
   def load_goals
     if @current_user
-      # @all_goals = @current_user.goals(:order => "updated_at desc")
-      @all_goals = Goal.find_all_by_admin_id(@current_user, :order => "updated_at DESC")
+      @user_own_goals = Goal.find_all_by_admin_id(@current_user, :order => "updated_at DESC")
+      @user_goals = Goal.find_by_sql ["select goals.* from goals, usergoals where usergoals.goal_id = goals.id and usergoals.user_id = ?", @current_user.id]
     else
-      @all_goals = []
+      @user_own_goals = []
+      @user_goals = []
     end
       
     params[:goal_id] = params[:id] if self.is_a? GoalsController

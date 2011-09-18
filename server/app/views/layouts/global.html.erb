@@ -35,7 +35,7 @@
         <%=link_to "My Goals", "/goals", :class => 'lih3'%>
         </li>
 
-      <% for goal in @all_goals %>
+      <% for goal in @user_goals %>
         <% if goal == @current_goal %>
           <li class="active-goal">
         <% else %>

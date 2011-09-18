@@ -4,10 +4,21 @@
 <% @goals.each do |goal| %>
   <tr>
     <td><b><%=link_to goal.name, goal_notes_path(goal) %></b></td>
-    <td><div id="actions"><%= link_to 'Edit', edit_goal_path(goal) %> |
-        <%= link_to 'Remove', goal, :confirm => 'Are you sure?', :method => :delete %>
-      </div>
-    </td>
+    <td>
+        <div id="actions">
+
+    <% if @current_user == goal.admin %>
+      <%= link_to 'Edit', edit_goal_path(goal) %> |
+      <%= link_to 'Remove', goal, :confirm => 'Are you sure?', :method => :delete %>
+    <% else %>
+          <% if @user_goals.include? goal %>
+            ADOPTED
+          <% else %>
+            <%= link_to 'ADOPT', adopt_goal_path(goal) %>
+          <% end %>
+    <% end %>
+        </div>
+      </td>
   </tr>
   <tr>
 
@@ -35,11 +46,6 @@
   <tr>
     <td colspan="2" class="spacer"></td>
   </tr>
-
-  <% if @current_goal and not @all_goals.include? @current_goal %>
-    <!--td><!--%= link_to 'adopt', adopt_goal_path(@current_goal), :class => 'bluebutton right' %--><!--/td-->
-    <!--td><%= link_to_button('Adopt this Goal', adopt_goal_path(@current_goal), "bluebutton right") %></td-->
-  <% end %>
   
 <% end %>
 </table>

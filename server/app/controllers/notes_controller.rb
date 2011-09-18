@@ -7,7 +7,7 @@ class NotesController < ApplicationController
   # GET /notes.xml
   def index
    if @current_goal
-      @notes = Note.find_by_sql ["select notes.* from notes, notegoals where notegoals.goal_id = ? and notes.id = notegoals.note_id", @current_goal.id]
+      @notes = Note.find_by_sql ["select notes.* from notes, notegoals where notegoals.goal_id = ? and notes.id = notegoals.note_id and major = 't'", @current_goal.id]
 #      @notes = Note.paginate :page => params[:page],
 #                             :per_page => 10,
 #                             :conditions => {"notegoals.goal_id" => @current_goal.id, "major" => 't'},
