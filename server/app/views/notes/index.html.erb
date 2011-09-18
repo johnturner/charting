@@ -91,7 +91,7 @@
    <% if @current_user == note.user %>
       <%= link_to "You", user_path(@current_user) %>
    <% else %>
-      <%= link_to @note.user.name, user_path(@current_user) %>
+      <%= link_to note.user.name, user_path(note.user) %>
    <% end %>
 
    </td>
