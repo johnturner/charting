@@ -15,4 +15,16 @@ class Note < ActiveRecord::Base
       body
     end
   end
+
+  def attachedto
+    Goal.find_by_sql ["select distinct goals.* from notes, notegoals, goals
+                       where notes.id = notegoals.note_id
+                       and notegoals.goal_id = goals.id
+                       and notes.major = 't'
+                       and notes.id = ?", id]
+
+  end
+
+
+
 end

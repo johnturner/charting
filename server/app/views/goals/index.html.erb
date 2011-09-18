@@ -10,9 +10,18 @@
     </td>
   </tr>
   <tr>
+
     <td>Owned by:
-    <%= link_to "You", user_path(@current_user) %>
+      <% if @current_user == goal.admin %>
+        <%= link_to "You", user_path(@current_user) %>
+      <% else %>
+        <%= link_to goal.admin.name, user_path(goal.admin) %>
+      <% end %>
     </td>
+
+
+
+
     <td>Subscribers:
       <% if goal.subscribers.blank? %>
       none

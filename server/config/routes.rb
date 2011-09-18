@@ -19,6 +19,8 @@ ActionController::Routing::Routes.draw do |map|
   map.inbox_sources 'inbox_sources', :controller => :sources, :action => :inbox
   map.all_goals 'all_goals', :controller => :goals, :action => :all_goals
   map.all_sources 'all_sources', :controller => :sources, :action => :all_sources
+  map.my_sources 'my_sources', :controller => :sources, :action => :my_sources
+  map.my_notes 'my_notes', :controller => :notes, :action => :my_notes
   map.all_notes 'all_notes', :controller => :notes, :action => :all_notes
   map.create_note 'create_note.:format', :controller => :notes, :action => :create
   map.js_lib 'js_lib.js', :controller => :js_lib, :action => :js_lib

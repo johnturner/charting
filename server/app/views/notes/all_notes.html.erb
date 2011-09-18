@@ -1,7 +1,7 @@
 <table class="no-borders">
 
-<% @notes.each do |note| %>
-
+<% @notes.each do |note| %>  
+  
   <tr>
     <td class="subheading">
 
@@ -60,14 +60,11 @@
 
         <% if @current_user == note.user %>
         <td valign = "top" colspan = "2">Attach to:
-          <% #remote_form_for note, :url => set_goals_note_path(note), :update => "inbox" do |f| %>
           <% form_for note, :url => set_goals_note_path(note) do |f| %>
-
             <%= f.select 'goals', @current_user.goals, {}, {:multiple => true} %>
-              
-            <%= hidden_field_tag 'from', 'inbox' %><br />
-            <%= submit_tag 'attach', :class => 'bluebutton left' %>
-         <% end %>
+              <%= hidden_field_tag 'from', 'inbox' %><br />
+              <%= submit_tag 'attach', :class => 'bluebutton left' %>
+          <% end %>
         </td>
         <% else %>
           <td colspan = "2">

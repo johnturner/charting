@@ -66,22 +66,12 @@
 
         <hr class="menu"></hr>
   
-        <% if controller_name == "users" %>
+        <% if controller_name == "notes" && action_name == "my_notes" %>
           <li class="active-heading">
         <% else %>
           <li>
         <% end %>
-        <%=link_to "People", users_path, :class => 'lih3' %>
-          </li>
-        
-        <hr class="menu"></hr>
-
-        <% if controller_name == "notes" && action_name == "index" %>
-          <li class="active-heading">
-        <% else %>
-          <li>
-        <% end %>
-        <%=link_to "My Notes", notes_path, :class => 'lih3' %>
+        <%=link_to "My Notes", my_notes_path, :class => 'lih3' %>
           </li>
 
         <% if controller_name == "notes" && action_name == "inbox" %>
@@ -102,12 +92,12 @@
 
         <hr class="menu"></hr>
 
-        <% if controller_name == "sources" && action_name == "index" %>
+        <% if controller_name == "sources" && action_name == "my_sources" %>
           <li class="active-heading">
         <% else %>
           <li>
         <% end %>
-        <%=link_to "My Sources", sources_path, :class => 'lih3' %>
+        <%=link_to "My Sources", my_sources_path, :class => 'lih3' %>
           </li>
 
         <% if controller_name == "sources" && action_name == "inbox"%>
@@ -127,6 +117,16 @@
           </li>
 
       <hr class="menu"></hr>
+
+        <% if controller_name == "users" %>
+          <li class="active-heading">
+        <% else %>
+          <li>
+        <% end %>
+        <%=link_to "People", users_path, :class => 'lih3' %>
+          </li>
+
+        <hr class="menu"></hr>
 
       </ul>
  

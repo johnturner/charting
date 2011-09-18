@@ -416,6 +416,9 @@ td.subheading {
     font-weight: bold;
 }
 
+td.subheading a.source-link {
+    font-size: 100% !important;
+}
 /*
  * errors
  */

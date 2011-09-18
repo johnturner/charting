@@ -7,7 +7,7 @@ class NotesController < ApplicationController
   # GET /notes.xml
   def index
    if @current_goal
-     @notes = Note.find_by_sql ["select notes.* from notes, notegoals where notegoals.goal_id = ? and notes.id = notegoals.note_id", @current_goal.id]
+      @notes = Note.find_by_sql ["select notes.* from notes, notegoals where notegoals.goal_id = ? and notes.id = notegoals.note_id", @current_goal.id]
 #      @notes = Note.paginate :page => params[:page],
 #                             :per_page => 10,
 #                             :conditions => {"notegoals.goal_id" => @current_goal.id, "major" => 't'},
@@ -47,10 +47,23 @@ class NotesController < ApplicationController
   def all_notes
     @notes = Note.paginate :page => params[:page],
                            :per_page => 10,
+                           :conditions => {"major" => 't'},
+                           :order => "updated_at desc",
                            :include => [:goals, :user]
-    #@notabs = true
+    
     @heading = "All Notes"
   end
+
+  def my_notes
+    @notes = Note.paginate :page => params[:page],
+                               :per_page => 10,
+                               :conditions => {"notes.user_id" => @current_user.id, "major" => 't'},
+                               :order => "updated_at desc",
+                               :include => [{:goals => :usergoals}, :user]
+
+    @heading = "My Notes"
+  end
+
 
   def inbox 
     #@notabs = true
@@ -77,23 +90,32 @@ class NotesController < ApplicationController
     p @note.goals
     @note.save!
     
-    if params[:goal]
-      @current_goal = Goal.find(params[:goal][:id])
-    end
+#    if params[:goal]
+#      @current_goal = Goal.find(params[:goal][:id])
+#    end
     
-    if @current_goal
-      @notes = Note.paginate :page => params[:page],
-                             :per_page => 10,
-                             :conditions => {"notegoals.goal_id" => @current_goal.id},
-                             :include => [:notegoals, :user, :goals]
-    else 
-      @notes = Note.paginate :page => params[:page],
-                             :per_page => 10,
-                             :conditions => {:user_id => @current_user.id}, 
-                             :include => [:goals, :user]
+#    if @current_goal
+#      @notes = Note.paginate :page => params[:page],
+#                             :per_page => 10,
+#                             :conditions => {"notegoals.goal_id" => @current_goal.id},
+#                             :include => [:notegoals, :user, :goals]
+#    else
+#      @notes = Note.paginate :page => params[:page],
+#                             :per_page => 10,
+#                             :conditions => {:user_id => @current_user.id},
+#                             :include => [:goals, :user]
+#    end
+#    render :partial => 'note_table'
+
+    if params[:from] == "inbox"
+      redirect_to :inbox
+    elsif params[:from] == "all"
+      redirect_to :all_notes
+    else
+      redirect_to :my_notes
     end
-    render :partial => 'note_table'
-  end
+
+end
 
   # GET /notes/1
   # GET /notes/1.xml
