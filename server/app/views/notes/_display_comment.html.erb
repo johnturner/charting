@@ -1,0 +1,124 @@
+            <tr>
+              <td colspan ="3"><%=h @note.user %>: <%=h @note.body %></td>
+              <td align="right" width="120px">
+                <%= link_to_remote 'Promote', :url => {:action => 'promote', :id => @note.id, :major => 't', :goal_id => @goal_id, :source_id => @source_id} %> |
+                <%= link_to_remote 'View Comments',
+                :method => 'get',
+                :after => "Element.toggle('note-sub-comment-#{@note.id}')" %>
+              </td>
+            </tr>
+
+      <!-- start subcomments row -->
+      <tr id="note-sub-comment-<%=@note.id%>" style="display:none;">
+
+        <!-- subcomments content -->
+        <td colspan="4" class="container">
+
+          <!-- subcomments table -->
+          <table class="comments">
+            <tbody id="subcomments-<%=@note.id%>">
+          <% @subcomments = Note.find_all_by_parent_id @note.id %>
+          <% @subcomments.each do |subcomment| %>
+            <tr>
+              <td class="blank"></td>
+              <td colspan = "3"><%=h subcomment.user %>: <%=h subcomment.body %></td>
+              <td align="right">
+              <%= link_to_remote 'Promote', :url => {:action => 'promote', :id => subcomment.id, :major => 't', :goal_id => @goal_id, :source_id => @source_id} %> |
+              <%= link_to_remote 'View Comments',
+                :method => 'get',
+                :after => "Element.toggle('note-sub-sub-comment-#{subcomment.id}')" %>
+              </td>
+
+            </tr>
+
+
+            <!-- start subsubcomments row -->
+            <tr id="note-sub-sub-comment-<%=subcomment.id%>" style="display:none;">
+
+              <!-- subsubcomments content -->
+              <td colspan="5" class="container">
+
+                <!-- subsubcomments table -->
+                <table class="comments">
+                  <tbody id="subsubcomments-<%=subcomment.id%>">
+                  <% @subsubcomments = Note.find_all_by_parent_id subcomment.id %>
+                  <% @subsubcomments.each do |subsubcomment| %>
+                  <tr>
+                    <td class="blank"></td>
+                    <td class="blank"></td>
+                    <td colspan = "2"><%=h subsubcomment.user %>: <%=h subsubcomment.body %></td>
+                    <td align="right">
+                    <%= link_to_remote 'Promote', :url => {:action => 'promote', :id => subcomment.id, :major => 't', :goal_id => @goal_id, :source_id => @source_id} %>
+              </td>
+
+            </tr>
+
+                <% end %>
+
+                  <tr id="note-new-sub-sub-comment-<%=subcomment.id%>">
+                    <td class="blank"></td>
+                    <td class="blank"></td>
+                    <td colspan="2">
+
+                    <% remote_form_for Note.new, :html => {:id => "new_sub_sub_comment_form"},
+                                                 :url => {:controller => "notes", :action => "add_sub_sub_comment"} do |f| %>
+                    <%= f.text_field :body,
+                               :size => '100%',
+                               :id => 'new_comment_field',
+                               :value => 'Write a comment...',
+                               :onFocus => 'if (this.value == "Write a comment...") {this.value = "";};',
+                               :onBlur => 'if (this.value == "") {this.value = "Write a comment...";};' %>
+
+                    <%= f.hidden_field :parent_id, :value => subcomment.id %>
+                    <%= f.hidden_field :major, :value => 'f' %>
+                    <%= f.hidden_field :user_id, :value => @current_user.id %>
+                    <%= hidden_field_tag :source_id, @source_id %>
+                    <%= hidden_field_tag :goal_id, @goal_id %>
+
+                    <% end %>
+
+                    </td>
+                  </tr>
+                 </tbody>
+                </table> <!-- end subsub comments table -->
+
+
+              </td> <!-- end subsubcomments content -->
+
+            </tr> <!-- end subsubcomments row -->
+
+
+          <% end %>
+
+
+            <tr id="note-new-sub-comment-<%=@note.id%>">
+              <td class="blank"></td>
+              <td colspan="3">
+
+              <% remote_form_for Note.new, :html => {:id => "new_sub_comment_form"},
+                                           :url => {:controller => "notes", :action => "add_sub_comment"} do |f| %>
+              <%= f.text_field :body,
+                               :size => '100%',
+                               :id => 'new_comment_field',
+                               :value => 'Write a comment...',
+                               :onFocus => 'if (this.value == "Write a comment...") {this.value = "";};',
+                               :onBlur => 'if (this.value == "") {this.value = "Write a comment...";};' %>
+
+              <%= f.hidden_field :parent_id, :value => @note.id %>
+              <%= f.hidden_field :major, :value => 'f' %>
+              <%= f.hidden_field :user_id, :value => @current_user.id %>
+              <%= hidden_field_tag :source_id, @source_id %>
+              <%= hidden_field_tag :goal_id, @goal_id %>
+
+
+              <% end %>
+
+              </td>
+            </tr>
+            </tbody>
+            </table> <!-- end subcomments table -->
+
+
+        </td> <!-- end subcomments content -->
+
+      </tr> <!-- end subcomments row -->

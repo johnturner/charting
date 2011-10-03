@@ -191,6 +191,45 @@ end
     end
   end
 
+  def add_comment
+    @note = Note.new(params[:note])
+    @note.save
+
+    @source_id = params[:source_id]
+    @goal_id = params[:goal_id]
+    @parent_id = params[:note][:parent_id]
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def add_sub_comment
+    @note = Note.new(params[:note])
+    @note.save
+
+    @source_id = params[:source_id]
+    @goal_id = params[:goal_id]
+    @parent_id = params[:note][:parent_id]
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def add_sub_sub_comment
+    @note = Note.new(params[:note])
+    @note.save
+
+    @source_id = params[:source_id]
+    @goal_id = params[:goal_id]
+    @parent_id = params[:note][:parent_id]
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # PUT /notes/1
   # PUT /notes/1.xml
   def update
@@ -202,17 +241,35 @@ end
 
     respond_to do |format|
       if @note.update_attributes(params[:note])
-        # if it's a comment, redirect to table
-        if params[:major]
+        # if it's a a promoted comment
+        #if params[:major]
           format.html { redirect_to :back }
-        # else it's a new note
-        else
+         #else it's a new note
+        #else
           format.html { redirect_to(@note, :notice => 'Note was successfully updated.') }
-        end
+        #end
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @note.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /notes/1
+  # PUT /notes/1.xml
+  def promote
+    @note = Note.find(params[:id])
+    @note.major = 't'
+    @note.source_id = params[:source_id]
+    @goal = Goal.find(params[:goal_id])
+
+    @note.goals << @goal
+
+    respond_to do |format|
+      if @note.save
+        format.html { redirect_to :back }
+        format.xml  { head :ok }
       end
     end
   end

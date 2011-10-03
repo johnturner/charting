@@ -1,0 +1,8 @@
+    <tr>
+        <td class="blank"></td>
+	<td class="blank"></td>
+        <td colspan="2"><%=h @note.user %>: <%=h @note.body %></td>
+        <td align="right" width="120px">
+          <%= link_to_remote 'Promote', :url => {:action => 'promote', :id => @note.id, :major => 't', :goal_id => @goal_id, :source_id => @source_id} %>
+        </td>
+    </tr>

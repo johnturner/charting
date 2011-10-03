@@ -1,0 +1,21 @@
+
+        <td colspan="4">
+
+        <% remote_form_for Note.new, :html => {:id => "new_comment_form"},
+                                               :url => {:controller => "notes", :action => "add_comment"} do |f| %>
+        <%= f.text_field :body,
+                         :size => '100%',
+                         :id => 'new_comment_field',
+                         :value => 'Write a comment...',
+                         :onFocus => 'if (this.value == "Write a comment...") {this.value = "";};',
+                         :onBlur => 'if (this.value == "") {this.value = "Write a comment...";};' %>
+
+        <%=  f.hidden_field :parent_id, :value => @parent_id %>
+        <%=  f.hidden_field :major, :value => 'f' %>
+        <%=  f.hidden_field :user_id, :value => @current_user.id %>
+        <%= hidden_field_tag :source_id, @source_id %>
+        <%= hidden_field_tag :goal_id, @goal_id %>
+
+        <% end %>
+
+        </td>

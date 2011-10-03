@@ -13,6 +13,10 @@ ActionController::Routing::Routes.draw do |map|
   map.verify_api_key 'verify_api_key.:format', :controller => :users, :action => :verify_api_key
   map.export 'export', :controller => :goals, :action => :export
   map.connect 'goals/:id/export', :controller => :goals, :action => 'download_csv'
+  map.connect 'add_comment', :controller => 'notes', :action => 'add_comment'
+  map.connect 'add_sub_comment', :controller => 'notes', :action => 'add_sub_comment'
+  map.connect 'add_sub_sub_comment', :controller => 'notes', :action => 'add_sub_sub_comment'
+  map.connect 'promote', :controller => 'notes', :action => 'promote'
   map.download_csv 'goals/download_csv', :controller => :goals, :action => 'download_csv'
   map.search 'search', :controller => :search, :action => :search
   map.inbox 'inbox', :controller => :notes, :action => :inbox
@@ -24,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   map.all_notes 'all_notes', :controller => :notes, :action => :all_notes
   map.create_note 'create_note.:format', :controller => :notes, :action => :create
   map.js_lib 'js_lib.js', :controller => :js_lib, :action => :js_lib
+
 
   # The priority is based upon order of creation: first created -> highest priority.
 
