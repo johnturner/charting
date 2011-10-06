@@ -27,7 +27,11 @@ class GoalsController < ApplicationController
                                  :order => "goals.updated_at desc"
           @heading = "All my Goals"
         }
-        @goals ||= @all_goals.map{|goal| goal.name}
+        @goals ||= Goal.find :all,
+                             :include => :usergoals,
+                             :conditions => {'usergoals.user_id' => @current_user.id},
+                             :order => "goals.updated_at desc"
+
         format.xml  {render :partial => 'goal.xml'}
         format.json {render :json => @goals}
         format.js   {render :json => @goals, :callback => "charting.setGoals"}

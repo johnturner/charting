@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20110711164528) do
   create_table "notes", :force => true do |t|
     t.string   "body"
     t.integer  "source_id"
+    t.integer  "note_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
