@@ -27,10 +27,10 @@ class GoalsController < ApplicationController
                                  :order => "goals.updated_at desc"
           @heading = "All my Goals"
         }
-        @goals ||= Goal.find :all,
+        @goals ||= Goal.find(:all,
                              :include => :usergoals,
                              :conditions => {'usergoals.user_id' => @current_user.id},
-                             :order => "goals.updated_at desc"
+                             :order => "goals.updated_at desc").map{|goal| goal.name}
 
         format.xml  {render :partial => 'goal.xml'}
         format.json {render :json => @goals}
