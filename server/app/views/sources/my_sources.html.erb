@@ -17,9 +17,11 @@
 
     <td>
       <% if @current_user == note.user %>
-      <div id="actions"><%= link_to 'Edit', edit_source_path(note.source) %> |
-        <%= link_to 'Remove', note.source, :confirm => 'Are you sure?', :method => :delete %>
-      </div>
+        <% if note.source %>
+        <div id="actions"><%= link_to 'Edit', edit_source_path(note.source) %> |
+          <%= link_to 'Remove', note.source, :confirm => 'Are you sure?', :method => :delete %>
+        </div>
+        <% end %>
       <% end %>
     </td>
 
