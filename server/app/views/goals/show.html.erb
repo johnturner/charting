@@ -16,7 +16,3 @@
 </tr>
 
 </table>
-
-<% if @goal and not @all_goals.include? @goal %>
-  <%= link_to_button('Adopt this goal', adopt_goal_path(@goal), "bluebutton left") %>
-<% end %>
