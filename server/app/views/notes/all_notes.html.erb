@@ -13,10 +13,10 @@
 
     </td>
 
-    <td width="100px">
+    <td width="150px">
       <% if @current_user == note.user %>
-      <div id="actions"><%= link_to 'Edit', edit_note_path(note) %> |
-        <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %>
+      <div id="actions"><%= link_to 'Edit Note', edit_note_path(note) %> |
+        <%= link_to 'Remove Note', note, :confirm => 'Are you sure?', :method => :delete %>
       </div>
       <% end %>
     </td>
@@ -36,8 +36,8 @@
 
     <td>
       <% if @current_user == note.user && !note.source.blank?%>
-      <div id="actions"><%= link_to 'Edit', edit_source_path(note.source) %> |
-        <%= link_to 'Remove', note.source, :confirm => 'Are you sure?', :method => :delete %>
+      <div id="actions"><%= link_to 'Edit Source', edit_source_path(note.source) %> |
+        <%= link_to 'Remove Source', note.source, :confirm => 'Are you sure?', :method => :delete %>
       </div>
       <% end %>
     </td>
@@ -50,7 +50,11 @@
       <% if @current_user == note.user %>
         <%= link_to "You", user_path(@current_user) %>
       <% else %>
-        <%= link_to note.user.name, user_path(note.user) %>
+        <% if note.user %>
+          <%= link_to note.user.name, user_path(note.user) %>
+        <% else %>
+          unknown
+        <% end %>
       <% end %>
     </td>
  </tr>

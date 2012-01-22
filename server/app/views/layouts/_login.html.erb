@@ -3,6 +3,7 @@
   Hello <%=link_to @current_user.name, @current_user%>.<br/><%= link_to "logout", logout_users_path %> | <%= link_to "edit profile", edit_user_path(@current_user) %>
 <% else %>
   <% form_for :login, :url => {:controller => :users, :action => :login} do |f| %>
+  <div id="login-right">
   <table class="loginsignup">
    <tr>
     <td>
@@ -17,6 +18,7 @@
     </td>
    </tr>
   </table>
+  </div>
   <% end %>
 <% end  %>
 </div>

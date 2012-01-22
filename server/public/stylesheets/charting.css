@@ -99,6 +99,7 @@ a:hover {
 
 #login table.loginsignup {
   border: none;
+  /* background-color: grey; */
 }
 
 #login table.loginsignup td {
@@ -106,10 +107,16 @@ a:hover {
   padding: 0px;
 }
 
+#login-right {
+  margin-top: 10px;
+  float: right;
+}
+
 #header-right {
   /* background-color: red; */
   width: 800px;
   height: 76px;
+  text-align: right;
 }
 
 
@@ -413,7 +420,7 @@ td.spacer {
 }
 
 td.subheading {
-    color: #a03030;
+    color: #2b015f;
     font-weight: bold;
 }
 

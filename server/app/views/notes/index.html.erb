@@ -6,8 +6,8 @@
     <td><b><%=link_to @current_goal.name, goal_notes_path(@current_goal) %></b></td>
     <td>
       <% if @current_user == @current_goal.admin %>
-      <div id="actions"><%= link_to 'Edit', edit_goal_path(@current_goal) %> |
-        <%= link_to 'Remove', @current_goal, :confirm => 'Are you sure?', :method => :delete %>
+      <div id="actions"><%= link_to 'Edit Goal', edit_goal_path(@current_goal) %> |
+        <%= link_to 'Remove Goal', @current_goal, :confirm => 'Are you sure?', :method => :delete %>
       </div>
       <% end %>
     </td>
@@ -54,11 +54,11 @@
 
     </td>
 
-    <td width="100px">
+    <td width="150px">
       <% if @current_user == note.user %>
       <div id="actions">
-        <%= link_to 'Edit', edit_note_path(note) %> |
-        <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %>
+        <%= link_to 'Edit Note', edit_note_path(note) %> |
+        <%= link_to 'Remove Note', note, :confirm => 'Are you sure?', :method => :delete %>
       </div>
       <% end %>
     </td>
@@ -86,8 +86,8 @@
     <td>
       <% if @current_user == note.user %>
         <% if note.source %>
-        <div id="actions"><%= link_to 'Edit', edit_source_path(note.source) %> |
-          <%= link_to 'Remove', note.source, :confirm => 'Are you sure?', :method => :delete %>
+        <div id="actions"><%= link_to 'Edit Source', edit_source_path(note.source) %> |
+          <%= link_to 'Remove Source', note.source, :confirm => 'Are you sure?', :method => :delete %>
         </div>
         <% end %>
       <% end %>
