@@ -92,14 +92,9 @@ a:hover {
 
 
 #login {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 15px;
-  margin-right: 100px;
-  display: block;
-  float: right;
-  position: relative;
-  height: 25px;
+  height: 48px;
+  /* background-color: yellow; */
+  text-align: right;
 }
 
 #login table.loginsignup {
@@ -111,6 +106,21 @@ a:hover {
   padding: 0px;
 }
 
+#header-right {
+  /* background-color: red; */
+  width: 800px;
+  height: 76px;
+}
+
+
+/*
+ * search box
+ */
+
+#search {
+  /* background-color: purple; */
+  text-align: right;
+}
 
 /**************
  * menu
@@ -123,16 +133,6 @@ a:hover {
 }
 
 
-/*
- * search box
- */
-
-#search {
-  display: block;
-  float: left;
-  margin-left: 10px;
-  margin-top: 50px;
-}
 
 
 /*
