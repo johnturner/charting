@@ -11,8 +11,9 @@ class UsersController < ApplicationController
       @link_name = "users"
       @users = User.paginate :page => params[:page],
                              :per_page => 10,
-                             :include => [:usergoals, :goals],
-                             :conditions => {"usergoals.goal_id" => @current_goal.id}
+                             :include => [:usergoals, :goals]
+                             # ,
+                             #:conditions => {"usergoals.goal_id" => @current_goal.id}
     else
       if @current_user
         #Find all people who share a goal with the current user.
@@ -21,8 +22,9 @@ class UsersController < ApplicationController
         @users = User.paginate :page => params[:page],
                                :per_page => 10,
                                :joins => {:goals => :usergoals},
-                               :select => 'distinct users.*',
-                               :conditions => {"usergoals_goals.user_id" => @current_user.id}
+                               :select => 'distinct users.*'
+                               #,
+                               #:conditions => {"usergoals_goals.user_id" => @current_user.id}
       else
         @link_name = "users"
         @users = User.paginate :page => params[:page],
