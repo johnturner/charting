@@ -1,24 +1,35 @@
-<p>
-  <b>Name:</b>
-  <%=h @user.name %>
-</p>
+<table>
 
-<p>
-  <b>Position:</b>
-  <%=h @user.position %>
-</p>
+<tr>
+  <th>Full Name:</th>
+  <td><%=h @user.name %></td>
+</tr>
+
+<tr>
+  <th>Twitter Username:</th>
+  <td><%=h @user.twitter %></td>
+</tr>
+
+<tr>
+  <th>Position:</th>
+  <td><%=h @user.position %></td>
+</tr>
+
+<tr>
+  <th>Bio:</th>
+  <td><%=h @user.bio %></td>
+</tr>
 
 <%if @user == @current_user%>
-  <b>API Key:</b>
-  <span id="api-key">
-    <%=h @user.api_key %>
-  </span>
+  <tr>
+  <th>API Key:</th>
+  <td><span id="api-key"><%=h @user.api_key %></span></td>
+  </tr>
 <%end%>
 
-<p>
-  <b>Bio:</b>
-  <%=h @user.bio %>
-</p>
+</table>
+
+
 
 
 <% if @user == @current_user %>
