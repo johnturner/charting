@@ -2,6 +2,7 @@ class CreateGoals < ActiveRecord::Migration
   def self.up
     create_table :goals do |t|
       t.string :name
+      t.text :description
       t.string :status
       t.integer :admin_id
 
