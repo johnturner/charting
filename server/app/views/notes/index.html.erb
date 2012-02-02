@@ -110,10 +110,14 @@
 
  </tr>
 
+
+     <% @comments = Note.find_all_by_parent_id note.id %>
+     <% @comments_count = @comments.count %>
+
    <tr>
     <td>
     <div id="actions">
-       <%= link_to_remote 'View Comments',
+       <%= link_to_remote "View Comments (#{@comments_count})",
           :method => 'get',
           :after => "Element.toggle('note-comment-#{note.id}')" %>
     </div>
@@ -128,14 +132,15 @@
     <div id ="note-comment-<%=note.id%>" style="display:none">
     <table class="comments">
     <tbody id="comments-<%=note.id%>">
-    <% @comments = Note.find_all_by_parent_id note.id %>
-    <% @comments.each do |comment| %>
 
+    <% @comments.each do |comment| %>
+      <% @subcomments = Note.find_all_by_parent_id comment.id %>
+      <% @subcomment_count = @subcomments.count %>
       <tr>
         <td colspan ="3"><%=h comment.user %>: <%=h comment.body %></td>
-        <td align="right" width="120px">
+        <td align="right" width="125px">
           <%= link_to_remote 'Promote', :url => {:action => 'promote', :id => comment.id, :major => 't', :goal_id => @current_goal.id, :source_id => note.source.id} %> |
-          <%= link_to_remote 'View Comments',
+          <%= link_to_remote "View Comments (#{@subcomment_count})",
           :method => 'get',
           :after => "Element.toggle('note-sub-comment-#{comment.id}')" %>
         </td>
@@ -152,12 +157,14 @@
             <tbody id="subcomments-<%=comment.id%>">
           <% @subcomments = Note.find_all_by_parent_id comment.id %>
           <% @subcomments.each do |subcomment| %>
+            <% @subsubcomments = Note.find_all_by_parent_id subcomment.id %>
+            <% @subsubcomments_count = @subsubcomments.count %>
             <tr>
               <td class="blank"></td>
               <td colspan = "3"><%=h subcomment.user %>: <%=h subcomment.body %></td>
-              <td align="right" width="120px">
+              <td align="right" width="125px">
               <%= link_to_remote 'Promote', :url => {:action => 'promote', :id => subcomment.id, :major => 't', :goal_id => @current_goal.id, :source_id => note.source.id} %> |
-              <%= link_to_remote 'View Comments',
+              <%= link_to_remote "View Comments (#{@subsubcomments_count})",
                 :method => 'get',
                 :after => "Element.toggle('note-sub-sub-comment-#{subcomment.id}')" %>
               </td>
@@ -180,7 +187,7 @@
                     <td class="blank"></td>
                     <td class="blank"></td>
                     <td colspan = "2"><%=h subsubcomment.user %>: <%=h subsubcomment.body %></td>
-                    <td align="right" width="120px">
+                    <td align="right" width="125px">
                     <%= link_to_remote 'Promote', :url => {:action => 'promote', :id => subsubcomment.id, :major => 't', :goal_id => @current_goal.id, :source_id => note.source.id} %>
               </td>
 
