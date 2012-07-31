@@ -109,7 +109,7 @@ class UsersController < ApplicationController
 
   def logout
     session[:current_user] = nil
-    redirect_to request.referer
+    redirect_to '/'
   end
 
   def me
