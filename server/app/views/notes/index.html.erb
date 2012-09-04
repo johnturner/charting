@@ -112,7 +112,7 @@
 
 
      <% @comments = Note.find_all_by_parent_id note.id %>
-     <% @comments_count = @comments.count %>
+     <% @comments_count = @comments.length %>
 
    <tr>
     <td>
@@ -135,7 +135,7 @@
 
     <% @comments.each do |comment| %>
       <% @subcomments = Note.find_all_by_parent_id comment.id %>
-      <% @subcomment_count = @subcomments.count %>
+      <% @subcomment_count = @subcomments.length %>
       <tr>
         <td colspan ="3"><%=h comment.user %>: <%=h comment.body %></td>
         <td align="right" width="125px">
@@ -158,7 +158,7 @@
           <% @subcomments = Note.find_all_by_parent_id comment.id %>
           <% @subcomments.each do |subcomment| %>
             <% @subsubcomments = Note.find_all_by_parent_id subcomment.id %>
-            <% @subsubcomments_count = @subsubcomments.count %>
+            <% @subsubcomments_count = @subsubcomments.length %>
             <tr>
               <td class="blank"></td>
               <td colspan = "3"><%=h subcomment.user %>: <%=h subcomment.body %></td>

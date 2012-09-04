@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110711164528) do
+ActiveRecord::Schema.define(:version => 20120202221400) do
 
   create_table "goals", :force => true do |t|
     t.string   "name"
@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20110711164528) do
     t.integer  "admin_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
   end
 
   create_table "notegoals", :force => true do |t|
@@ -71,6 +72,8 @@ ActiveRecord::Schema.define(:version => 20110711164528) do
     t.datetime "updated_at"
     t.string   "salt"
     t.string   "api_key"
+    t.string   "username"
+    t.string   "twitter"
   end
 
 end
