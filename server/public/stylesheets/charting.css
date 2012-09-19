@@ -571,6 +571,9 @@ table.comments a:hover {
   text-decoration: none;
 }
 
+#welcome {
+  width: 800px;
+}
 
 select.note_goals {
     
