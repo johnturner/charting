@@ -243,8 +243,7 @@ end
       if @note.update_attributes(params[:note])
         # if it's a a promoted comment
         #if params[:major]
-          format.html { redirect_to :back }
-         #else it's a new note
+          #format.html { redirect_to :back }
         #else
           format.html { redirect_to(@note, :notice => 'Note was successfully updated.') }
         #end
