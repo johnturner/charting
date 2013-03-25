@@ -12,7 +12,7 @@
       <%= link_to 'Remove', goal, :confirm => 'Are you sure?', :method => :delete %>
     <% else %>
           <% if @user_goals.include? goal %>
-            ADOPTED
+            <%= link_to 'UNSUBSCRIBE', unadopt_goal_path(goal), :confirm => 'Are you sure?' %>
           <% else %>
             <%= link_to 'ADOPT', adopt_goal_path(goal) %>
           <% end %>

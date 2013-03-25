@@ -1,7 +1,7 @@
 class GoalsController < ApplicationController
 
-  before_filter :load_goal, :only => [:show, :edit, :update, :destroy, :adopt]
-  before_filter :require_login, :only => [:new, :edit, :create, :update, :destroy, :export, :download_csv]
+  before_filter :load_goal, :only => [:show, :edit, :update, :destroy, :adopt, :unadopt]
+  before_filter :require_login, :only => [:new, :edit, :create, :update, :destroy, :export, :download_csv, :adopt, :unadopt]
   before_filter :require_admin, :only => [:edit, :update]
 
   def load_goal
@@ -143,6 +143,15 @@ class GoalsController < ApplicationController
     redirect_to goal_notes_path(@goal)
   end
 
+  def unadopt
+    @current_user.goals.delete @goal
+
+    respond_to do |format|
+      format.html { redirect_to(request.referer, :notice => 'Unsubscribed from goal.') }
+    end
+    
+  end
+
   # PUT /goals/1
   def update
     respond_to do |format|
@@ -157,7 +166,8 @@ class GoalsController < ApplicationController
   # DELETE /goals/1
   def destroy
     @current_user.goals.delete @goal
-
+    @goal.delete
+    
     respond_to do |format|
       format.html { redirect_to(request.referer) }
     end
