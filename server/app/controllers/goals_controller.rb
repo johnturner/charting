@@ -2,7 +2,7 @@ class GoalsController < ApplicationController
 
   before_filter :load_goal, :only => [:show, :edit, :update, :destroy, :adopt, :unadopt]
   before_filter :require_login, :only => [:new, :edit, :create, :update, :destroy, :export, :download_csv, :adopt, :unadopt]
-  before_filter :require_admin, :only => [:edit, :update]
+  before_filter :require_admin, :only => [:edit, :update, :delete]
 
   def load_goal
     @goal = Goal.find(params[:id])
@@ -166,11 +166,24 @@ class GoalsController < ApplicationController
   # DELETE /goals/1
   def destroy
     @current_user.goals.delete @goal
-    @goal.delete
-    
-    respond_to do |format|
-      format.html { redirect_to(request.referer) }
+
+    # see if there are any subscribers
+    if @goal.subscribers.length == 0
+
+      # if not, just delete the goal
+      @goal.delete
+
+      respond_to do |format|
+        format.html { redirect_to(request.referer) }
+      end
+
+    # otherwise the user will have to choose a new owner
+    else
+      
+      # goal.admin needs to choose another user
+      
     end
+    
   end
 
 # helper functions
