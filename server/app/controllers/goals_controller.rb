@@ -181,6 +181,9 @@ class GoalsController < ApplicationController
     else
       
       # goal.admin needs to choose another user
+      respond_to do |format|
+        format.html { redirect_to(request.referer, :notice => 'Unable to delete goal, it has subscribers.') }
+      end
       
     end
     
