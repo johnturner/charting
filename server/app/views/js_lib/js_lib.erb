@@ -139,19 +139,19 @@ function setForm(goals)
 
     "<input type=\"hidden\" name=\"source[doctype]\" value=\"webpage\" />" +
 
-    "Title<br/>" +
+    "<strong>Title</strong><br/>" +
     "<input type=\"text\" name=\"source[title]\" value=\"" +
     document.title +
     "\" style=\"border: 1px solid black; font: 10pt Sans-Serif; width: 300px\" " +
     "/><br />" +
 
-    "Body<br/>" +
+    "<strong>Content</strong><br/>" +
     "<textarea name=\"note[body]\" " +
     "style=\"border: 1px solid black; font: 10pt Sans-Serif; width: 300px; " +
     "height: 100px\"></textarea><br />" +
 
-    getGoalSelect(goals) + "<br />" +
-    "<div id=\"added_goals\">Goals:<br/></div>" +
+    getGoalSelect(goals) + "<br /><br />" +
+    "<div id=\"added_goals\"><strong>Goals:</strong><br/></div>" +
 
     "<center>" +
     "<input type=\"submit\" value=\"Submit\"/> " +
