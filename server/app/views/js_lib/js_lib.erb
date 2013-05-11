@@ -116,15 +116,15 @@ function setForm(goals)
 {
   div.style.width =           "310px";
   div.style.position =        "fixed";
-  div.style.backgroundColor = "#efefef";     // grey
+  div.style.backgroundColor = "#216CF7";     // grey
   div.style.zIndex =          "1337";     // on top of other DIVs
   div.style.top =             "0";        // at top of the screen
   div.style.right =           "0";        // and the far right
   div.style.textAlign =       "left";     // inner elements LHS aligned
-  div.style.border =          "2px solid black";
+  div.style.border =          "1px solid black";
   div.style.padding =         "10px";
   div.style.font =            "10pt Sans-Serif";
-  div.style.color =           "black";
+  div.style.color =           "white";
   div.style.overflow =        "auto";
   div.innerHTML =
     "<form id=\"note_add_form\" name=\"note_add_form\" action=\"" + serverLocation + "/notes\" " +
@@ -151,7 +151,7 @@ function setForm(goals)
     "height: 100px\"></textarea><br />" +
 
     getGoalSelect(goals) + "<br /><br />" +
-    "<div id=\"added_goals\"><strong>Goals:</strong><br/></div>" +
+    "<div id=\"added_goals\"><strong>Goals:</strong><br/></div><br />" +
 
     "<center>" +
     "<input type=\"submit\" value=\"Submit\"/>&nbsp;" +
