@@ -190,7 +190,7 @@ function addGoal()
   addedGoal.id = 'selected_goal_' + goal;
   addedGoal.innerHTML = goal;
   addedGoal.innerHTML += "&nbsp;&nbsp; - <a href=\"#\" " + 
-    "onclick=\"javascript:removeGoal('" + goal + "')\">remove</a>" +
+    "onclick=\"javascript:removeGoal('" + goal + "')\" style=\"color:white\"><span style=\"color:white\">remove</span></a>" +
     "<input type=\"hidden\" name=\"note[goals][]\" value=\"" + goal + "\">"
   goalSelect.remove(selIndex);
   addedGoals.appendChild(addedGoal);
@@ -220,7 +220,7 @@ function getGoalSelect(goals)
         "</option>";
     }
     goalSelect += "</select>&nbsp;";
-    goalSelect += "<span style='color:white;'><a href=\"#\" onclick=\"javascript:addGoal()\">Add</a></span>";
+    goalSelect += "<a href=\"#\" onclick=\"javascript:addGoal()\" style=\"color:white\"><span style=\"color:white\">add</span></a>";
     return goalSelect;
 }
 
