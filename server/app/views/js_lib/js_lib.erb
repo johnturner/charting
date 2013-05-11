@@ -154,9 +154,9 @@ function setForm(goals)
     "<div id=\"added_goals\"><strong>Goals:</strong><br/></div>" +
 
     "<center>" +
-    "<input type=\"submit\" value=\"Submit\"/> " +
+    "<input type=\"submit\" value=\"Submit\"/>&nbsp;" +
     "<input type=\"button\" value=\"Reset\" " +
-    "onclick=\"mhnChartingMain();\"/>" + 
+    "onclick=\"mhnChartingMain();\"/>&nbsp;" +
     "<input type=\"button\" value=\"Cancel\" " +
     "onclick=\"cancel();\">" + 
     "</center>" +
@@ -219,7 +219,7 @@ function getGoalSelect(goals)
         "<option value=\"" + goals[i] + "\">" + goals[i] +
         "</option>";
     }
-    goalSelect += "</select>";
+    goalSelect += "</select>&nbsp;";
     goalSelect += "<a href=\"#\" onclick=\"javascript:addGoal()\">Add</a>";
     return goalSelect;
 }
