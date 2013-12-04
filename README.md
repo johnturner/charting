@@ -19,3 +19,19 @@ Once ruby and rake are installed, all other dependencies should be included in t
     cd charting/server
     rake db:schema:load
     script/server
+
+Full steps for installing through rvm:
+
+    \curl -L https://get.rvm.io | bash -s stable # install RVM if it's not already installed
+    
+    rvm install 1.8.7
+    rvm use 1.8.7
+    gem install rake -v 0.8.7
+    rvm rubygems 1.3.7 # Installs and switches to rubygems 1.3.7
+    cd ~/.rvm/gems/ruby-1.8.7-p374@global/gems
+    rm -r *bundler* # (The bundler gem was causing load errors with the older version of rubygems, and refuses to be uninstalled with the gem command.)
+    gem install rack -v 1.1.0
+    gem install sqlite3-ruby
+    cd charting/server
+    rake _0.8.7_ db:schema:load
+    script/server
