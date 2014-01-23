@@ -1,0 +1,10 @@
+<h3><%=h @source %></h3>
+
+<%=link_to @source.location, @source.location %>
+<br/>
+<b>Doctype:</b> <%=h @source.doctype %>
+<br/>
+
+
+<%= link_to 'Edit', edit_source_path(@source) %> |
+<%= link_to 'Back', sources_path %>

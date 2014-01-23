@@ -1,0 +1,96 @@
+<table class="no-borders">
+
+<% @notes.each do |note| %>
+
+  <tr>
+    <td class="subheading">
+
+       <% if !note.body.blank? %>
+          <%=h note.body %>
+       <% else %>
+          Note
+       <% end %>
+
+    </td>
+
+    <td width="100px">
+      <% if @current_user == note.user %>
+      <div id="actions"><%= link_to 'Edit', edit_note_path(note) %> |
+        <%= link_to 'Remove', note, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+      <% end %>
+    </td>
+
+  </tr><tr>
+
+    <td>
+
+
+      <% if note.source %>
+        <%= link_to note.source, note.source.location, :class => 'source-link', :target => '_blank' %>
+      <% else %>
+        No source.
+      <% end %>
+
+   </td>
+
+    <td>
+      <% if @current_user == note.user && !note.source.blank?%>
+      <div id="actions"><%= link_to 'Edit', edit_source_path(note.source) %> |
+        <%= link_to 'Remove', note.source, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+      <% end %>
+    </td>
+
+
+ </tr>
+ <tr>
+   <td colspan = "2">
+     Contributed by:
+      <% if @current_user == note.user %>
+        <%= link_to "You", user_path(@current_user) %>
+      <% else %>
+        <%= link_to note.user.name, user_path(note.user) %>
+      <% end %>
+    </td>
+ </tr>
+ <tr>
+
+      <% if note.attachedto.blank? %>
+
+        <% if @current_user == note.user %>
+        <td valign = "top" colspan = "2">Attach to:
+          <% #remote_form_for note, :url => set_goals_note_path(note), :update => "inbox" do |f| %>
+          <%= form_for note, :url => set_goals_note_path(note) do |f| %>
+
+            <%= f.select 'goals', @current_user.goals, {}, {:multiple => true} %>
+              
+            <%= hidden_field_tag 'from', 'inbox' %><br />
+            <%= submit_tag 'attach', :class => 'bluebutton left' %>
+         <% end %>
+        </td>
+        <% else %>
+          <td colspan = "2">
+          Attached to: None.
+          </td>
+        <% end %>
+      <% else %>
+        <td colspan = "2">
+        Attached to:
+        <% note.attachedto.each do |goal| %>
+        <%= link_to goal.name, goal_path(goal) %>&nbsp;
+        <% end %>
+        </td>
+      <% end %>
+ </tr>
+
+  <tr>
+    <td colspan="2" class="spacer"></td>
+  </tr>
+
+<% end %>
+</table>
+
+<br />
+
+<%= will_paginate @notes %>

@@ -1,0 +1,59 @@
+<table class="no-borders">
+
+
+<% @goals.each do |goal| %>
+  <tr>
+    <td><b><%=link_to goal.name, goal_notes_path(goal) %></b></td>
+    <td>
+        <div id="actions">
+
+    <% if @current_user == goal.admin %>
+      <%= link_to 'Edit', edit_goal_path(goal) %> |
+      <%= link_to 'Remove', goal, :confirm => 'Are you sure?', :method => :delete %>
+    <% else %>
+          <% if @user_goals.include? goal %>
+            <%= link_to 'UNSUBSCRIBE', unadopt_goal_path(goal), :confirm => 'Are you sure?' %>
+          <% else %>
+            <%= link_to 'ADOPT', adopt_goal_path(goal) %>
+          <% end %>
+    <% end %>
+        </div>
+      </td>
+  </tr>
+  <tr>
+    <td width="500px"><%=goal.description%></td>
+    <td></td>
+  </tr>
+  <tr>
+
+    <td>Owned by:
+      <% if @current_user == goal.admin %>
+        <%= link_to "You", user_path(@current_user) %>
+      <% else %>
+        <%= link_to goal.admin.name, user_path(goal.admin) %>
+      <% end %>
+    </td>
+
+
+
+
+    <td>Subscribers:
+      <% if goal.subscribers.blank? %>
+      none
+      <% else %>
+       <% goal.subscribers.each do |sub| %>
+       <%= link_to sub.name, user_path(sub) %>&nbsp;
+       <% end %>
+     <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="spacer"></td>
+  </tr>
+  
+<% end %>
+</table>
+
+<br />
+
+<%= will_paginate @goals %>

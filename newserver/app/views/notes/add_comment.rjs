@@ -1,0 +1,4 @@
+# page.replace_html "testing", "Source: "
+# display the comment
+page.insert_html :before, "note-new-comment-#{@parent_id}", :partial => 'display_comment'
+page.replace_html "note-new-comment-#{@parent_id}", :partial => 'comment', @object => @parent_id

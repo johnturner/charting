@@ -1,0 +1,27 @@
+<table class="no-borders">
+
+  <tr>
+    <td class="subheading">
+
+       <% if !@note.body.blank? %>
+          <%=h @note.body %>
+       <% else %>
+          Note
+       <% end %>
+
+    </td>
+
+    <td width="100px">
+      <% if @current_user == @note.user %>
+      <div id="actions">
+        <%= link_to 'Edit', edit_note_path(@note) %> |
+        <%= link_to 'Remove', @note, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+      <% end %>
+    </td>
+
+  </tr>
+</table>
+
+<br />
+<%= link_to 'Back', my_notes_path %>

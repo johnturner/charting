@@ -1,0 +1,38 @@
+<table>
+
+<tr>
+  <th>Full Name:</th>
+  <td><%=h @user.name %></td>
+</tr>
+
+<tr>
+  <th>Twitter Username:</th>
+  <td><%=h @user.twitter %></td>
+</tr>
+
+<tr>
+  <th>Position:</th>
+  <td><%=h @user.position %></td>
+</tr>
+
+<tr>
+  <th>Bio:</th>
+  <td><%=h @user.bio %></td>
+</tr>
+
+<%if @user == @current_user%>
+  <tr>
+  <th>API Key:</th>
+  <td><span id="api-key"><%=h @user.api_key %></span></td>
+  </tr>
+<%end%>
+
+</table>
+
+
+
+
+<% if @user == @current_user %>
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+<% end %>
+<%= link_to 'Back', users_path %>

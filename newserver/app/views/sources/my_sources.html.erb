@@ -1,0 +1,74 @@
+<table class="no-borders">
+
+<% @notes.each do |note| %>  
+
+  <tr>
+
+    <td class="subheading">
+
+
+      <% if note.source %>
+        <%= link_to note.source, note.source.location, :class => 'source-link', :target => '_blank' %>
+      <% else %>
+        No source.
+      <% end %>
+
+   </td>
+
+    <td>
+      <% if @current_user == note.user %>
+        <% if note.source %>
+        <div id="actions"><%= link_to 'Edit Source', edit_source_path(note.source) %> |
+          <%= link_to 'Remove Source', note.source, :confirm => 'Are you sure?', :method => :delete %>
+        </div>
+        <% end %>
+      <% end %>
+    </td>
+
+
+ </tr>
+
+  <tr>
+    <td>
+
+       <% if !note.body.blank? %>
+          <%=h note.body %>
+       <% else %>
+          Note
+       <% end %>
+
+    </td>
+
+    <td width="150px">
+      <% if @current_user == note.user %>
+      <div id="actions"><%= link_to 'Edit Note', edit_note_path(note) %> |
+        <%= link_to 'Remove Note', note, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+      <% end %>
+    </td>
+
+  </tr>
+
+ <tr>
+   <td colspan = "2">
+     Attached to:
+      <% if note.attachedto.blank? %>
+      none
+      <% else %>
+       <% note.attachedto.each do |goal| %>
+       <%= link_to goal.name, goal_path(goal) %>&nbsp;
+       <% end %>
+     <% end %>
+   </td>
+ </tr>
+
+  <tr>
+    <td colspan="2" class="spacer"></td>
+  </tr>
+
+<% end %>
+</table>
+
+<br />
+
+<%= will_paginate @notes %>

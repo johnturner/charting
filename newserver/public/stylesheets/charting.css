@@ -1,0 +1,683 @@
+/*
+* charting.css
+*
+* CSS for Charting
+*
+* Author: Ianthe Hind
+* Creation Date: 13/06/2011
+* Last Update: 15/06/2011
+*/
+
+body {
+  	color: black;
+	margin:0;
+	padding: 0;
+	text-align: left;
+	line-height: 1.3em;
+	overflow: auto;
+        height: 100%;
+        width: 100%;
+}
+
+body, p, ol, ul, td {
+  font-family: tahoma,verdana,arial,sans-serif;
+  font-size:   12px;
+  line-height: 18px;
+}
+
+h1, h2, h3, h4 {
+  padding-left: 10px;
+  font-variant: small-caps;
+  color: #216cf7;
+}
+
+pre {
+  /* padding: 10px; */
+  font-size: 11px;
+}
+
+a { color: #216cf7; }
+
+a:hover { 
+    background-color: white;
+}
+
+
+#page {
+    width: 100%;
+    height: 100%;
+}
+
+
+/**************
+ * header
+ **************/
+
+#header {
+    width: 100%;
+    background-color: #216cf7;
+    height: 80px;
+    color: white;
+}
+
+#header a {
+    color: white;
+    text-decoration: underline;
+}
+
+#header a:hover {
+    text-decoration: none;
+    background: none;
+}
+
+#logo {
+  padding: 0;
+  float: left;
+  width: 234px;
+  height: 76px;
+  background: url(../images/chartinglogo.png) left center no-repeat;
+}
+
+#logo h3 {
+  padding-left: 10px;
+  font-variant: small-caps;
+  text-decoration: underline;
+  color: white;
+}
+
+
+/*
+ * login
+ */
+
+
+#login {
+  height: 48px;
+  /* background-color: yellow; */
+  text-align: right;
+}
+
+#login table.loginsignup {
+  border: none;
+  /* background-color: grey; */
+}
+
+#login table.loginsignup td {
+  border: none;
+  padding: 0px;
+}
+
+#login-right {
+  margin-top: 10px;
+  float: right;
+}
+
+#header-right {
+  /* background-color: red; */
+  width: 800px;
+  height: 76px;
+  text-align: right;
+}
+
+
+/*
+ * search box
+ */
+
+#search {
+  /* background-color: purple; */
+  text-align: right;
+}
+
+/**************
+ * menu
+ **************/
+
+#menu {
+    width: 100%;
+    height: 35px;
+    background-color: #216cf7;
+}
+
+
+
+
+/*
+ * tabmenu
+ */
+
+#tabmenu {
+  display: block;
+  float: left;
+  position: relative;
+  padding-bottom: 0px;
+  margin-left: 20px;
+  height: 35px;
+}
+
+#tabmenu ul.tab
+{ 
+  text-align: left; 
+  margin: 1em 0 1em 0; 
+  border-bottom: 1px solid white;
+  list-style-type: none;
+  padding: 3px 10px 3px 10px;
+  font-variant: small-caps;
+}
+
+#tabmenu ul.tab li
+{
+  /* do not change */
+  display: inline;
+}
+
+#tabmenu ul.tab li.active-tab a
+{ 
+  border-bottom: 1px solid white;
+  background-color: white;
+  color: #216cf7;
+}
+
+#tabmenu ul.tab li
+{
+  background-color: #216cf7;
+  color: white;
+  position: relative;
+  top: 1px;
+  padding-top: 4px; 
+}
+
+#tabmenu ul.tab li a
+{ 
+  padding: 3px 4px; 
+  border: 1px solid white;
+  background-color: #216cf7;
+  color: white;
+  margin-right: 0px; 
+  text-decoration: none;
+  border-bottom: none;
+}
+
+#tabmenu ul.tab a:hover
+{ 
+  background: white;
+  color: #216cf7;
+}
+
+/* end css tabs */
+
+#main {
+  width: 100%;
+}
+
+/*
+ * goals
+ */
+
+#goalmenu {
+  display: block;
+  position: relative;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#goalmenu h1, #goalmenu h2, #goalmenu h3, #goalmenu h4 {
+  padding-left: 10px;
+  font-variant: small-caps;
+}
+
+#goalmenu ul {
+  list-style-type: none;
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+#goalmenu li {
+  margin-left: 0px;
+  padding-left: 10px;
+  /* border-bottom: 1px solid #ccc; */
+}
+
+#goalmenu li.active-goal a:hover {
+  background-color: #216cf7;
+  color: white;
+}
+
+#goalmenu li.active-heading a:hover {
+  background-color: #216cf7;
+  color: white;
+}
+
+
+#goalmenu ul li a {
+  text-decoration: none;
+}
+
+#goalmenu ul li a:hover {
+  color: #216cf7;
+  text-decoration: underline;
+}
+
+#goalmenu .active-goal {
+  background-color: #216cf7;
+}
+
+#goalmenu .active-goal a{
+  color: white;
+}
+
+#goalmenu .active-goal a:hover{
+  color: #216cf7;
+}
+
+
+#goalmenu .active-heading {
+  background-color: #216cf7;
+}
+
+#goalmenu .active-heading a{
+  color: white;
+}
+
+#goalmenu .active-heading a:hover{
+  color: #216cf7;
+}
+
+hr.menu {
+  height: 1px;
+  color: #216cf7;
+  background-color: #216cf7;
+  width: 230px;
+  border: 0;
+}
+
+#goalmenu ul li a.lih3 {
+  /* padding-left: 10px; */
+  font-variant: small-caps;
+  color: #216cf7;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#goalmenu ul li a.lih3:hover {
+  text-decoration: underline;
+}
+
+#goalmenu ul li.active-goal a.lih3 {
+  color: navy;
+  background-color: white;
+}
+
+#goalmenu ul li.active-heading a.lih3 {
+  color: white;
+  background-color: #216cf7;
+}
+
+
+#goalmenu ul li a.lih4 {
+  /* padding-left: 10px; */
+  font-variant: small-caps;
+  color: c
+  font-weight: normal;
+  text-decoration: none;
+}
+
+#goalmenu ul li a.lih4:hover {
+  text-decoration: underline;
+}
+
+#goalmenu ul li.active-goal a.lih4 {
+  color: navy;
+  background-color: white;
+}
+
+#goalmenu ul li.active-heading a.lih4 {
+  color: white;
+  background-color: #216cf7;
+}
+
+/*
+ * left side
+ */
+#left {
+    position: relative;
+    display: block;
+    float: left;
+    width: 20%;
+}
+
+/*
+ * right side
+ */
+
+#right {
+  position: relative;
+  display: block;
+  float: right;
+  right: 0px;
+  top: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  width: 80%;
+}
+
+#content {
+  padding-left: 15px; 
+}
+
+.note-body a {
+  text-decoration: none;
+  color: #333;
+}
+
+.note-body {
+  width: 600px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+ border: 1px solid #ccc;
+ padding: 2px;
+}
+
+table.welcome {
+    border: none;
+    padding: 5px;
+    border-collapse: collapse;
+}
+
+table.welcome tr, table.welcome th, table.welcome td {
+    border: none;
+    border-color: white;
+    padding: 5px;
+}
+
+input {
+  border: 1px solid #ccc; 
+}
+
+table.no-borders {
+    border: none;
+    border-collapse: collapse;
+}
+
+table.no-borders td, th {
+    border: none;
+}
+
+td.spacer {
+    height: 10px;
+}
+
+td.subheading {
+    color: #2b015f;
+    font-weight: bold;
+}
+
+td.subheading a.source-link {
+    font-size: 100% !important;
+}
+/*
+ * errors
+ */
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+
+#new_goal_form {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#right a.small {
+  font-size: 80%;
+  text-decoration: underline;
+  text-align: right;
+  color: #216cf7;
+  font-variant: small-caps;
+}
+
+#right a.small:hover {
+  text-decoration: none;
+}
+
+
+#right a.source-link {
+  font-size: 90%;
+  color: #216cf7;
+}
+
+#right a.source-link:hover {
+  text-decoration: underline;
+}
+
+#actions a {
+  font-size: 80%;
+  text-decoration: underline;
+  text-align: right;
+  color: #216cf7;
+  font-variant: small-caps;
+}
+
+#actions a:hover {
+  text-decoration: none;
+}
+
+
+option:hover {
+    color: white;
+    background: #216cf7;
+}
+
+
+/*****************
+* tables
+*****************/
+
+table th {
+    background: #216cf7;
+    padding: 5px 5px;
+    color: white;
+    text-align: left;
+    font-weight: normal;
+    font-variant: small-caps;
+    border: none;
+}
+
+table.comments {
+    width: 100%;
+}
+
+table.comments tr, table.comments tbody{
+    width: 100%;
+    border-color: white;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    background-color: white;
+}
+
+table.comments td {
+    font-size: 8pt;
+    padding: 5px;
+    background-color: #f0f0f0;
+    border: none;
+}
+
+table.comments td.blank {
+    background-color: white;
+    width: 8px;
+    border: none;
+}
+
+table.comments td.container {
+    padding: 0px;
+    background-color: #f0f0f0;
+    border: none;
+}
+
+table.comments a {
+  font-size: 7pt;
+  text-decoration: underline;
+  text-align: right;
+  color: #216cf7;
+  font-variant: small-caps;
+}
+
+table.comments a:hover {
+  text-decoration: none;
+}
+
+#welcome {
+  width: 800px;
+}
+
+select.note_goals {
+    
+}
+
+/*****************
+* buttons
+*****************/
+
+.bluebutton
+{
+    display: block;
+    position: relative;
+    background: #216cf7;
+    padding: 4px;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    width: auto;
+    font-size: 80%;
+    font-variant: small-caps;
+    margin-top: 5px;
+}
+
+.bluebutton.left
+{
+    float: left;
+}
+
+.bluebutton.right
+{
+    float: right;
+}
+
+.bluebutton *
+{
+    font-style: normal;
+    background-image: url('../images/btn2.png');
+    background-repeat: no-repeat;
+    display: block;
+    position: relative;
+}
+
+.bluebutton:hover, .bluebutton:active
+{
+    background-color: #3786c8;
+    color: #fff;
+}
+
+.bluebutton[class]
+{
+    background-image: url('../images/btn.png');
+    background-position: bottom;
+}
+
+* html .bluebutton { border: 3px double #aaa; }
+* html .bluebutton:hover { border-color: #3786c8; }
+
+
+.whitebutton
+{
+    display: block;
+    position: relative;
+    background: white;
+    padding: 2px;
+    color: #216cf7;
+    text-decoration: none;
+    cursor: pointer;
+    width: auto;
+    font-size: 80%;
+    font-variant: small-caps;
+    margin-left: 4px;
+}
+
+.whitebutton.left
+{
+    float: left;
+}
+
+.whitebutton.right
+{
+    float: right;
+}
+
+.whitebutton *
+{
+    font-style: normal;
+    background-image: url('../images/btn2.png');
+    background-repeat: no-repeat;
+    display: block;
+    position: relative;
+}
+
+.whitebutton:hover, .whitebutton:active
+{
+    background-color: #3786c8;
+    color: #fff;
+}
+
+.whitebutton[class]
+{
+    background-image: url('../images/btn.png');
+    background-position: bottom;
+}
+
+* html .whitebutton { border: 3px double #aaa; }
+* html .whitebutton:hover { border-color: #3786c8; }

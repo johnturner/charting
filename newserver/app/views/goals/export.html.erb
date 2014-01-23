@@ -1,0 +1,19 @@
+<table>
+  <tr>
+    <th colspan = "2">Goals</th>
+  </tr>
+
+<% @goals.each do |goal| %>
+  <tr>
+    <td><%=link_to goal.name, goal_notes_path(goal) %></td>
+    <td><% form_tag(download_csv_url) do %>
+        <%= hidden_field_tag "id", goal.id %>
+        <%= submit_tag "Export Goal" , :class => 'bluebutton right' %>
+        <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

@@ -35,3 +35,14 @@ Full steps for installing through rvm:
     cd charting/server
     rake _0.8.7_ db:schema:load
     script/server
+
+The newserver directory currently contains a version partially ported over to ruby 2.0.0/rails 4.0.  To install and run this:
+
+    \curl -L https://get.rvm.io | bash -s stable # install RVM if it's not already installed
+    cd charting/newserver
+    rvm install 2.0.0
+    rvm use 2.0.0
+    bundle install
+    rake db:reset
+    rails server
+   
