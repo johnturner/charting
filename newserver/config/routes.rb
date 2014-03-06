@@ -5,15 +5,15 @@ Newserver::Application.routes.draw do
       get :unadopt
     end
     
-    resource :notes
-    resource :users
-    resource :sources
+    resources :notes
+    resources :users
+    resources :sources
   end
   
   resources :notes do
     member do 
-      get :full_text
-      put :set_goals
+       get :full_text
+       put :set_goals
     end
   end
 
@@ -36,7 +36,7 @@ Newserver::Application.routes.draw do
   get 'goals/download_csv', :to => 'goals#download_csv', :as => 'download_csv'
   get 'search', :to => 'search#search', :as => 'search'
   get 'inbox', :to => 'notes#inbox', :as => 'inbox'
-  get 'inbox_soruces', :to => 'sources#inbox', :as => 'inbox_sources'
+  get 'inbox_sources', :to => 'sources#inbox', :as => 'inbox_sources'
   get 'all_goals', :to => 'goals#all_goals', :as => 'all_goals'
   get 'all_sources', :to => 'sources#all_sources', :as => 'all_sources'
   get 'my_sources', :to => 'sources#my_sources', :as => 'my_sources'

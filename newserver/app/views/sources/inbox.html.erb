@@ -64,7 +64,6 @@
 
         <% if @current_user == note.user %>
         <td valign = "top" colspan = "2">Attach to:
-          <%= #remote_form_for note, :url => set_goals_note_path(note), :update => "inbox" do |f| %>
           <%= form_for note, :url => set_goals_note_path(note) do |f| %>
 
             <%= f.select 'goals', @current_user.goals, {}, {:multiple => true} %>

@@ -153,13 +153,14 @@ end
     else
       @goals = []
     end
-    @note = Note.new(params[:note])
+    @note = Note.new(params[:note].permit(:body))
 
     if params[:source] and params[:source][:location]
       @source = Source.find_by_location params[:source][:location]
       unless @source
-        @source = Source.new(params[:source])
+        @source = Source.new(params[:source].permit(:location, :title))
       end
+      puts @source
       @note.source = @source
     end
 
@@ -205,7 +206,7 @@ end
   end
 
   def add_sub_comment
-    @note = Note.new(params[:note])
+    @note = Note.new(params[:note].permit(:user, :source, :doctype, :title, :note))
     @note.save
 
     @source_id = params[:source_id]
@@ -218,7 +219,7 @@ end
   end
 
   def add_sub_sub_comment
-    @note = Note.new(params[:note])
+    @note = Note.new(params[:note].permit(:body, :parent_id))
     @note.save
 
     @source_id = params[:source_id]
@@ -240,7 +241,7 @@ end
     end
 
     respond_to do |format|
-      if @note.update_attributes(params[:note])
+      if @note.update_attributes(params[:note].permit(:body))
         # if it's a a promoted comment
         #if params[:major]
           #format.html { redirect_to :back }

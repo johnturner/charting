@@ -117,8 +117,9 @@
    <tr>
     <td>
     <div id="actions">
-       <%= link_to_remote "View Comments (#{@comments_count})",
+       <%= link_to "View Comments (#{@comments_count})",
           :method => 'get',
+          :remote => true,
           :after => "Element.toggle('note-comment-#{note.id}')" %>
     </div>
     </td>
@@ -200,8 +201,9 @@
                     <td class="blank"></td>
                     <td colspan="2">
 
-                    <% remote_form_for Note.new, :html => {:id => "new_sub_sub_comment_form"},
-                                                 :url => {:controller => "notes", :action => "add_sub_sub_comment"} do |f| %>
+                    <% form_for Note.new, :html => {:id => "new_sub_sub_comment_form"},
+                                          :remote => true,
+                                          :url => {:controller => "notes", :action => "add_sub_sub_comment"} do |f| %>
                     <%= f.text_field :body,
                                :size => '100%',
                                :id => 'new_comment_field',
@@ -235,8 +237,9 @@
               <td class="blank"></td>
               <td colspan="3">
 
-              <% remote_form_for Note.new, :html => {:id => "new_sub_comment_form"},
-                                           :url => {:controller => "notes", :action => "add_sub_comment"} do |f| %>
+              <% form_for Note.new, :html => {:id => "new_sub_comment_form"},
+                                    :remote => true,
+                                    :url => {:controller => "notes", :action => "add_sub_comment"} do |f| %>
               <%= f.text_field :body,
                                :size => '100%',
                                :id => 'new_comment_field',
@@ -268,8 +271,9 @@
       <tr id="note-new-comment-<%=note.id%>">
         <td colspan="5">
 
-        <% remote_form_for Note.new, :html => {:id => "new_comment_form"},
-                                               :url => {:controller => "notes", :action => "add_comment"} do |f| %>
+        <% form_for Note.new, :html => {:id => "new_comment_form"},
+                              :remote => true,
+                              :url => {:controller => "notes", :action => "add_comment"} do |f| %>
         <%= f.text_field :body,
                          :size => '100%',
                          :id => 'new_comment_field',
@@ -280,7 +284,9 @@
         <%= f.hidden_field :parent_id, :value => note.id %>
         <%= f.hidden_field :major, :value => 'f' %>
         <%= f.hidden_field :user_id, :value => @current_user.id %>
-        <%= hidden_field_tag :source_id, note.source.id %>
+        <% if note.source %>
+          <%= hidden_field_tag :source_id, note.source.id %>
+        <% end %>
         <%= hidden_field_tag :goal_id, @current_goal.id %>
 
     <% end %>

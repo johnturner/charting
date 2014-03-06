@@ -34,10 +34,13 @@ class ApplicationController < ActionController::Base
  
   def load_current_user
     # Get current user from either being logged in or using api key.
+    #puts "Session:" + session.to_s
     @current_user = User.find session[:current_user] if session[:current_user]
-    @current_user ||= User.find_by_name_and_api_key params[:user][:name], params[:user][:key]
-    rescue
-    reset_session
+    if (params[:user])
+      @current_user ||= User.find_by_name_and_api_key params[:user][:name], params[:user][:key]
+    end
+    #rescue
+    #reset_session
   end
 
   #session[:selected_goal]
